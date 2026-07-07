@@ -9,9 +9,9 @@
     "bus-ticket-admin": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
+        "@schematics/angular:component": { "type": "component", "style": "scss" },
+        "@schematics/angular:service": { "type": "service" },
+        "@schematics/angular:directive": { "type": "directive" }
       },
       "root": "",
       "sourceRoot": "src",
@@ -28,7 +28,7 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "/src/assets"
+              "src/assets"
             ],
             "styles": [
               "src/styles/styles.scss",
