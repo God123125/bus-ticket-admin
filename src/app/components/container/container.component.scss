@@ -1,0 +1,185 @@
+@use '../../../styles/variables.scss' as *;
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.main {
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden;
+  position: relative;
+
+  .mat-drawer-container {
+    height: 100%;
+
+    .mat-drawer {
+      width: $menu-width !important;
+
+      .sidenav-container {
+        width: 100%;
+        height: 100%;
+        background-color: $color-white;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .logo-box {
+          padding: 10px 0 0 0;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+
+          img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            object-position: center;
+          }
+
+          .app-name {
+            font-size: 20px;
+            color: $color-black;
+            font-family: 'EnBold', 'KhBold' !important;
+            font-weight: 500;
+            display: flex;
+            text-align: center;
+          }
+
+          .divider {
+            width: 100%;
+            height: 1px;
+            background-color: lighten($color-black, 85%);
+            margin-top: 15px;
+            margin-bottom: 5px;
+          }
+        }
+
+        .menu-wrapper {
+          width: 95%;
+          flex: 1;
+          overflow-y: auto;
+
+          &::-webkit-scrollbar {
+            width: 0.3em;
+            height: 5px;
+          }
+
+          &:hover {
+            &::-webkit-scrollbar-track {
+              border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background-color: lighten($color-gray, 50%);
+              border-radius: 10px;
+            }
+          }
+        }
+      }
+
+      &.mat-drawer-side {
+        border-right: none;
+      }
+    }
+
+    .mat-toolbar {
+      background-color: $color-white;
+      height: $toolbar-height;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .profile {
+        width: 40px;
+        height: 40px;
+        border: 1px solid lighten($color-gray, 35);
+        border-radius: 50%;
+        cursor: pointer;
+        overflow: hidden;
+
+        svg {
+          border-radius: 50%;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        padding-right: 15px;
+
+        .name {
+          color: $color-primary;
+        }
+
+        .username {
+          color: $color-gray;
+          font-size: calc($default-font-size - 1px);
+        }
+      }
+
+      .menu-toggle {
+        transition: ease 0.5s;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.flipped {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .mat-drawer-content {
+      background-color: lighten(#f3f6f9, 1%) !important;
+
+      .app-container {
+        padding: 15px;
+
+        .feedback-container {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          transition: all 100ms ease-in-out;
+          cursor: pointer;
+          z-index: 100;
+
+          &:hover {
+            transform: scale(1.03);
+          }
+
+          .feedback {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: lighten($color-primary, 0%);
+            border-radius: $default-border-radius;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            mat-icon {
+              color: $color-white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .offline-status {
+    z-index: 100;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    transition: all 800ms ease-in-out;
+  }
+}
