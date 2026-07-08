@@ -1,0 +1,118 @@
+@use '@angular/material' as mat;
+@include mat.elevation-classes();
+@include mat.app-background();
+
+$primary-palette: (
+  50: #e0ecf5,
+  100: #b3d0e5,
+  200: #80b1d4,
+  300: #4d92c3,
+  400: #267ab6,
+  500: #257cff,
+  600: #005ba2,
+  700: #005198,
+  800: #00478f,
+  900: #00357e,
+  A100: #acc8ff,
+  A200: #79a6ff,
+  A400: #4685ff,
+  A700: #2c74ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff,
+  ),
+);
+
+$accent-palette: (
+  50: #fbf5e8,
+  100: #f6e5c5,
+  200: #f0d49f,
+  300: #eac278,
+  400: #e6b55b,
+  500: #e1a83e,
+  600: #dda038,
+  700: #d99730,
+  800: #d58d28,
+  900: #cd7d1b,
+  A100: #ffffff,
+  A200: #ffe8cf,
+  A400: #ffcf9c,
+  A700: #ffc382,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$warn-palette: (
+  50: #ffebeb,
+  100: #ffcece,
+  200: #ffaeae,
+  300: #ff8d8d,
+  400: #ff7474,
+  500: #ff5c5c,
+  600: #ff5454,
+  700: #ff4a4a,
+  800: #ff4141,
+  900: #ff3030,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ffdbdb,
+  A700: #ffc2c2,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$angular-template-theme-primary: mat.m2-define-palette($primary-palette, 500);
+$angular-template-theme-accent: mat.m2-define-palette($accent-palette, 500);
+$angular-template-theme-warn: mat.m2-define-palette($warn-palette, 500);
+
+$angular-template-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $angular-template-theme-primary,
+      accent: $angular-template-theme-accent,
+      warn: $angular-template-theme-warn,
+    ),
+  )
+);
+
+@include mat.all-component-themes($angular-template-theme);

@@ -1,0 +1,19 @@
+{
+  "app_name": "Bus Ticket System",
+  "actions": {
+    "add": "Add",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "save": "Save",
+    "cancel": "Cancel",
+    "login": "Login",
+    "logout": "Logout",
+    "user_info": "User Info",
+    "change_password": "Change Password"
+  },
+  "route": {
+    "bus": "Manage Bus"
+  }
+}

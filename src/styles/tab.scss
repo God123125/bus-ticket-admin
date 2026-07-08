@@ -1,0 +1,47 @@
+@use 'sass:color';
+@use './variables' as *;
+
+.mat-mdc-tab-group {
+  .mdc-tab-indicator {
+    display: none;
+  }
+  .mat-mdc-tab-header {
+    border-radius: $default-border-radius !important;
+    height: 35px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .mat-mdc-tab-label-container {
+      background-color: #f3f6f9;
+      border-radius: $default-border-radius;
+
+      .mat-mdc-tab-labels {
+        .mat-mdc-tab {
+          .mdc-tab__content {
+            .mdc-tab__text-label {
+              color: #333333 !important;
+              font-size: $default-font-size !important;
+            }
+          }
+
+          &.mdc-tab--active {
+            border-radius: $default-border-radius;
+            background-color: color.adjust(gray, $lightness: 42%) !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .mdc-tab__text-label {
+              font-family: 'KhBold', 'EnBold' !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mat-mdc-tab-body-wrapper {
+    // margin-top: 12px;
+  }
+}

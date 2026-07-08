@@ -1,0 +1,26 @@
+@use 'sass:color';
+@use './variables' as *;
+.mat-mdc-snack-bar-container {
+  &.custom-snackbar-panel {
+    &.error {
+      .mdc-snackbar__surface {
+        background-color: color.adjust($color-danger, $lightness: -10%);
+      }
+    }
+
+    &.success {
+      .mdc-snackbar__surface {
+        background-color: #049b07;
+      }
+    }
+
+    .mdc-snackbar__surface {
+      border-radius: $default-border-radius !important;
+      padding: 10px !important;
+
+      .mdc-snackbar__label {
+        padding: 0 !important;
+      }
+    }
+  }
+}

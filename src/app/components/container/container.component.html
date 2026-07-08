@@ -1,1 +1,65 @@
-<p>container works!</p>
+<div class="main">
+  <mat-drawer-container>
+    <mat-drawer [mode]="drawerMode" [opened]="opened" (closedStart)="opened = false">
+      <div class="sidenav-container">
+        <div class="logo-box">
+          <img src="../../../assets/imgs/bus-ticket-logo.png" />
+          <h1 class="app-name">{{ 'app_name' | translate }}</h1>
+          <span class="divider"></span>
+        </div>
+        <div class="menu-wrapper">
+          <mat-list class="main-menu">
+            @if (menu.bus.length > 0) {
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>directions_bus</mat-icon>
+                    <span>{{ 'route.' + menu.bus[0].title | translate }}</span>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+              </mat-expansion-panel>
+            }
+          </mat-list>
+        </div>
+      </div>
+    </mat-drawer>
+    <mat-drawer-content>
+      <mat-toolbar>
+        <mat-icon
+          (click)="toggleMenu()"
+          color="primary"
+          class="menu-toggle"
+          [class.flipped]="!opened"
+          >menu_open</mat-icon
+        >
+        <div class="d-flex flex-row align-items-center">
+          <div class="text-container">
+            <span class="name">{{ name }}</span>
+            <span class="username">{{ '@' + username }}</span>
+          </div>
+          <div class="profile" [matMenuTriggerFor]="profileMenu">
+            <!-- <svg [data-jdenticon-value]="username"></svg> -->
+            <img src="../../../assets/imgs/user-profile.svg" alt="" />
+          </div>
+        </div>
+        <mat-menu #profileMenu="matMenu" class="custom-menu">
+          <button mat-menu-item [routerLink]="['/users', currentUserId]">
+            <mat-icon>manage_accounts</mat-icon>
+            <span>{{ 'actions.user_info' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="changePassword()">
+            <mat-icon>lock</mat-icon>
+            <span>{{ 'actions.change_password' | translate }}</span>
+          </button>
+          <button mat-menu-item (click)="logout()" class="error">
+            <mat-icon>logout</mat-icon>
+            <span>{{ 'actions.logout' | translate }}</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar>
+      <div class="app-container">
+        <router-outlet />
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

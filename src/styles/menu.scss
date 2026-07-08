@@ -1,0 +1,25 @@
+@use './variables' as *;
+
+.mat-mdc-menu-panel {
+  &.custom-menu {
+    border-radius: $default-border-radius !important;
+
+    .mat-mdc-menu-item {
+      min-height: 40px !important;
+
+      .mat-icon {
+        margin-right: 5px !important;
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 24px !important;
+      }
+
+      .mat-mdc-menu-item-text {
+        font-family: 'EnReg', 'KhReg' !important;
+        text-transform: capitalize !important;
+        font-size: $default-font-size !important;
+        letter-spacing: normal;
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+@use 'sass:color';
+@use './variables' as *;
+
+.mat-mdc-form-field {
+  width: 100%;
+
+  &.default-input {
+    &.no-outline {
+      .mdc-notched-outline {
+        display: none !important;
+      }
+    }
+
+    &.auto-height {
+      .mat-mdc-form-field-infix {
+        height: auto !important;
+      }
+    }
+
+    .mat-mdc-form-field-infix {
+      height: $default-input-height !important;
+      min-height: $default-input-height !important;
+      display: flex;
+      align-items: center;
+
+      .mat-mdc-input-element {
+        line-height: normal !important;
+        color: $color-black !important;
+        font-size: $default-font-size !important;
+
+        &::placeholder {
+          color: $color-gray !important;
+        }
+      }
+    }
+
+    .mdc-text-field--outlined {
+      --mat-form-field-outlined-container-shape: #{$default-border-radius} !important;
+
+      .mdc-notched-outline--upgraded {
+        .mat-mdc-floating-label {
+          top: calc(#{$default-input-height} / 2.1) !important;
+        }
+
+        .mdc-floating-label--float-above {
+          font-size: calc($default-font-size + 2px) !important;
+          transform: translateY(calc(calc(6.75px + #{$default-input-height}/ 2) * -1))
+            scale(0.75, 0.75) !important;
+        }
+      }
+    }
+
+    &.no-margin-bottom {
+      .mat-mdc-form-field-subscript-wrapper {
+        margin-bottom: -30px !important;
+      }
+    }
+
+    &.input-detail {
+      .mdc-text-field--outlined {
+        border-radius: $default-border-radius !important;
+        background-color: color.adjust(#f7f7f7, $lightness: 0%) !important;
+      }
+
+      .mat-mdc-form-field-infix {
+        .mat-mdc-input-element {
+          color: $color-primary !important;
+        }
+      }
+
+      &.textarea {
+        .mat-mdc-form-field-infix {
+          height: auto !important;
+          min-height: auto !important;
+          padding: 22px 7px !important;
+        }
+      }
+    }
+  }
+
+  mat-icon {
+    color: $color-gray !important;
+  }
+
+  mat-error {
+    font-size: calc($default-font-size - 2px) !important;
+  }
+}

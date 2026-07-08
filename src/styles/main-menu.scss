@@ -1,0 +1,110 @@
+@use 'sass:color';
+@use './variables' as *;
+
+.main-menu {
+  width: 100%;
+
+  .mdc-list-item {
+    border-radius: $default-border-radius;
+    padding: 0px 15px !important;
+    cursor: pointer !important;
+
+    &.active-route {
+      background-color: #f4f6ff;
+
+      &::before {
+        background-color: #f4f6ff !important;
+      }
+
+      .left-side {
+        span {
+          color: $color-primary !important;
+          // font-family: 'EnBold', 'KhBold' !important;
+        }
+      }
+    }
+
+    .left-side {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mdc-list-item__primary-text {
+      color: $color-black !important;
+      font-size: calc($default-font-size + 0.5px);
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      column-gap: 10px;
+      white-space: break-spaces !important;
+
+      mat-icon {
+        font-size: 23px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: color.adjust(black, $lightness: 40%);
+      }
+
+      span {
+        margin-top: 3px !important;
+      }
+    }
+  }
+
+  .mat-expansion-panel {
+    margin: 10px 0 !important;
+    box-shadow: none !important;
+    background: none !important;
+    border-radius: $default-border-radius !important;
+
+    .mat-expansion-panel-header {
+      padding: 0 15px !important;
+      height: 44px !important;
+
+      mat-icon {
+        padding: 0 !important;
+        margin: 0 !important;
+        color: color.adjust(black, $lightness: 40%) !important;
+        font-size: 23px;
+        padding-right: 10px !important;
+      }
+
+      &.mat-expanded {
+        height: 44px !important;
+      }
+
+      .mat-expansion-panel-header-title {
+        font-size: $default-font-size;
+
+        span {
+          margin-top: 3px !important;
+        }
+      }
+
+      .mat-expansion-indicator {
+        &::after {
+          color: color.adjust(black, $lightness: 50%);
+        }
+      }
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0px !important;
+
+      .mdc-list-item {
+        padding-left: 48px !important;
+        padding-right: 0 !important;
+        border-radius: $default-border-radius;
+        cursor: pointer;
+
+        .mdc-list-item__primary-text {
+          font-size: $default-font-size;
+        }
+      }
+    }
+  }
+}
