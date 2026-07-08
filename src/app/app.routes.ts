@@ -21,6 +21,7 @@ export const routes: Routes = [
 ];
 export const MENUITEMS: MenuItem[] = routes[0].children!.map((routeItem: any) => {
   return {
+    route: routeItem.path,
     title: routeItem.path?.split('/').pop(),
     role: routeItem.data.role,
     type: routeItem.data.type,

@@ -10,14 +10,14 @@
         <div class="menu-wrapper">
           <mat-list class="main-menu">
             @if (menu.bus.length > 0) {
-              <mat-expansion-panel [expanded]="true">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
+              <a [routerLink]="menu.bus[0].route">
+                <mat-list-item matRipple routerLinkActive="active-route">
+                  <div class="left-side">
                     <mat-icon>directions_bus</mat-icon>
                     <span>{{ 'route.' + menu.bus[0].title | translate }}</span>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-              </mat-expansion-panel>
+                  </div>
+                </mat-list-item>
+              </a>
             }
           </mat-list>
         </div>

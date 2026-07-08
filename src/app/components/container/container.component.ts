@@ -22,7 +22,6 @@ import { MatMenuModule } from '@angular/material/menu';
     MatListModule,
     MatTooltipModule,
     TranslatePipe,
-    TranslateDirective,
     MatMenuModule,
   ],
   templateUrl: './container.component.html',
