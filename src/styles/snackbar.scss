@@ -1,26 +1,20 @@
-@use 'sass:color';
-@use './variables' as *;
-.mat-mdc-snack-bar-container {
-  &.custom-snackbar-panel {
+.mat-snack-bar-container {
+  &.custom-snack-bar-content {
     &.error {
-      .mdc-snackbar__surface {
-        background-color: color.adjust($color-danger, $lightness: -10%);
+      background-color: crimson;
+      color: white;
+      .mat-simple-snack-bar-content {
+        font-family: 'KhmerOSBattambang' !important;
+      }
+      .mat-simple-snackbar-action {
+        color: white !important;
       }
     }
-
-    &.success {
-      .mdc-snackbar__surface {
-        background-color: #049b07;
-      }
+    .mat-simple-snack-bar-content {
+      font-family: 'KhmerOSBattambang' !important;
     }
-
-    .mdc-snackbar__surface {
-      border-radius: $default-border-radius !important;
-      padding: 10px !important;
-
-      .mdc-snackbar__label {
-        padding: 0 !important;
-      }
+    .mat-simple-snackbar-action {
+      color: white !important;
     }
   }
 }
