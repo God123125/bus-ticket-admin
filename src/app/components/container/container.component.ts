@@ -41,6 +41,9 @@ export class Container {
       bus: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'bus';
       }),
+      dashboard: MENUITEMS.filter((menuItems: MenuItem) => {
+        return menuItems.type === 'dashboard';
+      }),
     };
   }
   @HostListener('window:resize', ['$event.target.innerWidth'])

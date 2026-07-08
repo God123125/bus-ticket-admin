@@ -1,0 +1,17 @@
+<div class="summary-card" matRipple>
+  <div class="card-body">
+    <div class="card-info">
+      <div class="title">{{ title }}</div>
+      @if (value) {
+        <div class="value">{{ value }}</div>
+      } @else {
+        <div class="value">N/A</div>
+      }
+    </div>
+    @if (icon) {
+      <div class="card-icon" [style.background-color]="iconBgColor" [style.color]="iconColor">
+        <mat-icon>{{ icon }}</mat-icon>
+      </div>
+    }
+  </div>
+</div>
