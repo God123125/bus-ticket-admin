@@ -145,8 +145,8 @@ a {
       background-color: color.adjust(#f3f6f9, $lightness: 1%) !important;
 
       .app-container {
-        padding: 15px;
-
+        padding: 5px;
+        height: calc(100% - 70px);
         .feedback-container {
           position: absolute;
           bottom: 10px;
