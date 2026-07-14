@@ -38,13 +38,21 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-
+    .title {
+      margin-bottom: 10px;
+    }
+    .header-content {
+      width: 100%;
+    }
     .table-container {
       table.table > thead th {
         position: sticky;
         top: 0;
         z-index: 10;
         background-color: white;
+      }
+      td {
+        vertical-align: middle;
       }
 
       // table.table {
