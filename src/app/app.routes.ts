@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { RolePermissionEnum } from './models/enum/role-permission.enum';
 import { MenuItem } from './models/menu-item';
 import { Container } from './components/container/container.component';
+import { authGuard } from './guards/auth-guard.guard';
 
 export const routes: Routes = [
   {
@@ -15,16 +16,41 @@ export const routes: Routes = [
           role: RolePermissionEnum.Admin,
           type: 'dashboard',
         },
+        canActivate: [authGuard],
       },
       {
         path: 'bus',
         loadChildren: () => import('./routes/bus/bus.route').then((r) => r.routes),
         data: {
-          role: RolePermissionEnum.Admin,
+          role: RolePermissionEnum.Merchant,
           type: 'bus',
         },
+        canActivate: [authGuard],
+      },
+      {
+        path: 'user-management',
+        loadChildren: () =>
+          import('./routes/user-management/user-management.route').then((r) => r.routes),
+        data: {
+          role: RolePermissionEnum.Admin,
+          type: 'user-management',
+        },
+        canActivate: [authGuard],
+      },
+      {
+        path: 'company',
+        loadChildren: () => import('./routes/company/company.route').then((r) => r.routes),
+        data: {
+          role: RolePermissionEnum.Admin,
+          type: 'company',
+        },
+        canActivate: [authGuard],
       },
     ],
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./routes/login/login.route').then((r) => r.routes),
   },
 ];
 export const MENUITEMS: MenuItem[] = routes[0].children!.map((routeItem: any) => {

@@ -21,7 +21,7 @@ a {
       .sidenav-container {
         width: 100%;
         height: 100%;
-        background-color: $color-white;
+        background-color: $color-primary;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -47,7 +47,7 @@ a {
           .app-name {
             margin-top: 10px;
             font-size: 18px;
-            color: $color-black;
+            color: $color-white;
             font-family: 'EnBold', 'KhBold' !important;
             font-weight: 500;
             display: flex;
@@ -147,6 +147,7 @@ a {
       .app-container {
         padding: 5px;
         height: calc(100% - 70px);
+
         .feedback-container {
           position: absolute;
           bottom: 10px;
@@ -168,6 +169,7 @@ a {
             background-color: color.adjust($color-primary, $lightness: 0%);
             border-radius: $default-border-radius;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
             mat-icon {
               color: $color-white;
             }

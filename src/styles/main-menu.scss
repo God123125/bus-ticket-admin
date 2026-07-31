@@ -21,6 +21,10 @@
           color: $color-primary !important;
           // font-family: 'EnBold', 'KhBold' !important;
         }
+
+        mat-icon {
+          color: $color-primary !important;
+        }
       }
     }
 
@@ -32,7 +36,7 @@
     }
 
     .mdc-list-item__primary-text {
-      color: $color-black !important;
+      color: $color-white !important;
       font-size: calc($default-font-size + 0.5px);
       display: flex !important;
       flex-direction: row !important;
@@ -46,7 +50,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: color.adjust(black, $lightness: 40%);
+        color: $color-white;
       }
 
       span {

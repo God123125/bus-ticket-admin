@@ -1,1 +1,43 @@
-<p>bus-form works!</p>
+<h3 mat-dialog-title class="title">{{"create_bus" | translate}}</h3>
+<mat-dialog-content>
+   <form [formGroup]="form">
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <mat-form-field appearance="outline" class="default-input w-100">
+                    <mat-label>{{"model_name" | translate}}</mat-label>
+                    <input type=" text" matInput [formControl]="form.controls.model_name" />
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="outline" class="default-input w-100">
+                    <mat-label>{{"plate_number" | translate}}</mat-label>
+                    <input type=" text" matInput [formControl]="form.controls.plate_number"/>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="outline" class="default-input w-100">
+                    <mat-label>{{"type" | translate}}</mat-label>
+                    <input type=" text" matInput [formControl]="form.controls.type"/>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field appearance="outline" class="default-input w-100">
+                    <mat-label>{{"row" | translate}}</mat-label>
+                    <input type=" number" matInput [formControl]="form.controls.row"/>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="default-input w-100">
+                    <mat-label>{{"description" | translate}}</mat-label>
+                    <textarea matInput [formControl]="form.controls.description"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+   </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-stroked-button color="primary" mat-dialog-close>{{"actions.cancel" | translate}}</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" mat-dialog-close>{{"actions.save" | translate}}</button>
+</mat-dialog-actions>

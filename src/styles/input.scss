@@ -5,6 +5,13 @@
   // width: 100%;
 
   &.default-input {
+    &:has(textarea) {
+      .mat-mdc-form-field-infix {
+        height: auto !important;
+        min-height: $default-input-height !important;
+      }
+    }
+
     &.no-outline {
       .mdc-notched-outline {
         display: none !important;
@@ -44,8 +51,7 @@
 
         .mdc-floating-label--float-above {
           font-size: calc($default-font-size + 2px) !important;
-          transform: translateY(calc(calc(6.75px + #{$default-input-height}/ 2) * -1))
-            scale(0.75, 0.75) !important;
+          transform: translateY(calc(calc(6.75px + #{$default-input-height}/ 2) * -1)) scale(0.75, 0.75) !important;
         }
       }
     }

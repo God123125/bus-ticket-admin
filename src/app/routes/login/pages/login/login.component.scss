@@ -1,0 +1,36 @@
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  .left-side {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom, #200131, #480e65);
+    img {
+      width: 300px;
+    }
+  }
+  .login-box {
+    height: 100vh;
+    .img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
+    }
+    .app-name {
+      font-size: 23px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .label {
+      font-size: 18px;
+      color: #777272;
+    }
+  }
+}

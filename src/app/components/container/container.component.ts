@@ -5,11 +5,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { TranslateDirective, TranslatePipe } from '@ngx-translate/core';
 import { MENUITEMS } from '../../app.routes';
 import { MenuItem } from '../../models/menu-item';
 import { MatMenuModule } from '@angular/material/menu';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { LocalStorageEnum } from '../../models/enum/localstorage.enum';
+import { RolePermissionEnum } from '../../models/enum/role-permission.enum';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-container',
@@ -32,19 +36,43 @@ export class Container {
   desktopViewWidth = 1100;
   drawerMode: 'over' | 'side' = 'side';
   menu: any = {};
-  name: string = 'Test';
-  username: string = 'Kerb';
+  username: string = '';
   currentUserId: string = '';
-  constructor() {}
+  role: string = '';
+  constructor(
+    private router: Router,
+    private localStorageService: LocalStorageService,
+    private authService: AuthService,
+  ) {}
   ngOnInit(): void {
     this.menu = {
       bus: MENUITEMS.filter((menuItem: MenuItem) => {
-        return menuItem.type === 'bus';
+        return (
+          menuItem.type === 'bus' &&
+          menuItem.role == this.localStorageService.get(LocalStorageEnum.Role)
+        );
       }),
       dashboard: MENUITEMS.filter((menuItems: MenuItem) => {
-        return menuItems.type === 'dashboard';
+        return (
+          menuItems.type === 'dashboard' &&
+          menuItems.role == this.localStorageService.get(LocalStorageEnum.Role)
+        );
+      }),
+      userManagement: MENUITEMS.filter((menuItems: MenuItem) => {
+        return (
+          menuItems.type === 'user-management' &&
+          menuItems.role == this.localStorageService.get(LocalStorageEnum.Role)
+        );
+      }),
+      company: MENUITEMS.filter((menuItems: MenuItem) => {
+        return (
+          menuItems.type === 'company' &&
+          menuItems.role == this.localStorageService.get(LocalStorageEnum.Role)
+        );
       }),
     };
+    this.getUserInformation();
+    this.redirectTofirstMenu();
   }
   @HostListener('window:resize', ['$event.target.innerWidth'])
   onResize = (width: number): void => {
@@ -60,10 +88,25 @@ export class Container {
       }
     }
   };
-
+  getUserInformation() {
+    this.role = this.localStorageService.get(LocalStorageEnum.Role);
+    this.username = this.localStorageService.get(LocalStorageEnum.username);
+  }
+  redirectTofirstMenu() {
+    if (this.router.url == '/') {
+      if (this.role == RolePermissionEnum.Admin) {
+        this.router.navigate(['/dashboard'], { replaceUrl: true });
+      } else {
+        this.router.navigate(['/bus'], { replaceUrl: true });
+      }
+    }
+  }
   toggleMenu = (): void => {
     this.opened = !this.opened;
   };
   changePassword() {}
-  logout() {}
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
 }

@@ -1,0 +1,37 @@
+<div class="login-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 d-none d-lg-flex p-0">
+        <div class="left-side d-flex justify-content-center align-items-center">
+          <img src="/assets/imgs/login-picture.svg" alt="" class="mb-2" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-sm-12 col-md-12 p-0">
+        <form [formGroup]="form" class="login-box d-flex justify-content-center align-items-center">
+          <div class="img">
+            <img src="/assets/imgs/bus-ticket-logo.png" alt="" />
+          </div>
+          <h1 class="app-name">{{ 'app_name' | translate }}</h1>
+          <p class="label">{{ 'welcome' | translate }}</p>
+          <mat-form-field appearance="outline" class="default-input" style="width: 400px">
+            <mat-label>username</mat-label>
+            <input type="text" matInput formControlName="username" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="default-input" style="width: 400px">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="password" />
+          </mat-form-field>
+          <button
+            mat-flat-button
+            color="primary"
+            class="default-btn rounded"
+            style="width: 400px !important; height: 50px"
+            (click)="submitHandler()"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
