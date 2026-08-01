@@ -5,11 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ImgUrlPipe implements PipeTransform {
   defaultImg = '/assets/imgs/user-profile.svg';
-  transform(value?: string | null): string {
+  transform(value?: string | null, defaultUrl?: string): string {
     if (typeof value === 'string' && value.trim() !== '') {
       return value;
     } else {
-      return this.defaultImg;
+      return defaultUrl || this.defaultImg;
     }
   }
 }

@@ -1,7 +1,7 @@
 <div class="page-container">
   <div class="default-card">
     <div class="form-header">
-      <h3 class="title">{{ '_add' | translate: { param: ('user' | translate) } }}</h3>
+      <h3 class="title">{{ '_add' | translate: { param: ('company' | translate) } }}</h3>
     </div>
     <div class="content">
       <div class="row">
@@ -14,7 +14,7 @@
               (change)="onFileSelected($event)"
               accept="image/*"
             />
-            <img [src]="profile || '/assets/imgs/user-profile.svg'" alt="" />
+            <img [src]="image | imgUrl: '/assets/imgs/company.png'" alt="" />
             <button mat-icon-button class="edit-btn" (click)="fileInput.click()">
               <mat-icon>edit</mat-icon>
             </button>
@@ -27,53 +27,37 @@
                 <div class="col-lg-4">
                   <app-form-helper [label]="'name' | translate">
                     <mat-form-field appearance="outline" class="default-input full-width">
-                      <input type="text" matInput [formControl]="form.controls.full_name" />
+                      <input type="text" matInput [formControl]="form.controls.name" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'username' | translate">
+                  <app-form-helper [label]="'owner' | translate">
                     <mat-form-field appearance="outline" class="default-input full-width">
-                      <input type="text" matInput [formControl]="form.controls.username" />
+                      <mat-select [formControl]="form.controls.owner">
+                        @for (user of users; track user._id) {
+                          <mat-option [value]="user._id">
+                            {{ user.full_name || user.username }}
+                          </mat-option>
+                        }
+                      </mat-select>
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'password' | translate">
+                  <app-form-helper [label]="'commission_fee' | translate">
                     <mat-form-field appearance="outline" class="default-input full-width">
-                      <input type="password" matInput [formControl]="form.controls.password" />
+                      <input type="number" matInput [formControl]="form.controls.commission_fee" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'phone_number' | translate">
+                  <app-form-helper [label]="'status' | translate">
                     <mat-form-field appearance="outline" class="default-input full-width">
-                      <input type="text" matInput [formControl]="form.controls.tel" />
-                    </mat-form-field>
-                  </app-form-helper>
-                </div>
-                <div class="col-lg-4">
-                  <app-form-helper [label]="'bank_acc_name' | translate">
-                    <mat-form-field appearance="outline" class="default-input full-width">
-                      <input type="text" matInput [formControl]="form.controls.bank_acc_name" />
-                    </mat-form-field>
-                  </app-form-helper>
-                </div>
-                <div class="col-lg-4">
-                  <app-form-helper [label]="'bank_acc_number' | translate">
-                    <mat-form-field appearance="outline" class="default-input full-width">
-                      <input type="text" matInput [formControl]="form.controls.bank_acc_number" />
-                    </mat-form-field>
-                  </app-form-helper>
-                </div>
-                <div class="col-lg-12">
-                  <app-form-helper [label]="'address' | translate">
-                    <mat-form-field appearance="outline" class="default-input full-width">
-                      <textarea
-                        type="text"
-                        matInput
-                        [formControl]="form.controls.address"
-                      ></textarea>
+                      <mat-select [formControl]="form.controls.is_active">
+                        <mat-option [value]="true">{{ 'active' | translate }}</mat-option>
+                        <mat-option [value]="false">{{ 'inactive' | translate }}</mat-option>
+                      </mat-select>
                     </mat-form-field>
                   </app-form-helper>
                 </div>

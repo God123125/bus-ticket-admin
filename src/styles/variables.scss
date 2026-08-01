@@ -21,3 +21,20 @@ $status-deficit: #ffb4ad;
 
 // responsive
 $laptop-screen: 1350px;
+@mixin no-result {
+  &::after {
+    content: 'No Data Found';
+    color: $color-primary;
+    width: 100%;
+    height: 370px;
+    display: block;
+    background-image: url(/assets/imgs/no-data.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 270px;
+    text-align: center;
+    padding-top: 325px;
+    font-size: 25px;
+    font-weight: bold;
+  }
+}

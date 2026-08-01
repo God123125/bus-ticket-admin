@@ -130,7 +130,7 @@ export class RequestService {
     if (request.is_loading) {
       this.loadingService.setLoading(true);
     }
-    const headers = new HttpHeaders();
+    const headers = this.getAuthHeader();
     headers.append('Content-Type', 'multipart/form-data;boundary=abc');
     request.data = this.toFormData(request.data);
     return this.http
@@ -162,7 +162,7 @@ export class RequestService {
     if (request.is_loading) {
       this.loadingService.setLoading(true);
     }
-    const headers = new HttpHeaders();
+    const headers = this.getAuthHeader();
     headers.append('Content-Type', 'multipart/form-data;boundary=abc');
     request.data = this.toFormData(request.data);
     return this.http

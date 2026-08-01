@@ -5,4 +5,7 @@ export interface User extends MongoObject {
   profile: string;
   tel: string;
   username: string;
+  bank_acc_number: string;
+  bank_acc_name: string;
+  full_name: string;
 }

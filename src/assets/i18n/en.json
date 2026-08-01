@@ -18,6 +18,16 @@
   "user": "User",
   "name": "Name",
   "password": "Password",
+  "delete_information": "Delete Information",
+  "delete_question": "Are you sure you want to delete this?",
+  "bank_acc_name": "Bank Account Name",
+  "bank_acc_number": "Bank Account Number",
+  "rating": "Rating",
+  "commission_fee": "Commission Fee (%)",
+  "owner": "Owner",
+  "status": "Status",
+  "active": "Active",
+  "inactive": "Inactive",
   "actions": {
     "create": "Create",
     "delete": "Delete",
@@ -29,7 +39,8 @@
     "login": "Login",
     "logout": "Logout",
     "user_info": "User Info",
-    "change_password": "Change Password"
+    "change_password": "Change Password",
+    "confirm": "Confirm"
   },
   "route": {
     "bus": "Manage Bus",

@@ -1,0 +1,15 @@
+<h3 mat-dialog-title class="title">{{ title | translate }}</h3>
+<mat-dialog-content>
+  <div class="img-container">
+    <img [src]="imgUrl" alt="" />
+    <p class="mb-0">{{ message | translate }}</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="primary" mat-dialog-close>
+    {{ 'actions.cancel' | translate }}
+  </button>
+  <button mat-flat-button color="primary" (click)="onConfirm()" mat-dialog-close>
+    {{ 'actions.confirm' | translate }}
+  </button>
+</mat-dialog-actions>

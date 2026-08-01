@@ -22,14 +22,14 @@ export class BaseCrudService<T> {
       is_loading: true,
     });
   }
-  update(id: number, data: T) {
+  update(id: string, data: T) {
     return this.requestService.patchJSON<T>(this.path + '/' + id, {
       data,
       is_alert_error: true,
       is_loading: true,
     });
   }
-  delete(id: number) {
+  delete(id: string) {
     return this.requestService.deleteJSON<T>(this.path + '/' + id, {
       is_alert_error: true,
       is_loading: true,
