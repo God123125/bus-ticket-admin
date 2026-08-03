@@ -49,6 +49,26 @@
                 </mat-list-item>
               </a>
             }
+            @if (menu.station.length > 0) {
+              <a [routerLink]="menu.station[0].route">
+                <mat-list-item matRipple routerLinkActive="active-route">
+                  <div class="left-side">
+                    <mat-icon>location_on</mat-icon>
+                    <span>{{ 'route.' + menu.station[0].title | translate }}</span>
+                  </div>
+                </mat-list-item>
+              </a>
+            }
+            @if (menu.schedule.length > 0) {
+              <a [routerLink]="menu.schedule[0].route">
+                <mat-list-item matRipple routerLinkActive="active-route">
+                  <div class="left-side">
+                    <mat-icon>schedule</mat-icon>
+                    <span>{{ 'route.' + menu.schedule[0].title | translate }}</span>
+                  </div>
+                </mat-list-item>
+              </a>
+            }
           </mat-list>
         </div>
       </div>

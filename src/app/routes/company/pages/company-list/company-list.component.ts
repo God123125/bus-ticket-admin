@@ -10,6 +10,7 @@ import { Company } from '../../model/company';
 import { User } from '../../../user-management/model/user';
 import { ImgUrlPipe } from '../../../../shared/pipes/img-url-pipe';
 import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helper/directives/confirm-message.directive';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-company-list',
@@ -22,6 +23,7 @@ import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helpe
     RouterLink,
     ImgUrlPipe,
     ConfirmMessageDirective,
+    MatPaginator,
   ],
   templateUrl: './company-list.component.html',
   styleUrl: './company-list.component.scss',
@@ -33,7 +35,7 @@ export class CompanyListComponent implements OnInit {
     search: '',
   };
   companies = signal<Company[]>([]);
-
+  total = signal(0);
   constructor(private companyService: CompanyService) {}
 
   ngOnInit(): void {
@@ -44,19 +46,12 @@ export class CompanyListComponent implements OnInit {
     this.companyService.getMany(this.params).subscribe({
       next: (res) => {
         this.companies.set(res.list);
+        this.total.set(res.total);
       },
       error: (err) => {
         console.error('getMany failed:', err);
       },
     });
-  }
-
-  getOwnerName(owner: string | User | undefined): string {
-    if (!owner) return '';
-    if (typeof owner === 'object') {
-      return owner.full_name || owner.username || owner._id;
-    }
-    return owner;
   }
 
   onDelete(id: string) {
@@ -69,6 +64,11 @@ export class CompanyListComponent implements OnInit {
   onSearch(event: KeyboardEvent) {
     const search = (event.target as HTMLInputElement).value;
     this.params.search = search;
+    this.getList();
+  }
+  onPageChange(event: PageEvent) {
+    this.params.page = event.pageIndex + 1;
+    this.params.limit = event.pageSize;
     this.getList();
   }
 }

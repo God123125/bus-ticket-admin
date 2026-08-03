@@ -1,0 +1,18 @@
+mat-error {
+  display: block;
+  color: var(--mat-sys-error, #f44336);
+  font-size: 0.75rem;
+  margin-top: 4px;
+  animation: enterAnimation 300ms ease-out forwards;
+}
+
+@keyframes enterAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

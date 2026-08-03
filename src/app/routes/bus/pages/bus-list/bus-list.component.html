@@ -4,7 +4,7 @@
     <div class="header-content d-flex justify-content-between align-items-center">
       <mat-form-field appearance="outline" class="default-input h mb-0" [floatLabel]="'always'">
         <mat-label>Search</mat-label>
-        <input type="text" matInput />
+        <input type="text" matInput (keyup)="onSearch($event)" />
       </mat-form-field>
       <button mat-flat-button type="button" class="ml-auto" color="primary" (click)="onAddBus()">
         <mat-icon>create</mat-icon>
@@ -15,52 +15,49 @@
       <table class="table-custom mb-0">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            <th scope="col">Action</th>
+            <th>{{ 'n.o' | translate }}</th>
+            <th>{{ 'model_name' | translate }}</th>
+            <th>{{ 'plate_number' | translate }}</th>
+            <th>{{ 'type' | translate }}</th>
+            <th>{{ 'row' | translate }}</th>
+            <th>{{ 'action' | translate }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row">1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>
-              <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
-            </td>
-          </tr>
+          @for (item of buses(); track $index) {
+            <tr>
+              <td>{{ $index + 1 + (queryParams.page - 1) * queryParams.limit }}</td>
+              <td>{{ item.model_name }}</td>
+              <td>{{ item.plate_number }}</td>
+              <td>{{ item.type }}</td>
+              <td>{{ item.row }}</td>
+              <td>
+                <button mat-icon-button color="primary" (click)="onEdit(item._id!)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  appConfirmMessage
+                  [message]="'delete_question' | translate"
+                  [title]="'delete_information' | translate"
+                  (confirmEmitter)="onDelete(item._id!)"
+                  mat-icon-button
+                  color="warn"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
+      <mat-paginator
+        [length]="total()"
+        [pageSize]="queryParams.limit"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true"
+        aria-label="Select page"
+        (page)="onPageChange($event)"
+      />
     </div>
   </div>
 </div>

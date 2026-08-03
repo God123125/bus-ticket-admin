@@ -42,6 +42,7 @@ export class CompanyFormComponent implements OnInit {
     commission_fee: new FormControl<number | null>(0, [Validators.required, Validators.min(0)]),
     is_active: new FormControl<boolean>(true),
     owner: new FormControl<string | null>(null, [Validators.required]),
+    color: new FormControl<string | null>(null),
   });
 
   constructor(
@@ -77,6 +78,7 @@ export class CompanyFormComponent implements OnInit {
           commission_fee: res.commission_fee ?? 0,
           is_active: res.is_active ?? true,
           owner: res.owner as string,
+          color: res.color,
         });
         if (res.image) {
           this.image = res.image;
@@ -108,6 +110,7 @@ export class CompanyFormComponent implements OnInit {
       commission_fee: this.form.value.commission_fee ?? 0,
       is_active: this.form.value.is_active ?? true,
       owner: this.form.value.owner || '',
+      color: this.form.value.color,
     };
     if (this.uploadFile) {
       payload.image = this.uploadFile;

@@ -66,7 +66,18 @@
                     </mat-form-field>
                   </app-form-helper>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-6">
+                  <app-form-helper [label]="'company' | translate">
+                    <mat-form-field appearance="outline" class="default-input full-width">
+                      <mat-select [formControl]="form.controls.company">
+                        @for (company of companies(); track company._id) {
+                          <mat-option [value]="company._id">{{ company.name }}</mat-option>
+                        }
+                      </mat-select>
+                    </mat-form-field>
+                  </app-form-helper>
+                </div>
+                <div class="col-lg-6">
                   <app-form-helper [label]="'address' | translate">
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <textarea

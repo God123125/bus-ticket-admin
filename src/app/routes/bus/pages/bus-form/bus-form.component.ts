@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -11,30 +11,47 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 @Component({
   selector: 'app-bus-form',
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSelectModule, TranslatePipe, ReactiveFormsModule],
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    TranslatePipe,
+    ReactiveFormsModule,
+  ],
   templateUrl: './bus-form.component.html',
   styleUrl: './bus-form.component.scss',
 })
 export class BusFormComponent {
   form = new FormGroup({
-    model_name: new FormControl("", [Validators.required]),
-    plate_number: new FormControl("", [Validators.required]),
-    type: new FormControl(""),
-    row: new FormControl(""),
-    description: new FormControl("")
-  })
-  constructor(private busService: BusService,private dialogRef: MatDialogRef<BusFormComponent>) { }
-  onSubmit(){
-    if(this.form.invalid){
+    model_name: new FormControl('', [Validators.required]),
+    plate_number: new FormControl('', [Validators.required]),
+    type: new FormControl(''),
+    row: new FormControl(''),
+    description: new FormControl(''),
+  });
+  constructor(
+    private busService: BusService,
+    private dialogRef: MatDialogRef<BusFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { id?: string },
+  ) {
+    if (this.data?.id) {
+      this.busService.getById(this.data.id).subscribe({
+        next: (res) => {
+          this.form.patchValue(res);
+        },
+      });
+    }
+  }
+  onSubmit() {
+    if (this.form.invalid) {
       return;
     }
-    if(this.form.valid){
+    if (this.form.valid) {
       const payload = this.form.value;
-      this.busService.create(payload).subscribe({
-        next: (res)=>{
-          this.dialogRef.close(true)
-        }
-      })
+      this.dialogRef.close(payload);
     }
   }
 }

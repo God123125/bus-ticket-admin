@@ -1,0 +1,26 @@
+@if (control && control.invalid && (control.touched || control.dirty) && control.errors && (control.errors | keyvalue).length > 0) {
+  @let firstError = (control.errors | keyvalue)[0];
+  @switch (firstError.key) {
+    @case ('required') {
+      <mat-error>{{ 'msg.required' | translate }}</mat-error>
+    }
+    @case ('email') {
+      <mat-error>{{ 'msg.email' | translate }}</mat-error>
+    }
+    @case ('min') {
+      <mat-error>{{
+        'msg.invalid_min_value' | translate: { min: control.errors['min'].min }
+      }}</mat-error>
+    }
+    @case ('max') {
+      <mat-error>{{
+        'msg.invalid_max_value' | translate: { max: control.errors['max'].max }
+      }}</mat-error>
+    }
+    @default {
+      <mat-error>{{ firstError.key }}</mat-error>
+    }
+  }
+} @else {
+  <ng-content></ng-content>
+}

@@ -9,7 +9,7 @@ import { UserManagementService } from '../../services/user-management.service';
 import { User } from '../../model/user';
 import { ImgUrlPipe } from '../../../../shared/pipes/img-url-pipe';
 import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helper/directives/confirm-message.directive';
-
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-user-management-list',
   imports: [
@@ -21,6 +21,7 @@ import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helpe
     RouterLink,
     ImgUrlPipe,
     ConfirmMessageDirective,
+    MatPaginatorModule,
   ],
   templateUrl: './user-management-list.component.html',
   styleUrl: './user-management-list.component.scss',
@@ -32,6 +33,7 @@ export class UserManagementListComponent {
     search: '',
   };
   users = signal<User[]>([]);
+  total = signal(0);
   constructor(private userService: UserManagementService) {}
   ngOnInit(): void {
     this.getList();
@@ -40,6 +42,7 @@ export class UserManagementListComponent {
     this.userService.getMany(this.params).subscribe({
       next: (res) => {
         this.users.set(res.list);
+        this.total.set(res.total);
       },
       error: (err) => {
         console.error('getMany failed:', err);
@@ -56,6 +59,11 @@ export class UserManagementListComponent {
   onSearch(event: KeyboardEvent) {
     const search = (event.target as HTMLInputElement).value;
     this.params.search = search;
+    this.getList();
+  }
+  onPageChange(event: PageEvent) {
+    this.params.page = event.pageIndex + 1;
+    this.params.limit = event.pageSize;
     this.getList();
   }
 }

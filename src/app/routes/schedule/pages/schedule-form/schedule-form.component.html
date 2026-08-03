@@ -1,0 +1,106 @@
+<div class="page-container">
+  <div class="default-card">
+    <div class="form-header">
+      <h3 class="title">
+        {{
+          (updateId !== '' ? 'actions.edit' : '_add')
+            | translate: { param: ('schedule' | translate) }
+        }}
+      </h3>
+    </div>
+    <div class="content">
+      <form class="form" [formGroup]="form">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6">
+              <app-form-helper [label]="'from' | translate" [control]="form.controls.from">
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <input type="text" matInput [formControl]="form.controls.from" />
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-6">
+              <app-form-helper [label]="'to' | translate" [control]="form.controls.to">
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <input type="text" matInput [formControl]="form.controls.to" />
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-6">
+              <app-form-helper
+                [label]="'departure_time' | translate"
+                [control]="form.controls.departure_time"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <input type="time" matInput [formControl]="form.controls.departure_time" />
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-6">
+              <app-form-helper
+                [label]="'arrival_time' | translate"
+                [control]="form.controls.arrival_time"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <input type="time" matInput [formControl]="form.controls.arrival_time" />
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-6">
+              <app-form-helper
+                [label]="'departure_station' | translate"
+                [control]="form.controls.departure_station"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <mat-select [formControl]="form.controls.departure_station">
+                    @for (station of stations(); track station._id) {
+                      <mat-option [value]="station._id">{{ station.station_name }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-6">
+              <app-form-helper
+                [label]="'arrival_station' | translate"
+                [control]="form.controls.arrival_station"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <mat-select [formControl]="form.controls.arrival_station">
+                    @for (station of stations(); track station._id) {
+                      <mat-option [value]="station._id">{{ station.station_name }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-6">
+              <app-form-helper
+                [label]="'description' | translate"
+                [control]="form.controls.description"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <textarea matInput [formControl]="form.controls.description"></textarea>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="d-flex justify-content-end align-items-center gap-2">
+        <a
+          type="button"
+          mat-stroked-button
+          color="primary"
+          [routerLink]="updateId !== '' ? '../../' : '../'"
+        >
+          {{ 'actions.cancel' | translate }}
+        </a>
+        <button type="button" mat-flat-button color="primary" (click)="onSave()">
+          <mat-icon>save</mat-icon>
+          {{ 'actions.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

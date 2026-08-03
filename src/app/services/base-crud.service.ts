@@ -8,7 +8,7 @@ export class BaseCrudService<T> {
   constructor(injector: Injector) {
     this.requestService = injector.get(RequestService);
   }
-  getMany(data: { page: number; limit: number; search?: string; [key: string]: any }) {
+  getMany(data?: { page: number; limit: number; search?: string; [key: string]: any }) {
     return this.requestService.getJSON<BaseDatatable<T>>(this.path, {
       data,
       is_alert_error: true,

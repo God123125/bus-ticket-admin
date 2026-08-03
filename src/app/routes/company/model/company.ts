@@ -6,6 +6,7 @@ export interface Company extends MongoObject {
   rating: number;
   is_active: boolean;
   image: string;
-  owner: string | User;
+  owner: string & User;
   commission_fee: number;
+  color?: string;
 }

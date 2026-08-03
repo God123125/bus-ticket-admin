@@ -26,10 +26,10 @@
         <tbody>
           @for (item of users(); track item._id; let i = $index) {
             <tr>
-              <td>{{ i + 1 }}</td>
+              <td>{{ i + 1 + (params.page - 1) * params.limit }}</td>
               <td class="col-image">
                 <img [src]="item.profile | imgUrl" alt="" />
-                <span>{{ item.username }}</span>
+                <span>{{ item.full_name }}</span>
               </td>
               <td>{{ item.address }}</td>
               <td>{{ item.tel }}</td>
@@ -41,7 +41,7 @@
                   appConfirmMessage
                   [message]="'delete_question' | translate"
                   [title]="'delete_information' | translate"
-                  (confirmEmitter)="onDelete(item._id)"
+                  (confirmEmitter)="onDelete(item._id!)"
                   mat-icon-button
                   color="warn"
                 >
@@ -52,6 +52,14 @@
           }
         </tbody>
       </table>
+      <mat-paginator
+        [length]="total()"
+        [pageSize]="params.limit"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true"
+        aria-label="Select page"
+        (page)="onPageChange($event)"
+      />
     </div>
   </div>
 </div>

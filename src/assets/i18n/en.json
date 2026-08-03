@@ -15,6 +15,7 @@
   "company": "Company",
   "action": "Action",
   "_add": "Create{{param}}",
+  "_detail": "{{param}} Detail",
   "user": "User",
   "name": "Name",
   "password": "Password",
@@ -28,6 +29,16 @@
   "status": "Status",
   "active": "Active",
   "inactive": "Inactive",
+  "station": "Station",
+  "latitude": "Latitude",
+  "longitude": "Longitude",
+  "schedule": "Schedule",
+  "from": "From",
+  "to": "To",
+  "departure_time": "Departure Time",
+  "arrival_time": "Arrival Time",
+  "departure_station": "Departure Station",
+  "arrival_station": "Arrival Station",
   "actions": {
     "create": "Create",
     "delete": "Delete",
@@ -40,12 +51,21 @@
     "logout": "Logout",
     "user_info": "User Info",
     "change_password": "Change Password",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "back": "Back"
   },
   "route": {
     "bus": "Manage Bus",
     "dashboard": "Dashboard",
     "user-management": "Manage User",
-    "company": "Manage Company"
+    "company": "Manage Company",
+    "station": "Station",
+    "schedule": "Trip Schedule"
+  },
+  "msg": {
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "invalid_min_value": "Please enter a value greater than {{min}}",
+    "invalid_max_value": "Please enter a value less than {{max}}"
   }
 }

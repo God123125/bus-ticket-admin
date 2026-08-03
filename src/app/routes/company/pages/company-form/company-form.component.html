@@ -52,6 +52,19 @@
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
+                  <app-form-helper [label]="'color' | translate">
+                    <mat-form-field appearance="outline" class="default-input full-width">
+                      <input
+                        type="color"
+                        name=""
+                        id=""
+                        matInput
+                        [formControl]="form.controls.color"
+                      />
+                    </mat-form-field>
+                  </app-form-helper>
+                </div>
+                <div class="col-lg-4">
                   <app-form-helper [label]="'status' | translate">
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <mat-select [formControl]="form.controls.is_active">

@@ -4,6 +4,13 @@
     min-height: 0;
     overflow: auto;
   }
+  .mat-mdc-paginator-container {
+    background-color: white !important;
+    border-radius: 10px;
+    .mat-mdc-button-touch-target {
+      cursor: pointer !important;
+    }
+  }
   table.table-custom {
     border-collapse: collapse;
     width: 100%;

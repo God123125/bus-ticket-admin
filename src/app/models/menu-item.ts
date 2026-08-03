@@ -1,5 +1,5 @@
 export interface MenuItem {
-  role?: string;
+  role?: string[];
   title: string;
   type: string;
   route: string;

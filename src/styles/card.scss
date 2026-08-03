@@ -15,6 +15,7 @@
     background-color: #0035661a;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     vertical-align: middle;
     padding: 10px;
     .title {
@@ -26,6 +27,21 @@
   .content {
     padding: 20px;
     width: 100%;
+    .info {
+      display: flex;
+      flex-direction: column;
+      .label {
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 0;
+      }
+      .value {
+        background-color: rgb(235, 233, 233);
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+    }
     .image-container {
       width: 150px;
       height: 150px;

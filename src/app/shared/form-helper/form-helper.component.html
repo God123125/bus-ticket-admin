@@ -4,3 +4,6 @@
   </mat-label>
 }
 <ng-content></ng-content>
+@if (control) {
+  <app-form-error [control]="control"></app-form-error>
+}

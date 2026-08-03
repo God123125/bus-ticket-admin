@@ -1,0 +1,67 @@
+<div class="page-container">
+  <div class="scroll-container">
+    <h3 class="title">{{ 'route.schedule' | translate }}</h3>
+    <div class="header-content d-flex justify-content-between align-items-center">
+      <mat-form-field appearance="outline" class="default-input h mb-0" [floatLabel]="'always'">
+        <mat-label>{{ 'actions.search' | translate }}</mat-label>
+        <input type="text" matInput (keyup)="onSearch($event)" />
+      </mat-form-field>
+      <a mat-raised-button class="ml-auto" color="primary" routerLink="create">
+        <mat-icon>add</mat-icon>
+        <span>{{ 'actions.create' | translate }}</span>
+      </a>
+    </div>
+    <div class="table-container content-scroll">
+      <table class="table-custom mb-0">
+        <thead>
+          <tr>
+            <th scope="col">{{ 'n.o' | translate }}</th>
+            <th scope="col">{{ 'from' | translate }}</th>
+            <th scope="col">{{ 'to' | translate }}</th>
+            <th scope="col">{{ 'departure_time' | translate }}</th>
+            <th scope="col">{{ 'arrival_time' | translate }}</th>
+            <th scope="col">{{ 'departure_station' | translate }}</th>
+            <th scope="col">{{ 'arrival_station' | translate }}</th>
+            <th scope="col">{{ 'action' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of schedules(); track item._id; let i = $index) {
+            <tr>
+              <td>{{ i + 1 + (params.page - 1) * params.limit }}</td>
+              <td>{{ item.from }}</td>
+              <td>{{ item.to }}</td>
+              <td>{{ item.departure_time | time }}</td>
+              <td>{{ item.arrival_time | time }}</td>
+              <td>{{ getStationName(item.departure_station) }}</td>
+              <td>{{ getStationName(item.arrival_station) }}</td>
+              <td>
+                <a mat-icon-button color="primary" [routerLink]="['update', item._id]"
+                  ><mat-icon>edit</mat-icon></a
+                >
+                <button
+                  appConfirmMessage
+                  [message]="'delete_question' | translate"
+                  [title]="'delete_information' | translate"
+                  (confirmEmitter)="onDelete(item._id!)"
+                  mat-icon-button
+                  color="warn"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <mat-paginator
+        [length]="total()"
+        [pageSize]="params.limit"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true"
+        aria-label="Select page"
+        (page)="onPageChange($event)"
+      />
+    </div>
+  </div>
+</div>

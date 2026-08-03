@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,9 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FormHelperComponent } from '../../../../shared/form-helper/form-helper.component';
 import { UserManagementService } from '../../services/user-management.service';
+import { CompanyService } from '../../../company/service/company.service';
+import { Company } from '../../../company/model/company';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-user-management-form',
@@ -20,6 +23,7 @@ import { UserManagementService } from '../../services/user-management.service';
     ReactiveFormsModule,
     RouterLink,
     FormHelperComponent,
+    MatSelectModule,
   ],
   templateUrl: './user-management-form.component.html',
   styleUrl: './user-management-form.component.scss',
@@ -42,17 +46,28 @@ export class UserManagementFormComponent {
     address: new FormControl<string | null>(null),
     bank_acc_name: new FormControl<string | null>(null),
     bank_acc_number: new FormControl<string | null>(null),
+    company: new FormControl<string | null>(null),
   });
+  companies = signal<Company[]>([]);
   constructor(
     private userManagementService: UserManagementService,
     private router: Router,
     private route: ActivatedRoute,
+    private companyService: CompanyService,
   ) {
+    this.loadCompany();
     this.route.params.subscribe((params) => {
       this.updateId = params['id'] ?? '';
       if (this.updateId) {
         this.loadUser(this.updateId);
       }
+    });
+  }
+  loadCompany() {
+    this.companyService.getMany().subscribe({
+      next: (res) => {
+        this.companies.set(res.list);
+      },
     });
   }
   loadUser(id: string) {
@@ -66,6 +81,7 @@ export class UserManagementFormComponent {
           bank_acc_name: res.bank_acc_name,
           bank_acc_number: res.bank_acc_number,
           full_name: res.full_name,
+          company: res.company,
         });
         if (res.profile) {
           this.profile = res.profile;
@@ -94,7 +110,11 @@ export class UserManagementFormComponent {
       bank_acc_name: this.form.value.bank_acc_name || '',
       bank_acc_number: this.form.value.bank_acc_number || '',
       full_name: this.form.value.full_name || '',
+      company: this.form.value.company || '',
     };
+    if (this.form.value.password !== '' || this.form.value.password !== null) {
+      payload.password = this.form.value.password;
+    }
     if (this.updateId) {
       this.userManagementService.updateUser(this.updateId, payload).subscribe({
         next: (res) => {
@@ -102,7 +122,6 @@ export class UserManagementFormComponent {
         },
       });
     } else {
-      payload.password = this.form.value.password;
       this.userManagementService.createUser(payload).subscribe({
         next: (res) => {
           this.router.navigate(['../'], { relativeTo: this.route });

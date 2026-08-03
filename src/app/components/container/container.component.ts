@@ -45,33 +45,27 @@ export class Container {
     private authService: AuthService,
   ) {}
   ngOnInit(): void {
+    this.getUserInformation();
     this.menu = {
       bus: MENUITEMS.filter((menuItem: MenuItem) => {
-        return (
-          menuItem.type === 'bus' &&
-          menuItem.role == this.localStorageService.get(LocalStorageEnum.Role)
-        );
+        return menuItem.type === 'bus' && menuItem.role?.includes(this.role);
       }),
-      dashboard: MENUITEMS.filter((menuItems: MenuItem) => {
-        return (
-          menuItems.type === 'dashboard' &&
-          menuItems.role == this.localStorageService.get(LocalStorageEnum.Role)
-        );
+      dashboard: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'dashboard' && menuItem.role?.includes(this.role);
       }),
-      userManagement: MENUITEMS.filter((menuItems: MenuItem) => {
-        return (
-          menuItems.type === 'user-management' &&
-          menuItems.role == this.localStorageService.get(LocalStorageEnum.Role)
-        );
+      userManagement: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'user-management' && menuItem.role?.includes(this.role);
       }),
-      company: MENUITEMS.filter((menuItems: MenuItem) => {
-        return (
-          menuItems.type === 'company' &&
-          menuItems.role == this.localStorageService.get(LocalStorageEnum.Role)
-        );
+      company: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'company' && menuItem.role?.includes(this.role);
+      }),
+      station: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'station' && menuItem.role?.includes(this.role);
+      }),
+      schedule: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'schedule' && menuItem.role?.includes(this.role);
       }),
     };
-    this.getUserInformation();
     this.redirectTofirstMenu();
   }
   @HostListener('window:resize', ['$event.target.innerWidth'])

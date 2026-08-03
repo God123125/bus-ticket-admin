@@ -10,6 +10,7 @@
 @use './card.scss';
 @use './dialog.scss';
 @use './table.scss';
+@import 'leaflet/dist/leaflet.css';
 * {
   box-sizing: border-box;
   font-family: 'EnReg', 'KhReg';

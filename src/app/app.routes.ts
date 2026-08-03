@@ -13,7 +13,7 @@ export const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./routes/dashboard/dashboard.route').then((r) => r.routes),
         data: {
-          role: RolePermissionEnum.Admin,
+          role: [RolePermissionEnum.Admin],
           type: 'dashboard',
         },
         canActivate: [authGuard],
@@ -22,7 +22,7 @@ export const routes: Routes = [
         path: 'bus',
         loadChildren: () => import('./routes/bus/bus.route').then((r) => r.routes),
         data: {
-          role: RolePermissionEnum.Merchant,
+          role: [RolePermissionEnum.Merchant],
           type: 'bus',
         },
         canActivate: [authGuard],
@@ -32,7 +32,7 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./routes/user-management/user-management.route').then((r) => r.routes),
         data: {
-          role: RolePermissionEnum.Admin,
+          role: [RolePermissionEnum.Admin, RolePermissionEnum.Merchant],
           type: 'user-management',
         },
         canActivate: [authGuard],
@@ -41,8 +41,26 @@ export const routes: Routes = [
         path: 'company',
         loadChildren: () => import('./routes/company/company.route').then((r) => r.routes),
         data: {
-          role: RolePermissionEnum.Admin,
+          role: [RolePermissionEnum.Admin],
           type: 'company',
+        },
+        canActivate: [authGuard],
+      },
+      {
+        path: 'station',
+        loadChildren: () => import('./routes/station/station.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Merchant],
+          type: 'station',
+        },
+        canActivate: [authGuard],
+      },
+      {
+        path: 'schedule',
+        loadChildren: () => import('./routes/schedule/schedule.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Merchant],
+          type: 'schedule',
         },
         canActivate: [authGuard],
       },

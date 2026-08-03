@@ -11,14 +11,26 @@ export const authGuard: CanActivateFn = (route, state) => {
     router.navigate(['/login']);
     return false;
   } else {
-    const roles = authService.role;
-    if (route.data['role'] && route.data['role'] === roles) {
+    const userRole = authService.role;
+    const routeRoles: string[] | undefined = route.data['role'];
+
+    if (!routeRoles) {
+      return true;
+    }
+
+    const isAuthorized = Array.isArray(routeRoles)
+      ? routeRoles.includes(userRole)
+      : routeRoles === userRole;
+
+    if (isAuthorized) {
       return true;
     } else {
-      if (roles == RolePermissionEnum.Admin) {
-        router.navigate(['/dashboard']);
+      const defaultTarget = userRole === RolePermissionEnum.Admin ? '/dashboard' : '/bus';
+      if (state.url !== defaultTarget) {
+        router.navigate([defaultTarget]);
       } else {
-        router.navigate(['/bus']);
+        authService.logout();
+        router.navigate(['/login']);
       }
       return false;
     }
