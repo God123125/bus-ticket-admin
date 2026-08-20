@@ -7,9 +7,9 @@ export interface Schedule extends MongoObject {
   to: string;
   departure_time: string;
   arrival_time: string;
-  departure_station: string | Station;
-  arrival_station: string | Station;
+  departure_station: Station;
+  arrival_station: Station;
   company?: string | Company;
   description?: string;
+  image?: string;
 }
-

@@ -65,6 +65,9 @@ export class Container {
       schedule: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'schedule' && menuItem.role?.includes(this.role);
       }),
+      trip: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'trip' && menuItem.role?.includes(this.role);
+      }),
     };
     this.redirectTofirstMenu();
   }

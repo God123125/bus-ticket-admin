@@ -50,7 +50,7 @@ export const routes: Routes = [
         path: 'station',
         loadChildren: () => import('./routes/station/station.route').then((r) => r.routes),
         data: {
-          role: [RolePermissionEnum.Merchant],
+          role: [RolePermissionEnum.Merchant, RolePermissionEnum.Staff],
           type: 'station',
         },
         canActivate: [authGuard],
@@ -59,8 +59,17 @@ export const routes: Routes = [
         path: 'schedule',
         loadChildren: () => import('./routes/schedule/schedule.route').then((r) => r.routes),
         data: {
-          role: [RolePermissionEnum.Merchant],
+          role: [RolePermissionEnum.Merchant, RolePermissionEnum.Staff],
           type: 'schedule',
+        },
+        canActivate: [authGuard],
+      },
+      {
+        path: 'trip',
+        loadChildren: () => import('./routes/trip/trip.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Merchant, RolePermissionEnum.Staff],
+          type: 'trip',
         },
         canActivate: [authGuard],
       },

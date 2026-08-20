@@ -16,6 +16,7 @@
         <thead>
           <tr>
             <th scope="col">{{ 'n.o' | translate }}</th>
+            <th>{{ 'image' | translate }}</th>
             <th scope="col">{{ 'name' | translate }}</th>
             <th scope="col">{{ 'owner' | translate }}</th>
             <th scope="col">{{ 'commission_fee' | translate }}</th>
@@ -29,10 +30,10 @@
               <td>{{ i + 1 + (params.page - 1) * params.limit }}</td>
               <td class="col-image">
                 <img [src]="item.image | imgUrl: '/assets/imgs/company.png'" alt="" />
-                <span>{{ item.name }}</span>
               </td>
+              <td>{{ item.name }}</td>
               <td>{{ item.owner.full_name }}</td>
-              <td>{{ item.commission_fee }}%</td>
+              <td>{{ item.commission_rate }}%</td>
               <td>
                 <span
                   class="badge"

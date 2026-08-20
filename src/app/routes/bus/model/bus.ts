@@ -1,6 +1,11 @@
 import { MongoObject } from '../../../models/mongo-object';
 import { Company } from '../../company/model/company';
 
+export interface BusImage {
+  url: string;
+  publicId: string;
+}
+
 export interface Bus extends MongoObject {
   model_name: string;
   plate_number: string;
@@ -8,4 +13,6 @@ export interface Bus extends MongoObject {
   type: string;
   company: string | Company;
   row: number;
+  images?: (BusImage | File | string)[];
 }
+

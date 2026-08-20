@@ -19,7 +19,6 @@
             <th>{{ 'model_name' | translate }}</th>
             <th>{{ 'plate_number' | translate }}</th>
             <th>{{ 'type' | translate }}</th>
-            <th>{{ 'row' | translate }}</th>
             <th>{{ 'action' | translate }}</th>
           </tr>
         </thead>
@@ -30,7 +29,6 @@
               <td>{{ item.model_name }}</td>
               <td>{{ item.plate_number }}</td>
               <td>{{ item.type }}</td>
-              <td>{{ item.row }}</td>
               <td>
                 <button mat-icon-button color="primary" (click)="onEdit(item._id!)">
                   <mat-icon>edit</mat-icon>

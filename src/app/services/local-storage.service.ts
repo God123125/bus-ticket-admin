@@ -1,5 +1,6 @@
 import { Service } from '@angular/core';
 import { LocalStorageEnum } from '../models/enum/localstorage.enum';
+import { RolePermissionEnum } from '../models/enum/role-permission.enum';
 
 @Service()
 export class LocalStorageService {
@@ -35,5 +36,8 @@ export class LocalStorageService {
 
   delete(key: LocalStorageEnum) {
     localStorage.removeItem(key);
+  }
+  isAdmin(): boolean {
+    return this.get(LocalStorageEnum.Role) === RolePermissionEnum.Admin;
   }
 }

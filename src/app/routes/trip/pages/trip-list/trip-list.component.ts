@@ -7,14 +7,14 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helper/directives/confirm-message.directive';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { ScheduleService } from '../../service/schedule.service';
-import { Schedule } from '../../model/schedule';
-import { Station } from '../../../station/model/station';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { TripService } from '../../service/trip.service';
+import { Trip } from '../../model/trip';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TimePipe } from '../../../../shared/pipes/time-pipe';
-import { ImgUrlPipe } from '../../../../shared/pipes/img-url-pipe';
-
 @Component({
-  selector: 'app-schedule-list',
+  selector: 'app-trip-list',
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -24,32 +24,34 @@ import { ImgUrlPipe } from '../../../../shared/pipes/img-url-pipe';
     RouterLink,
     ConfirmMessageDirective,
     MatPaginatorModule,
+    DatePipe,
+    MatDatepickerModule,
     TimePipe,
-    ImgUrlPipe,
+    CurrencyPipe,
   ],
-  templateUrl: './schedule-list.component.html',
-  styleUrl: './schedule-list.component.scss',
+  providers: [provideNativeDateAdapter()],
+  templateUrl: './trip-list.component.html',
+  styleUrl: './trip-list.component.scss',
 })
-export class ScheduleListComponent implements OnInit {
+export class TripListComponent implements OnInit {
   params = {
     page: 1,
     limit: 10,
-    search: '',
+    departure_date: '',
   };
-  schedules = signal<Schedule[]>([]);
-  stations = signal<Station[]>([]);
+  trips = signal<Trip[]>([]);
   total = signal(0);
 
-  constructor(private scheduleService: ScheduleService) {}
+  constructor(private tripService: TripService) {}
 
   ngOnInit(): void {
     this.getList();
   }
 
   getList() {
-    this.scheduleService.getMany(this.params).subscribe({
+    this.tripService.getMany(this.params).subscribe({
       next: (res) => {
-        this.schedules.set(res.list);
+        this.trips.set(res.list);
         this.total.set(res.total);
       },
       error: (err) => {
@@ -59,19 +61,17 @@ export class ScheduleListComponent implements OnInit {
   }
 
   onDelete(id: string) {
-    this.scheduleService.delete(id).subscribe({
+    this.tripService.delete(id).subscribe({
       next: () => {
         this.getList();
       },
     });
   }
 
-  onSearch(event: KeyboardEvent) {
-    const search = (event.target as HTMLInputElement).value;
-    this.params.search = search;
+  onDateChange(date: Date) {
+    this.params.departure_date = date.toISOString();
     this.getList();
   }
-
   onPageChange(event: PageEvent) {
     this.params.page = event.pageIndex + 1;
     this.params.limit = event.pageSize;

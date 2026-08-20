@@ -1,43 +1,113 @@
-<h3 mat-dialog-title class="title">{{"create_bus" | translate}}</h3>
+<h3 mat-dialog-title class="title">
+  {{ (data?.id ? '_edit' : '_create') | translate: { param: 'bus' | translate } }}
+</h3>
 <mat-dialog-content>
-   <form [formGroup]="form">
-     <div class="container-fluid">
-        <div class="row">
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="default-input w-100">
-                    <mat-label>{{"model_name" | translate}}</mat-label>
-                    <input type=" text" matInput [formControl]="form.controls.model_name" />
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="default-input w-100">
-                    <mat-label>{{"plate_number" | translate}}</mat-label>
-                    <input type=" text" matInput [formControl]="form.controls.plate_number"/>
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="default-input w-100">
-                    <mat-label>{{"type" | translate}}</mat-label>
-                    <input type=" text" matInput [formControl]="form.controls.type"/>
-                </mat-form-field>
-            </div>
-            <div class="col-6">
-                <mat-form-field appearance="outline" class="default-input w-100">
-                    <mat-label>{{"row" | translate}}</mat-label>
-                    <input type=" number" matInput [formControl]="form.controls.row"/>
-                </mat-form-field>
-            </div>
-            <div class="col-12">
-                <mat-form-field appearance="outline" class="default-input w-100">
-                    <mat-label>{{"description" | translate}}</mat-label>
-                    <textarea matInput [formControl]="form.controls.description"></textarea>
-                </mat-form-field>
-            </div>
+  <form [formGroup]="form">
+    <div class="container-fluid py-2">
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="form-label mb-2">
+            <mat-icon class="label-icon">collections</mat-icon>
+            <span>Bus Images (Up to 3)</span>
+          </label>
+          <div class="image-uploader-grid">
+            @for (slot of [0, 1, 2]; track slot) {
+              <div class="upload-card" [class.has-image]="previewUrls[slot]">
+                <input
+                  #fileInput
+                  type="file"
+                  accept="image/*"
+                  class="d-none"
+                  (change)="onFileSelected($event, slot)"
+                />
+
+                @if (previewUrls[slot]) {
+                  <div class="image-preview">
+                    <img [src]="previewUrls[slot]" alt="Bus image {{ slot + 1 }}" />
+                    <div class="preview-overlay">
+                      <button
+                        type="button"
+                        mat-mini-fab
+                        color="primary"
+                        (click)="fileInput.click()"
+                        matTooltip="Change Image"
+                        class="overlay-btn"
+                      >
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button
+                        type="button"
+                        mat-mini-fab
+                        color="warn"
+                        (click)="removeImage(slot, fileInput)"
+                        matTooltip="Remove Image"
+                        class="overlay-btn"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                } @else {
+                  <div class="upload-placeholder" (click)="fileInput.click()">
+                    <div class="icon-circle">
+                      <mat-icon>add_a_photo</mat-icon>
+                    </div>
+                    <span class="upload-title">Image {{ slot + 1 }}</span>
+                    <span class="upload-sub">Click to browse</span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
+      </div>
+
+      <div class="row">
+        <app-form-helper
+          class="col-6"
+          [control]="form.controls.model_name"
+          [label]="'model_name' | translate"
+        >
+          <mat-form-field appearance="outline" class="default-input w-100">
+            <input type="text" matInput [formControl]="form.controls.model_name" />
+          </mat-form-field>
+        </app-form-helper>
+        <app-form-helper
+          class="col-6"
+          [control]="form.controls.plate_number"
+          [label]="'plate_number' | translate"
+        >
+          <mat-form-field appearance="outline" class="default-input w-100">
+            <input type="text" matInput [formControl]="form.controls.plate_number" />
+          </mat-form-field>
+        </app-form-helper>
+        <app-form-helper class="col-6" [control]="form.controls.type" [label]="'type' | translate">
+          <mat-form-field appearance="outline" class="default-input w-100">
+            <mat-select [formControl]="form.controls.type">
+              @for (type of busTypes; track type) {
+                <mat-option [value]="type">{{ type }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </app-form-helper>
+        <app-form-helper
+          class="col-6"
+          [control]="form.controls.description"
+          [label]="'description' | translate"
+        >
+          <mat-form-field appearance="outline" class="default-input w-100">
+            <textarea matInput [formControl]="form.controls.description" rows="3"></textarea>
+          </mat-form-field>
+        </app-form-helper>
+      </div>
     </div>
-   </form>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-stroked-button color="primary" mat-dialog-close>{{"actions.cancel" | translate}}</button>
-    <button mat-flat-button color="primary" (click)="onSubmit()" mat-dialog-close>{{"actions.save" | translate}}</button>
+  <button mat-stroked-button color="primary" mat-dialog-close>
+    {{ 'actions.cancel' | translate }}
+  </button>
+  <button mat-flat-button color="primary" (click)="onSubmit()">
+    {{ 'actions.save' | translate }}
+  </button>
 </mat-dialog-actions>

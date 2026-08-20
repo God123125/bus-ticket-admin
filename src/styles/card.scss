@@ -1,14 +1,18 @@
+// :host {
+//   display: block;
+// }
 .default-card {
   width: 100%;
   height: auto;
-  overflow: auto;
   border-radius: 10px;
   background-color: white;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   position: relative;
+  flex-shrink: 0;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   .form-header {
     width: 100%;
@@ -27,6 +31,7 @@
   .content {
     padding: 20px;
     width: 100%;
+    flex: 1;
     .info {
       display: flex;
       flex-direction: column;

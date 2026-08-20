@@ -10,10 +10,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { FormHelperComponent } from '../../../../shared/form-helper/form-helper.component';
 import { ScheduleService } from '../../service/schedule.service';
 import { StationService } from '../../../station/service/station.service';
-import { CompanyService } from '../../../company/service/company.service';
 import { Station } from '../../../station/model/station';
 import { Company } from '../../../company/model/company';
-import { Schedule } from '../../model/schedule';
 
 @Component({
   selector: 'app-schedule-form',
@@ -41,20 +39,20 @@ export class ScheduleFormComponent {
     departure_station: new FormControl<string | null>(null, [Validators.required]),
     arrival_station: new FormControl<string | null>(null, [Validators.required]),
     description: new FormControl<string | null>(null),
+    image: new FormControl(null),
   });
 
   stations = signal<Station[]>([]);
   companies = signal<Company[]>([]);
-
+  selectedFile: File | null = null;
+  previewUrl: string | null = null;
   constructor(
     private scheduleService: ScheduleService,
     private stationService: StationService,
-    private companyService: CompanyService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
     this.loadStations();
-    this.loadCompanies();
     this.route.params.subscribe((params) => {
       this.updateId = params['id'] ?? '';
       if (this.updateId) {
@@ -71,52 +69,48 @@ export class ScheduleFormComponent {
     });
   }
 
-  loadCompanies() {
-    this.companyService.getMany().subscribe({
-      next: (res) => {
-        this.companies.set(res.list);
-      },
-    });
-  }
-
   loadSchedule(id: string) {
     this.scheduleService.getById(id).subscribe({
       next: (res) => {
-        const depStationId =
-          typeof res.departure_station === 'object' && res.departure_station !== null
-            ? (res.departure_station as Station)._id
-            : (res.departure_station as string);
-
-        const arrStationId =
-          typeof res.arrival_station === 'object' && res.arrival_station !== null
-            ? (res.arrival_station as Station)._id
-            : (res.arrival_station as string);
-
-        const companyId =
-          typeof res.company === 'object' && res.company !== null
-            ? (res.company as Company)._id
-            : (res.company as string);
-
         this.form.patchValue({
           from: res.from,
           to: res.to,
           departure_time: res.departure_time,
           arrival_time: res.arrival_time,
-          departure_station: depStationId || null,
-          arrival_station: arrStationId || null,
-          description: res.description || '',
+          departure_station: res.departure_station._id,
+          arrival_station: res.arrival_station._id,
+          description: res.description,
         });
+
+        if (res.image) {
+          this.previewUrl = res.image;
+        }
       },
     });
   }
-
+  removeImage(inputEl?: HTMLInputElement) {
+    this.selectedFile = null;
+    this.previewUrl = null;
+    this.form.controls.image.setValue(null);
+    if (inputEl) {
+      inputEl.value = '';
+    }
+  }
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.selectedFile = file;
+      this.previewUrl = URL.createObjectURL(file);
+    }
+  }
   onSave() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const payload: Schedule = {
+    const payload = {
       from: this.form.value.from || '',
       to: this.form.value.to || '',
       departure_time: this.form.value.departure_time || '',
@@ -124,16 +118,17 @@ export class ScheduleFormComponent {
       departure_station: this.form.value.departure_station || '',
       arrival_station: this.form.value.arrival_station || '',
       description: this.form.value.description || '',
+      image: this.selectedFile || this.form.value.image || '',
     };
 
     if (this.updateId) {
-      this.scheduleService.update(this.updateId, payload).subscribe({
+      this.scheduleService.update(this.updateId, payload as any).subscribe({
         next: () => {
           this.router.navigate(['../../'], { relativeTo: this.route });
         },
       });
     } else {
-      this.scheduleService.create(payload).subscribe({
+      this.scheduleService.create(payload as any).subscribe({
         next: () => {
           this.router.navigate(['../'], { relativeTo: this.route });
         },

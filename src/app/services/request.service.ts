@@ -202,6 +202,21 @@ export class RequestService {
     );
   }
 
+  patchFile<T>(path: string, request: RequestParam): Observable<T> {
+    const url = this.getUrl(path);
+    this.clean(request.data);
+    if (request.is_loading) {
+      this.loadingService.setLoading(true);
+    }
+    const headers = this.getAuthHeader();
+    headers.append('Content-Type', 'multipart/form-data;boundary=abc');
+    request.data = this.toFormData(request.data);
+    return this.http.patch<T>(url, request.data, { headers }).pipe(
+      catchError((err) => this.handleHttpError(err, request.is_alert_error)),
+      finalize(() => this.finalizeRequest(request.is_loading)),
+    );
+  }
+
   deleteJSON<T>(path: string, request: RequestParam = {}) {
     const url = this.getUrl(path);
     this.clean(request.data);
@@ -283,6 +298,9 @@ export class RequestService {
     return new HttpHeaders();
   }
   private toFormData(formValue: any) {
+    if (formValue instanceof FormData) {
+      return formValue;
+    }
     const formData = new FormData();
     //to append files to last of form data
     const fileKeys = [];

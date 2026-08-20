@@ -50,14 +50,15 @@ export class BusListComponent {
   }
   onAddBus() {
     const dialogRef = this.dialog.open(BusFormComponent, {
-      width: '500px',
+      width: '700px',
+      maxWidth: '90vw',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
           this.busService.create(res).subscribe({
-            next: (res) => {
+            next: () => {
               this.snackBar.open('Bus created successfully!', 'OK', { duration: 3000 });
               this.getList();
             },
@@ -73,7 +74,7 @@ export class BusListComponent {
   }
   onDelete(id: string) {
     this.busService.delete(id).subscribe({
-      next: (res) => {
+      next: () => {
         this.snackBar.open('Bus deleted successfully!', 'OK', { duration: 3000 });
         this.getList();
       },
@@ -81,7 +82,8 @@ export class BusListComponent {
   }
   onEdit(id: string) {
     const dialogRef = this.dialog.open(BusFormComponent, {
-      width: '500px',
+      width: '700px',
+      maxWidth: '90vw',
       disableClose: true,
       data: {
         id: id,
@@ -90,7 +92,12 @@ export class BusListComponent {
     dialogRef.afterClosed().subscribe({
       next: (res) => {
         if (res) {
-          this.snackBar.open('Bus updated successfully!', 'OK', { duration: 3000 });
+          this.busService.update(id, res).subscribe({
+            next: () => {
+              this.snackBar.open('Bus updated successfully!', 'OK', { duration: 3000 });
+              this.getList();
+            },
+          });
         }
       },
     });

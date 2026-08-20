@@ -33,13 +33,14 @@ import { ImgUrlPipe } from '../../../../shared/pipes/img-url-pipe';
 export class CompanyFormComponent implements OnInit {
   @ViewChild('fileInput') uploadImage!: ElementRef;
   image: string = '';
-  uploadFile?: File;
+  uploadImageFile?: File;
+  uploadKhqrFile?: File;
   updateId: string = '';
   users: User[] = [];
-
+  khqrUrl: string = '';
   form = new FormGroup({
     name: new FormControl<string | null>(null, [Validators.required]),
-    commission_fee: new FormControl<number | null>(0, [Validators.required, Validators.min(0)]),
+    commission_rate: new FormControl<number | null>(0, [Validators.required, Validators.min(0)]),
     is_active: new FormControl<boolean>(true),
     owner: new FormControl<string | null>(null, [Validators.required]),
     color: new FormControl<string | null>(null),
@@ -75,13 +76,16 @@ export class CompanyFormComponent implements OnInit {
       next: (res) => {
         this.form.patchValue({
           name: res.name,
-          commission_fee: res.commission_fee ?? 0,
+          commission_rate: res.commission_rate ?? 0,
           is_active: res.is_active ?? true,
           owner: res.owner as string,
           color: res.color,
         });
         if (res.image) {
           this.image = res.image;
+        }
+        if (res.khqrImage) {
+          this.khqrUrl = res.khqrImage;
         }
       },
     });
@@ -92,14 +96,25 @@ export class CompanyFormComponent implements OnInit {
       const files = (event.target as HTMLInputElement).files;
       if (files && files.length > 0) {
         const file = files[0];
-        this.uploadFile = file;
+        this.uploadImageFile = file;
         this.image = URL.createObjectURL(file);
       }
     } catch (error) {
       (this.uploadImage.nativeElement as HTMLInputElement).value = '';
     }
   }
-
+  onKhqrSelected(event: Event) {
+    try {
+      const files = (event.target as HTMLInputElement).files;
+      if (files && files.length > 0) {
+        const file = files[0];
+        this.uploadKhqrFile = file;
+        this.khqrUrl = URL.createObjectURL(file);
+      }
+    } catch (error) {
+      (this.uploadImage.nativeElement as HTMLInputElement).value = '';
+    }
+  }
   onSave() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -107,13 +122,16 @@ export class CompanyFormComponent implements OnInit {
     }
     const payload: any = {
       name: this.form.value.name || '',
-      commission_fee: this.form.value.commission_fee ?? 0,
+      commission_rate: this.form.value.commission_rate ?? 0,
       is_active: this.form.value.is_active ?? true,
       owner: this.form.value.owner || '',
       color: this.form.value.color,
     };
-    if (this.uploadFile) {
-      payload.image = this.uploadFile;
+    if (this.uploadImageFile) {
+      payload.image = this.uploadImageFile;
+    }
+    if (this.uploadKhqrFile) {
+      payload.khqrImage = this.uploadKhqrFile;
     }
 
     if (this.updateId) {

@@ -1,7 +1,8 @@
 {
   "app_name": "Bus Ticket System",
   "invalid_input_data": "Invalid Input Data",
-  "create_bus": "Create Bus",
+  "_create": "Create{{param}}",
+  "_edit": "Edit{{param}}",
   "model_name": "Model Name",
   "plate_number": "Plate Number",
   "type": "Type",
@@ -39,6 +40,12 @@
   "arrival_time": "Arrival Time",
   "departure_station": "Departure Station",
   "arrival_station": "Arrival Station",
+  "bus": "Bus",
+  "trip": "Trip",
+  "departure_date": "Departure Date",
+  "price_per_seat": "Price Per Seat",
+  "image": "Image",
+  "amenities": "Amenities",
   "actions": {
     "create": "Create",
     "delete": "Delete",
@@ -60,7 +67,8 @@
     "user-management": "Manage User",
     "company": "Manage Company",
     "station": "Station",
-    "schedule": "Trip Schedule"
+    "schedule": "Trip Schedule",
+    "trip": "Manage Trip"
   },
   "msg": {
     "required": "This field is required",

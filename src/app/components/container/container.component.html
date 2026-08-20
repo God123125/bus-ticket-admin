@@ -69,6 +69,16 @@
                 </mat-list-item>
               </a>
             }
+            @if (menu.trip.length > 0) {
+              <a [routerLink]="menu.trip[0].route">
+                <mat-list-item matRipple routerLinkActive="active-route">
+                  <div class="left-side">
+                    <mat-icon>card_travel</mat-icon>
+                    <span>{{ 'route.' + menu.trip[0].title | translate }}</span>
+                  </div>
+                </mat-list-item>
+              </a>
+            }
           </mat-list>
         </div>
       </div>

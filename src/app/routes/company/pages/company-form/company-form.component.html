@@ -4,7 +4,7 @@
       <h3 class="title">{{ '_add' | translate: { param: ('company' | translate) } }}</h3>
     </div>
     <div class="content">
-      <div class="row">
+      <div class="row mb-4">
         <div class="col-lg-2 d-flex align-items-center">
           <div class="image-container">
             <input
@@ -47,7 +47,7 @@
                 <div class="col-lg-4">
                   <app-form-helper [label]="'commission_fee' | translate">
                     <mat-form-field appearance="outline" class="default-input full-width">
-                      <input type="number" matInput [formControl]="form.controls.commission_fee" />
+                      <input type="number" matInput [formControl]="form.controls.commission_rate" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
@@ -73,6 +73,28 @@
                       </mat-select>
                     </mat-form-field>
                   </app-form-helper>
+                </div>
+                <div class="col-lg-4">
+                  <mat-label>KHQR</mat-label>
+                  <div class="khqr-box">
+                    <input
+                      type="file"
+                      style="display: none"
+                      #fileInputKhqr
+                      (change)="onKhqrSelected($event)"
+                      accept="image/*"
+                    />
+                    @if (khqrUrl !== '') {
+                      <img [src]="khqrUrl" alt="" />
+                      <button mat-icon-button class="edit-btn" (click)="fileInputKhqr.click()">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    } @else {
+                      <button mat-icon-button class="add-btn" (click)="fileInputKhqr.click()">
+                        <mat-icon>add_a_photo</mat-icon>
+                      </button>
+                    }
+                  </div>
                 </div>
               </div>
             </div>

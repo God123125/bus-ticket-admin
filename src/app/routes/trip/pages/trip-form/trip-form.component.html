@@ -1,0 +1,100 @@
+<div class="page-container">
+  <div class="default-card">
+    <div class="form-header">
+      <h3 class="title">
+        {{
+          (updateId !== '' ? 'actions.edit' : '_add') | translate: { param: ('trip' | translate) }
+        }}
+      </h3>
+    </div>
+    <div class="content">
+      <form class="form" [formGroup]="form">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6">
+              <app-form-helper [label]="'bus' | translate" [control]="form.controls.bus">
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <mat-select [formControl]="form.controls.bus">
+                    @for (b of buses(); track b._id) {
+                      <mat-option [value]="b._id">
+                        {{ b.model_name }} ({{ b.plate_number }})
+                      </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-6">
+              <app-form-helper [label]="'schedule' | translate" [control]="form.controls.schedule">
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <mat-select [formControl]="form.controls.schedule">
+                    @for (s of schedules(); track s._id) {
+                      <mat-option [value]="s._id">
+                        {{ s.from }} &rarr; {{ s.to }} ({{ s.departure_time | time }} &rarr;
+                        {{ s.arrival_time | time }})
+                      </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-4">
+              <app-form-helper
+                [label]="'departure_date' | translate"
+                [control]="form.controls.departure_date"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    [formControl]="form.controls.departure_date"
+                  />
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-4">
+              <app-form-helper
+                [label]="'price_per_seat' | translate"
+                [control]="form.controls.price_per_seat"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <input type="number" matInput [formControl]="form.controls.price_per_seat" />
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-4">
+              <app-form-helper
+                [label]="'amenities' | translate"
+                [control]="form.controls.amenities"
+              >
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <mat-select [formControl]="form.controls.amenities" multiple>
+                    @for (a of amenities; track a) {
+                      <mat-option [value]="a">{{ a }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="d-flex justify-content-end align-items-center gap-2">
+        <a
+          type="button"
+          mat-stroked-button
+          color="primary"
+          [routerLink]="updateId !== '' ? '../../' : '../'"
+        >
+          {{ 'actions.cancel' | translate }}
+        </a>
+        <button type="button" mat-flat-button color="primary" (click)="onSave()">
+          <mat-icon>save</mat-icon>
+          {{ 'actions.save' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

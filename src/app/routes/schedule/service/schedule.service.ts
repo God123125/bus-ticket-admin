@@ -10,5 +10,20 @@ export class ScheduleService extends BaseCrudService<Schedule> {
     super(injector);
     this.path = '/api/schedules';
   }
-}
 
+  override create(data: any) {
+    return this.requestService.postFile<Schedule>(this.path, {
+      data,
+      is_alert_error: true,
+      is_loading: true,
+    });
+  }
+
+  override update(id: string, data: any) {
+    return this.requestService.patchFile<Schedule>(this.path + '/' + id, {
+      data,
+      is_alert_error: true,
+      is_loading: true,
+    });
+  }
+}

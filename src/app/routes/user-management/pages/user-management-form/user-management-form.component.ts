@@ -11,6 +11,7 @@ import { UserManagementService } from '../../services/user-management.service';
 import { CompanyService } from '../../../company/service/company.service';
 import { Company } from '../../../company/model/company';
 import { MatSelectModule } from '@angular/material/select';
+import { LocalStorageService } from '../../../../services/local-storage.service';
 
 @Component({
   selector: 'app-user-management-form',
@@ -49,13 +50,18 @@ export class UserManagementFormComponent {
     company: new FormControl<string | null>(null),
   });
   companies = signal<Company[]>([]);
+  isAdmin = signal<boolean>(false);
   constructor(
     private userManagementService: UserManagementService,
     private router: Router,
     private route: ActivatedRoute,
     private companyService: CompanyService,
+    private localStorageService: LocalStorageService,
   ) {
-    this.loadCompany();
+    this.isAdmin.set(this.localStorageService.isAdmin());
+    if (this.isAdmin()) {
+      this.loadCompany();
+    }
     this.route.params.subscribe((params) => {
       this.updateId = params['id'] ?? '';
       if (this.updateId) {

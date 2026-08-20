@@ -84,6 +84,57 @@
                 </mat-form-field>
               </app-form-helper>
             </div>
+            <div class="col-12 mb-3">
+              <label class="form-label mb-2">
+                <mat-icon class="label-icon">collections</mat-icon>
+                <span>{{ 'image' | translate }}</span>
+              </label>
+              <div class="upload-card" [class.has-image]="previewUrl">
+                <input
+                  #fileInput
+                  type="file"
+                  accept="image/*"
+                  class="d-none"
+                  (change)="onFileSelected($event)"
+                />
+
+                @if (previewUrl) {
+                  <div class="image-preview">
+                    <img [src]="previewUrl" alt="Trip image" />
+                    <div class="preview-overlay">
+                      <button
+                        type="button"
+                        mat-mini-fab
+                        color="primary"
+                        (click)="fileInput.click()"
+                        matTooltip="Change Image"
+                        class="overlay-btn"
+                      >
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button
+                        type="button"
+                        mat-mini-fab
+                        color="warn"
+                        (click)="removeImage(fileInput)"
+                        matTooltip="Remove Image"
+                        class="overlay-btn"
+                      >
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                } @else {
+                  <div class="upload-placeholder" (click)="fileInput.click()">
+                    <div class="icon-circle">
+                      <mat-icon>add_a_photo</mat-icon>
+                    </div>
+                    <span class="upload-title">{{ 'image' | translate }}</span>
+                    <span class="upload-sub">Click to browse</span>
+                  </div>
+                }
+              </div>
+            </div>
           </div>
         </div>
       </form>
