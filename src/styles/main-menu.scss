@@ -72,7 +72,7 @@
       mat-icon {
         padding: 0 !important;
         margin: 0 !important;
-        color: color.adjust(black, $lightness: 40%) !important;
+        color: $color-white !important;
         font-size: 23px;
         padding-right: 10px !important;
       }
@@ -83,6 +83,7 @@
 
       .mat-expansion-panel-header-title {
         font-size: $default-font-size;
+        color: $color-white !important;
 
         span {
           margin-top: 3px !important;
@@ -91,7 +92,7 @@
 
       .mat-expansion-indicator {
         &::after {
-          color: color.adjust(black, $lightness: 50%);
+          color: $color-white !important;
         }
       }
     }
@@ -104,7 +105,17 @@
         padding-right: 0 !important;
         border-radius: $default-border-radius;
         cursor: pointer;
+        &.active-route {
+          background-color: #f4f6ff !important;
 
+          &::before {
+            background-color: #f4f6ff !important;
+          }
+          span {
+            color: $color-primary !important;
+            // font-family: 'EnBold', 'KhBold' !important;
+          }
+        }
         .mdc-list-item__primary-text {
           font-size: $default-font-size;
         }

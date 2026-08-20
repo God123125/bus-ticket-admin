@@ -46,6 +46,7 @@
   "price_per_seat": "Price Per Seat",
   "image": "Image",
   "amenities": "Amenities",
+  "settings": "Settings",
   "actions": {
     "create": "Create",
     "delete": "Delete",
@@ -68,7 +69,8 @@
     "company": "Manage Company",
     "station": "Station",
     "schedule": "Trip Schedule",
-    "trip": "Manage Trip"
+    "trip": "Manage Trip",
+    "geography": "Geography"
   },
   "msg": {
     "required": "This field is required",

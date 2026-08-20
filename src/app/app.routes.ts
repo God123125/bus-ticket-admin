@@ -73,6 +73,15 @@ export const routes: Routes = [
         },
         canActivate: [authGuard],
       },
+      {
+        path: 'geography',
+        loadChildren: () => import('./routes/geography/geography.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Admin, RolePermissionEnum.Merchant],
+          type: 'settings',
+        },
+        canActivate: [authGuard],
+      },
     ],
   },
   {

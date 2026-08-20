@@ -79,6 +79,27 @@
                 </mat-list-item>
               </a>
             }
+            @if (menu.settings.length > 0) {
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>settings</mat-icon> &nbsp;
+                    <span>{{ menu.settings[0].type | translate }}</span>
+                  </mat-panel-title></mat-expansion-panel-header
+                >
+                @for (item of menu.settings; track $index) {
+                  <a [routerLink]="item.route">
+                    <mat-list-item
+                      matRipple
+                      class="expand-panel-item"
+                      routerLinkActive="active-route"
+                    >
+                      <span>{{ 'route.' + item.title | translate }}</span>
+                    </mat-list-item>
+                  </a>
+                }
+              </mat-expansion-panel>
+            }
           </mat-list>
         </div>
       </div>
