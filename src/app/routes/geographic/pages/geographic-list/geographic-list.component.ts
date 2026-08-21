@@ -18,14 +18,12 @@ import { ImgUrlPipe } from '../../../../shared/pipes/img-url-pipe';
     MatIconModule,
     TranslatePipe,
     RouterLink,
-    ImgUrlPipe,
-    ConfirmMessageDirective,
     MatPaginatorModule,
   ],
-  templateUrl: './geography-list.component.html',
-  styleUrl: './geography-list.component.scss',
+  templateUrl: './geographic-list.component.html',
+  styleUrl: './geographic-list.component.scss',
 })
-export class GeographyListComponent {
+export class GeographicListComponent {
   params = {
     page: 1,
     limit: 10,

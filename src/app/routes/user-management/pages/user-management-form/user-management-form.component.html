@@ -25,42 +25,57 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'name' | translate">
+                  <app-form-helper [label]="'name' | translate" [control]="form.controls.full_name">
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <input type="text" matInput [formControl]="form.controls.full_name" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'username' | translate">
+                  <app-form-helper
+                    [label]="'username' | translate"
+                    [control]="form.controls.username"
+                  >
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <input type="text" matInput [formControl]="form.controls.username" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'password' | translate">
+                  <app-form-helper
+                    [label]="'password' | translate"
+                    [control]="form.controls.password"
+                  >
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <input type="password" matInput [formControl]="form.controls.password" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'phone_number' | translate">
+                  <app-form-helper
+                    [label]="'phone_number' | translate"
+                    [control]="form.controls.tel"
+                  >
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <input type="text" matInput [formControl]="form.controls.tel" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'bank_acc_name' | translate">
+                  <app-form-helper
+                    [label]="'bank_acc_name' | translate"
+                    [control]="form.controls.bank_acc_name"
+                  >
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <input type="text" matInput [formControl]="form.controls.bank_acc_name" />
                     </mat-form-field>
                   </app-form-helper>
                 </div>
                 <div class="col-lg-4">
-                  <app-form-helper [label]="'bank_acc_number' | translate">
+                  <app-form-helper
+                    [label]="'bank_acc_number' | translate"
+                    [control]="form.controls.bank_acc_number"
+                  >
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <input type="text" matInput [formControl]="form.controls.bank_acc_number" />
                     </mat-form-field>
@@ -68,7 +83,10 @@
                 </div>
                 @if (isAdmin()) {
                   <div class="col-lg-6">
-                    <app-form-helper [label]="'company' | translate">
+                    <app-form-helper
+                      [label]="'company' | translate"
+                      [control]="form.controls.company"
+                    >
                       <mat-form-field appearance="outline" class="default-input full-width">
                         <mat-select [formControl]="form.controls.company">
                           @for (company of companies(); track company._id) {
@@ -80,7 +98,10 @@
                   </div>
                 }
                 <div class="col-lg-6" [class.col-lg-12]="!isAdmin()">
-                  <app-form-helper [label]="'address' | translate">
+                  <app-form-helper
+                    [label]="'address' | translate"
+                    [control]="form.controls.address"
+                  >
                     <mat-form-field appearance="outline" class="default-input full-width">
                       <textarea
                         type="text"

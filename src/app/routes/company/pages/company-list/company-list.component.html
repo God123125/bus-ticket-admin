@@ -20,6 +20,7 @@
             <th scope="col">{{ 'name' | translate }}</th>
             <th scope="col">{{ 'owner' | translate }}</th>
             <th scope="col">{{ 'commission_fee' | translate }}</th>
+            <th>{{ 'color' | translate }}</th>
             <th scope="col">{{ 'status' | translate }}</th>
             <th scope="col">{{ 'action' | translate }}</th>
           </tr>
@@ -34,6 +35,9 @@
               <td>{{ item.name }}</td>
               <td>{{ item.owner.full_name }}</td>
               <td>{{ item.commission_rate }}%</td>
+              <td>
+                <div class="color" [style.background-color]="item.color"></div>
+              </td>
               <td>
                 <span
                   class="badge"

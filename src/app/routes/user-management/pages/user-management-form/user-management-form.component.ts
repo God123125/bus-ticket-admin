@@ -79,7 +79,6 @@ export class UserManagementFormComponent {
   loadUser(id: string) {
     this.userManagementService.getById(id).subscribe({
       next: (res) => {
-        this.form.controls.password.disable();
         this.form.patchValue({
           username: res.username,
           tel: res.tel,

@@ -8,7 +8,11 @@
     border-radius: $default-border-radius;
     padding: 0px 15px !important;
     cursor: pointer !important;
-
+    transition: ease 0.5s;
+    &:hover {
+      background-color: #f4f6ff73;
+      transform: translateX(-3px);
+    }
     &.active-route {
       background-color: #f4f6ff;
 

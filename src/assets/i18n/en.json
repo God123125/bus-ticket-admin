@@ -47,6 +47,9 @@
   "image": "Image",
   "amenities": "Amenities",
   "settings": "Settings",
+  "color": "Color",
+  "name_kh": "Khmer Name",
+  "name_en": "English Name",
   "actions": {
     "create": "Create",
     "delete": "Delete",
