@@ -30,8 +30,10 @@
                   <mat-select [formControl]="form.controls.schedule">
                     @for (s of schedules(); track s._id) {
                       <mat-option [value]="s._id">
-                        {{ s.from }} &rarr; {{ s.to }} ({{ s.departure_time | time }} &rarr;
-                        {{ s.arrival_time | time }})
+                        {{ s.from.name_kh }} &rarr; {{ s.to.name_kh }} ({{
+                          s.departure_time | time
+                        }}
+                        &rarr; {{ s.arrival_time | time }})
                       </mat-option>
                     }
                   </mat-select>

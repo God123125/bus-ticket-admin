@@ -1,6 +1,6 @@
 <div class="page-container">
   <div class="scroll-container">
-    <h3 class="title">{{ 'route.user-management' | translate }}</h3>
+    <h3 class="title">{{ 'route.geographic' | translate }}</h3>
     <div class="header-content d-flex justify-content-between align-items-center">
       <mat-form-field appearance="outline" class="default-input h mb-0" [floatLabel]="'always'">
         <mat-label>{{ 'actions.search' | translate }}</mat-label>
@@ -23,9 +23,28 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-          </tr>
+          @for (item of geographics(); track item._id; let i = $index) {
+            <tr>
+              <td>{{ i + 1 + (params.page - 1) * params.limit }}</td>
+              <td>{{ item.name_kh }}</td>
+              <td>{{ item.name_en }}</td>
+              <td>
+                <button mat-icon-button color="primary" [routerLink]="['edit', item._id]">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  appConfirmMessage
+                  [message]="'delete_question' | translate"
+                  [title]="'delete_information' | translate"
+                  (confirmEmitter)="onDelete(item._id!)"
+                  mat-icon-button
+                  color="warn"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
       <mat-paginator

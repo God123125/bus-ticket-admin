@@ -36,7 +36,7 @@
               </td>
               <td>
                 @if (item.schedule) {
-                  {{ item.schedule.from }} &rarr; {{ item.schedule.to }} ({{
+                  {{ item.schedule.from.name_kh }} &rarr; {{ item.schedule.to.name_kh }} ({{
                     item.schedule.departure_time | time
                   }}
                   &rarr; {{ item.schedule.arrival_time | time }})

@@ -25,10 +25,15 @@
         </div>
       </form>
       <div class="d-flex justify-content-end align-items-center gap-2">
-        <a type="button" mat-stroked-button color="primary" [routerLink]="'../'">
+        <a
+          type="button"
+          mat-stroked-button
+          color="primary"
+          [routerLink]="updateId ? '../../' : '../'"
+        >
           {{ 'actions.cancel' | translate }}
         </a>
-        <button type="button" mat-flat-button color="primary">
+        <button type="button" mat-flat-button color="primary" (click)="onSubmit()">
           <mat-icon>save</mat-icon>
           {{ 'actions.save' | translate }}
         </button>

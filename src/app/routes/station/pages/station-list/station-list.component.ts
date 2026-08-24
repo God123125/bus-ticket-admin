@@ -53,6 +53,13 @@ export class StationListComponent {
   onPageChange(event: PageEvent) {
     this.params.page = event.pageIndex + 1;
     this.params.limit = event.pageSize;
+    this.getList();
   }
-  onDelete(id: string) {}
+  onDelete(id: string) {
+    this.stationService.delete(id).subscribe({
+      next: () => {
+        this.getList();
+      },
+    });
+  }
 }

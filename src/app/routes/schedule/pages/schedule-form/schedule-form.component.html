@@ -15,14 +15,22 @@
             <div class="col-lg-6">
               <app-form-helper [label]="'from' | translate" [control]="form.controls.from">
                 <mat-form-field appearance="outline" class="default-input full-width">
-                  <input type="text" matInput [formControl]="form.controls.from" />
+                  <mat-select [formControl]="form.controls.from">
+                    @for (geo of geographics(); track geo._id) {
+                      <mat-option [value]="geo._id">{{ geo.name_kh }}</mat-option>
+                    }
+                  </mat-select>
                 </mat-form-field>
               </app-form-helper>
             </div>
             <div class="col-lg-6">
               <app-form-helper [label]="'to' | translate" [control]="form.controls.to">
                 <mat-form-field appearance="outline" class="default-input full-width">
-                  <input type="text" matInput [formControl]="form.controls.to" />
+                  <mat-select [formControl]="form.controls.to">
+                    @for (geo of geographics(); track geo._id) {
+                      <mat-option [value]="geo._id">{{ geo.name_kh }}</mat-option>
+                    }
+                  </mat-select>
                 </mat-form-field>
               </app-form-helper>
             </div>

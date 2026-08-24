@@ -135,12 +135,21 @@ export class StationFormComponent implements AfterViewInit, OnDestroy {
         latitude: val.latitude!,
         longitude: val.longitude!,
       };
-      this.stationService.create(payload).subscribe({
-        next: () => {
-          this.router.navigate(['../'], { relativeTo: this.route });
-        },
-        error: (err) => {},
-      });
+      if (this.updateId) {
+        this.stationService.update(this.updateId, payload).subscribe({
+          next: () => {
+            this.router.navigate(['../../'], { relativeTo: this.route });
+          },
+          error: (err) => {},
+        });
+      } else {
+        this.stationService.create(payload).subscribe({
+          next: () => {
+            this.router.navigate(['../'], { relativeTo: this.route });
+          },
+          error: (err) => {},
+        });
+      }
     }
   }
   ngOnDestroy(): void {

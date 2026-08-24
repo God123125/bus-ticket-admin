@@ -12,6 +12,9 @@ import { ScheduleService } from '../../service/schedule.service';
 import { StationService } from '../../../station/service/station.service';
 import { Station } from '../../../station/model/station';
 import { Company } from '../../../company/model/company';
+import { GeographicService } from '../../../geographic/service/geographic.service';
+import { Geographic } from '../../../geographic/model/geographic';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-schedule-form',
@@ -25,6 +28,7 @@ import { Company } from '../../../company/model/company';
     RouterLink,
     FormHelperComponent,
     MatSelectModule,
+    MatExpansionModule,
   ],
   templateUrl: './schedule-form.component.html',
   styleUrl: './schedule-form.component.scss',
@@ -46,11 +50,13 @@ export class ScheduleFormComponent {
   companies = signal<Company[]>([]);
   selectedFile: File | null = null;
   previewUrl: string | null = null;
+  geographics = signal<Geographic[]>([]);
   constructor(
     private scheduleService: ScheduleService,
     private stationService: StationService,
     private router: Router,
     private route: ActivatedRoute,
+    private geographicService: GeographicService,
   ) {
     this.loadStations();
     this.route.params.subscribe((params) => {
@@ -58,6 +64,15 @@ export class ScheduleFormComponent {
       if (this.updateId) {
         this.loadSchedule(this.updateId);
       }
+    });
+    this.loadGeographics();
+  }
+
+  loadGeographics() {
+    this.geographicService.getMany().subscribe({
+      next: (res) => {
+        this.geographics.set(res.list);
+      },
     });
   }
 
@@ -73,8 +88,8 @@ export class ScheduleFormComponent {
     this.scheduleService.getById(id).subscribe({
       next: (res) => {
         this.form.patchValue({
-          from: res.from,
-          to: res.to,
+          from: res.from?._id,
+          to: res.to?._id,
           departure_time: res.departure_time,
           arrival_time: res.arrival_time,
           departure_station: res.departure_station._id,
@@ -110,7 +125,7 @@ export class ScheduleFormComponent {
       return;
     }
 
-    const payload = {
+    const payload: any = {
       from: this.form.value.from || '',
       to: this.form.value.to || '',
       departure_time: this.form.value.departure_time || '',
@@ -118,9 +133,10 @@ export class ScheduleFormComponent {
       departure_station: this.form.value.departure_station || '',
       arrival_station: this.form.value.arrival_station || '',
       description: this.form.value.description || '',
-      image: this.selectedFile || this.form.value.image || '',
     };
-
+    if (this.selectedFile || this.form.value.image) {
+      payload.image = this.selectedFile || this.form.value.image || '';
+    }
     if (this.updateId) {
       this.scheduleService.update(this.updateId, payload as any).subscribe({
         next: () => {
