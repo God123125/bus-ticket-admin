@@ -75,13 +75,13 @@ export class UserManagementListComponent {
   onOpenTelegramQr(id: string) {
     this.userService.getTelegramQrUrl(id).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.dialog.open(TelegramQrDialogComponent, {
           data: {
             qr: res?.qrDataUrl,
+            duration: res?.expiredIn,
           },
           width: '400px',
-          height: '400px',
+          disableClose: true,
         });
       },
     });

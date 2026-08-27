@@ -3,6 +3,15 @@
   <div class="qr-container">
     <img [src]="qr" alt="" />
   </div>
+  <div class="time-counter">
+    @if (timeLeft > 0) {
+      <p class="mb-0">
+        Expires in: <span>{{ formattedTime }}</span>
+      </p>
+    } @else {
+      <p class="expired mb-0">QR code has expired. Please create a new one.</p>
+    }
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-flat-button color="primary" mat-dialog-close>

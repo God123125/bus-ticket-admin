@@ -1,9 +1,20 @@
 .qr-container {
   width: 100%;
-  height: 100%;
   img {
     width: 100%;
-    height: 100%;
     object-fit: contain;
+  }
+}
+.time-counter {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 0.95rem;
+  span {
+    font-weight: 600;
+    color: #e53935;
+  }
+  .expired {
+    color: #e53935;
+    font-weight: 500;
   }
 }
