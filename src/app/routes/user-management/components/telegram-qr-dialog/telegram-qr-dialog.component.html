@@ -1,0 +1,11 @@
+<h3 mat-dialog-title>{{ 'telegram_bot_qr' | translate }}</h3>
+<mat-dialog-content>
+  <div class="qr-container">
+    <img [src]="qr" alt="" />
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" mat-dialog-close>
+    {{ 'actions.close' | translate }}
+  </button>
+</mat-dialog-actions>

@@ -50,6 +50,7 @@
   "color": "Color",
   "name_kh": "Khmer Name",
   "name_en": "English Name",
+  "telegram_bot_qr": "Telegram Bot QR",
   "actions": {
     "create": "Create",
     "delete": "Delete",
@@ -63,7 +64,8 @@
     "user_info": "User Info",
     "change_password": "Change Password",
     "confirm": "Confirm",
-    "back": "Back"
+    "back": "Back",
+    "close": "Close"
   },
   "route": {
     "bus": "Manage Bus",

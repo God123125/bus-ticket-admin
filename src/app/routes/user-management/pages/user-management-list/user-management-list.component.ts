@@ -10,6 +10,8 @@ import { User } from '../../model/user';
 import { ImgUrlPipe } from '../../../../shared/pipes/img-url-pipe';
 import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helper/directives/confirm-message.directive';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { TelegramQrDialogComponent } from '../../components/telegram-qr-dialog/telegram-qr-dialog.component';
 @Component({
   selector: 'app-user-management-list',
   imports: [
@@ -34,7 +36,10 @@ export class UserManagementListComponent {
   };
   users = signal<User[]>([]);
   total = signal(0);
-  constructor(private userService: UserManagementService) {}
+  constructor(
+    private userService: UserManagementService,
+    private dialog: MatDialog,
+  ) {}
   ngOnInit(): void {
     this.getList();
   }
@@ -65,5 +70,20 @@ export class UserManagementListComponent {
     this.params.page = event.pageIndex + 1;
     this.params.limit = event.pageSize;
     this.getList();
+  }
+
+  onOpenTelegramQr(id: string) {
+    this.userService.getTelegramQrUrl(id).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.dialog.open(TelegramQrDialogComponent, {
+          data: {
+            qr: res?.qrDataUrl,
+          },
+          width: '400px',
+          height: '400px',
+        });
+      },
+    });
   }
 }

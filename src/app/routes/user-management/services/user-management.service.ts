@@ -22,4 +22,10 @@ export class UserManagementService extends BaseCrudService<User> {
       is_alert_error: true,
     });
   }
+  getTelegramQrUrl(id: string) {
+    return this.requestService.getJSON<{ qrDataUrl: string }>(`/api/telegram/link-qr/${id}`, {
+      is_loading: true,
+      is_alert_error: true,
+    });
+  }
 }

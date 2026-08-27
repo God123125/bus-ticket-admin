@@ -51,6 +51,7 @@
   "name_kh": "ឈ្មោះខ្មែរ",
   "name_en": "ឈ្មោះអង់គ្លេស",
   "geographic": "ទីតាំងភូមិសាស្ត្រ",
+  "telegram_bot_qr": "Telegram Bot QR",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",
@@ -64,7 +65,8 @@
     "user_info": "ព័ត៌មានអ្នកប្រើប្រាស់",
     "change_password": "ប្ដូរលេខសម្ងាត់",
     "confirm": "យល់ព្រម",
-    "back": "ចាកចេញ"
+    "back": "ចាកចេញ",
+    "close": "បិទ"
   },
   "route": {
     "bus": "គ្រប់គ្រងឡានក្រុង",
