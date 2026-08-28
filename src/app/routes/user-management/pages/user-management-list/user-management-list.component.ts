@@ -12,6 +12,8 @@ import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helpe
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { TelegramQrDialogComponent } from '../../components/telegram-qr-dialog/telegram-qr-dialog.component';
+import { EMPTY, Subject, switchMap, takeUntil } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-user-management-list',
   imports: [
@@ -36,9 +38,11 @@ export class UserManagementListComponent {
   };
   users = signal<User[]>([]);
   total = signal(0);
+  destroy$ = new Subject<void>();
   constructor(
     private userService: UserManagementService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {}
   ngOnInit(): void {
     this.getList();
@@ -73,17 +77,41 @@ export class UserManagementListComponent {
   }
 
   onOpenTelegramQr(id: string) {
-    this.userService.getTelegramQrUrl(id).subscribe({
-      next: (res: any) => {
-        this.dialog.open(TelegramQrDialogComponent, {
-          data: {
-            qr: res?.qrDataUrl,
-            duration: res?.expiredIn,
-          },
-          width: '400px',
-          disableClose: true,
-        });
-      },
-    });
+    this.userService
+      .checkIsUserLinked(id)
+      .pipe(
+        switchMap((res) => {
+          if (res.is_linked) {
+            // handle "already linked" case — replace with a snackbar/toast instead of alert
+            this.snackBar.open('This account is already linked to Telegram', 'Close', {
+              duration: 3000,
+            });
+            return EMPTY;
+          }
+          return this.userService.getTelegramQrUrl(id);
+        }),
+        switchMap((qrRes: any) => {
+          const dialogRef = this.dialog.open(TelegramQrDialogComponent, {
+            data: {
+              qr: qrRes?.qrDataUrl,
+              duration: qrRes?.expiredIn,
+              userId: id,
+            },
+            width: '400px',
+            disableClose: true,
+          });
+          return dialogRef.afterClosed();
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: () => {
+          setTimeout(() => this.getList(), 3000);
+        },
+        error: (err) => {
+          console.error(err);
+          this.snackBar.open('Something went wrong', 'Close', { duration: 3000 });
+        },
+      });
   }
 }

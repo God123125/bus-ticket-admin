@@ -28,4 +28,10 @@ export class UserManagementService extends BaseCrudService<User> {
       is_alert_error: true,
     });
   }
+  checkIsUserLinked(id: string) {
+    return this.requestService.getJSON<{ is_linked: boolean }>(`/api/telegram/check-user/${id}`, {
+      is_loading: true,
+      is_alert_error: true,
+    });
+  }
 }

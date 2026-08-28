@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
+import { UserManagementService } from '../../services/user-management.service';
 
 @Component({
   selector: 'app-telegram-qr-dialog',
@@ -13,11 +14,16 @@ export class TelegramQrDialogComponent implements OnInit, OnDestroy {
   qr: string = '';
   timeLeft: number = 60; // in seconds
   timerInterval: any;
-
+  checkInterval: any;
+  userId: string = '';
+  isLinked = signal(false);
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: { qr: string; duration?: number },
+    @Inject(MAT_DIALOG_DATA) data: { qr: string; duration?: number; userId: string },
+    private dialogRef: MatDialogRef<TelegramQrDialogComponent>,
     private cdr: ChangeDetectorRef,
+    private userService: UserManagementService,
   ) {
+    this.userId = data.userId;
     this.qr = data.qr;
     if (data.duration) {
       // If API returns milliseconds (> 1000), convert to seconds, otherwise use as-is
@@ -28,6 +34,7 @@ export class TelegramQrDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.startTimer();
+    this.checkIsUserLinked();
   }
 
   startTimer(): void {
@@ -41,7 +48,23 @@ export class TelegramQrDialogComponent implements OnInit, OnDestroy {
       }
     }, 1000);
   }
-
+  checkIsUserLinked() {
+    this.checkInterval = setInterval(() => {
+      this.userService.checkIsUserLinked(this.userId).subscribe({
+        next: (res: any) => {
+          this.isLinked.set(res.is_linked);
+          if (res.is_linked) {
+            clearInterval(this.checkInterval);
+            this.close();
+          }
+        },
+      });
+    }, 2000);
+  }
+  close() {
+    this.dialogRef.close();
+    clearInterval(this.checkInterval);
+  }
   get formattedTime(): string {
     const minutes = Math.floor(this.timeLeft / 60);
     const seconds = this.timeLeft % 60;
@@ -57,5 +80,6 @@ export class TelegramQrDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stopCountdown();
+    clearInterval(this.checkInterval);
   }
 }
