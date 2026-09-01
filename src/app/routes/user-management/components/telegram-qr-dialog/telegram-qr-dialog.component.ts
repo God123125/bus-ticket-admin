@@ -49,21 +49,17 @@ export class TelegramQrDialogComponent implements OnInit, OnDestroy {
     }, 1000);
   }
   checkIsUserLinked() {
-    this.checkInterval = setInterval(() => {
-      this.userService.checkIsUserLinked(this.userId).subscribe({
-        next: (res: any) => {
-          this.isLinked.set(res.is_linked);
-          if (res.is_linked) {
-            clearInterval(this.checkInterval);
-            this.close();
-          }
-        },
-      });
-    }, 2000);
+    this.userService.checkIsUserLinked(this.userId).subscribe({
+      next: (res: any) => {
+        this.isLinked.set(res.is_linked);
+        if (res.is_linked) {
+          this.close();
+        }
+      },
+    });
   }
   close() {
     this.dialogRef.close();
-    clearInterval(this.checkInterval);
   }
   get formattedTime(): string {
     const minutes = Math.floor(this.timeLeft / 60);
@@ -80,6 +76,5 @@ export class TelegramQrDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stopCountdown();
-    clearInterval(this.checkInterval);
   }
 }
