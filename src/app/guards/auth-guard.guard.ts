@@ -29,6 +29,8 @@ export const authGuard: CanActivateFn = (route, state) => {
       if (state.url !== defaultTarget) {
         router.navigate([defaultTarget]);
       } else {
+        // If user is already on the default target and is not authorized, log them out
+        // This prevent the infinite loop when user is not authorized
         authService.logout();
         router.navigate(['/login']);
       }
