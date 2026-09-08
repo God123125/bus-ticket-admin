@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
       fallbackLang: 'en',
       lang: 'km',
     }),
-    provideCharts(withDefaultRegisterables()),
     provideZonelessChangeDetection(),
+    provideCharts(withDefaultRegisterables()),
   ],
 };

@@ -19,6 +19,16 @@
                 </mat-list-item>
               </a>
             }
+            @if (menu.merchantDashboard.length > 0) {
+              <a [routerLink]="menu.merchantDashboard[0].route">
+                <mat-list-item matRipple routerLinkActive="active-route">
+                  <div class="left-side">
+                    <mat-icon>dashboard</mat-icon>
+                    <span>{{ 'route.' + menu.merchantDashboard[0].title | translate }}</span>
+                  </div>
+                </mat-list-item>
+              </a>
+            }
             @if (menu.bus.length > 0) {
               <a [routerLink]="menu.bus[0].route">
                 <mat-list-item matRipple routerLinkActive="active-route">

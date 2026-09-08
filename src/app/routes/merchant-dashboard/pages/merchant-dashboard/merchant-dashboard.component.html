@@ -1,0 +1,43 @@
+<div class="page-container">
+  <div class="container-fluid">
+    <!-- Changed mb-2 to mb-4 or mb-5 -->
+    <div class="row">
+      <div class="col-lg-4">
+        <app-summary-card
+          [title]="'total_bus' | translate"
+          [value]="dashboardData().busCount"
+          [icon]="'directions_bus'"
+          [iconBgColor]="'#eff6ff'"
+          [iconColor]="'#3b82f6'"
+        ></app-summary-card>
+      </div>
+      <div class="col-lg-4">
+        <app-summary-card
+          [title]="'total_station' | translate"
+          [value]="dashboardData().stationCount"
+          [icon]="'location_on'"
+          [iconBgColor]="'#ffe5ec'"
+          [iconColor]="'#fb6f92'"
+        ></app-summary-card>
+      </div>
+      <div class="col-lg-4">
+        <app-summary-card
+          [title]="'total_trip' | translate"
+          [value]="dashboardData().tripCount"
+          [icon]="'card_travel'"
+          [iconBgColor]="'#d0f4de'"
+          [iconColor]="'#058c42'"
+        ></app-summary-card>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8">
+        <app-trend-analytical-chart
+          [chartData]="trendAnalyticalData()"
+        ></app-trend-analytical-chart>
+      </div>
+    </div>
+  </div>
+</div>

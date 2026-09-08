@@ -25,7 +25,8 @@ export const authGuard: CanActivateFn = (route, state) => {
     if (isAuthorized) {
       return true;
     } else {
-      const defaultTarget = userRole === RolePermissionEnum.Admin ? '/dashboard' : '/bus';
+      const defaultTarget =
+        userRole === RolePermissionEnum.Admin ? '/dashboard' : '/merchant-dashboard';
       if (state.url !== defaultTarget) {
         router.navigate([defaultTarget]);
       } else {

@@ -71,6 +71,9 @@ export class Container {
       settings: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'settings' && menuItem.role?.includes(this.role);
       }),
+      merchantDashboard: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'merchant-dashboard' && menuItem.role?.includes(this.role);
+      }),
     };
     this.redirectTofirstMenu();
   }
@@ -97,7 +100,7 @@ export class Container {
       if (this.role == RolePermissionEnum.Admin) {
         this.router.navigate(['/dashboard'], { replaceUrl: true });
       } else {
-        this.router.navigate(['/bus'], { replaceUrl: true });
+        this.router.navigate(['/merchant-dashboard'], { replaceUrl: true });
       }
     }
   }

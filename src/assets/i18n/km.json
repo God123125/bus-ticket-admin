@@ -52,6 +52,9 @@
   "name_en": "ឈ្មោះអង់គ្លេស",
   "geographic": "ទីតាំងភូមិសាស្ត្រ",
   "telegram_bot_qr": "Telegram Bot QR",
+  "total_bus": "ចំនួនឡានក្រុងសរុប",
+  "total_station": "ចំនួនស្ថានីយសរុប",
+  "total_trip": "ចំនួនជើងដំណើរការសរុប",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",
@@ -71,6 +74,7 @@
   "route": {
     "bus": "គ្រប់គ្រងឡានក្រុង",
     "dashboard": "ទិដ្ឋភាពរួម",
+    "merchant-dashboard": "ទិដ្ឋភាពរួម",
     "user-management": "គ្រប់គ្រងអ្នកប្រើប្រាស់ប្រព័ន្ធ",
     "company": "គ្រប់គ្រងក្រុមហ៊ុន",
     "station": "គ្រប់គ្រងស្ថានីយ",

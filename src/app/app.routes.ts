@@ -19,6 +19,16 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
+        path: 'merchant-dashboard',
+        loadChildren: () =>
+          import('./routes/merchant-dashboard/merchant-dashboard.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Merchant],
+          type: 'merchant-dashboard',
+        },
+        canActivate: [authGuard],
+      },
+      {
         path: 'bus',
         loadChildren: () => import('./routes/bus/bus.route').then((r) => r.routes),
         data: {
