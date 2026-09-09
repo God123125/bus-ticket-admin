@@ -38,6 +38,62 @@
           [chartData]="trendAnalyticalData()"
         ></app-trend-analytical-chart>
       </div>
+      <div class="col-lg-4">
+        <app-booking-status-chart></app-booking-status-chart>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <app-top-booked-destinations
+          [chartData]="topPerformanceDestination()"
+        ></app-top-booked-destinations>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-container content-scroll">
+          <h4 class="title">{{ 'five_recent_bookings' | translate }}</h4>
+          <table class="table-custom mb-0">
+            <thead>
+              <tr>
+                <th scope="col">{{ 'n.o' | translate }}</th>
+                <th scope="col">{{ 'passenger' | translate }}</th>
+                <th scope="col">{{ 'booked_seats' | translate }}</th>
+                <th scope="col">{{ 'destination' | translate }}</th>
+                <th scope="col">{{ 'departure_time' | translate }}</th>
+                <th scope="col">{{ 'arrival_time' | translate }}</th>
+                <th scope="col">{{ 'total_price' | translate }}</th>
+                <th scope="col">{{ 'status' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of fiveRecentsBooking(); track $index) {
+                <tr>
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ item.user_info.name }}</td>
+                  <td>
+                    @for (st of item.booked_seats; track $index) {
+                      <span>{{ st }}</span>
+                      <span>{{ $last ? '' : ',' }}</span>
+                    }
+                  </td>
+                  <td>
+                    {{ item.trip.schedule.from.name_kh }} ➔ {{ item.trip.schedule.to.name_kh }}
+                  </td>
+                  <td>{{ item.trip.schedule.departure_time }}</td>
+                  <td>{{ item.trip.schedule.arrival_time }}</td>
+                  <td>{{ item.total_price }}</td>
+                  <td>{{ item.status }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

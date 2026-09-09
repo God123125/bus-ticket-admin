@@ -5,21 +5,41 @@ import { MerchantDashboardService } from '../../service/merchant-dashboard.servi
 import { MerchantDashboard } from '../../model/merchant-dashboard';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TrendAnalyticalChartComponent } from '../../components/trend-analytical-chart/trend-analytical-chart.component';
+import { BookingStatusChartComponent } from '../../components/booking-status-chart/booking-status-chart.component';
+import { TopBookedDestinationsComponent } from '../../components/top-booked-destinations/top-booked-destinations.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FiveRecentBookings } from '../../model/five-recent-bookings';
 
 @Component({
   selector: 'app-merchant-dashboard',
-  imports: [MatRippleModule, SummaryCardComponent, TranslatePipe, TrendAnalyticalChartComponent],
+  imports: [
+    MatRippleModule,
+    SummaryCardComponent,
+    TranslatePipe,
+    TrendAnalyticalChartComponent,
+    BookingStatusChartComponent,
+    TopBookedDestinationsComponent,
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './merchant-dashboard.component.html',
   styleUrl: './merchant-dashboard.component.scss',
 })
 export class MerchantDashboardComponent {
   dashboardData = signal<MerchantDashboard>({} as MerchantDashboard);
   trendAnalyticalData = signal<any>({});
+  topPerformanceDestination = signal<any>({});
+  fiveRecentsBooking = signal<FiveRecentBookings[]>([]);
   constructor(private dashboardService: MerchantDashboardService) {}
   ngOnInit(): void {
     this.getSummaryData();
     this.getTrendAnalytical();
     this.getTopPerformanceDestination();
+    this.getBookingStatusDistribution();
+    this.getFiveRecentBookings();
   }
   getSummaryData() {
     this.dashboardService.getMerchantSummaryCard().subscribe({
@@ -37,7 +57,21 @@ export class MerchantDashboardComponent {
   }
   getTopPerformanceDestination() {
     this.dashboardService.getTopPerformanceDestination().subscribe({
+      next: (res) => {
+        this.topPerformanceDestination.set(res);
+      },
+    });
+  }
+  getBookingStatusDistribution() {
+    this.dashboardService.getBookingStatusDistribution().subscribe({
       next: (res) => {},
+    });
+  }
+  getFiveRecentBookings() {
+    this.dashboardService.getFiveRecentBookings().subscribe({
+      next: (res) => {
+        this.fiveRecentsBooking.set(res);
+      },
     });
   }
 }

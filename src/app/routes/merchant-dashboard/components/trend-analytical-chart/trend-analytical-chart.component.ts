@@ -1,31 +1,49 @@
-import { Component, input, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trend-analytical-chart',
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, TranslatePipe],
   templateUrl: './trend-analytical-chart.component.html',
   styleUrl: './trend-analytical-chart.component.scss',
 })
-export class TrendAnalyticalChartComponent {
+export class TrendAnalyticalChartComponent implements OnInit, OnChanges {
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   fontFamily: string = 'KhmerOSBattambang';
   // chartData = input<any>();  new style prer som rap jomnus @Input doy ke hav tha signal input
   @Input() chartData: any;
   lineChartOption: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: {
+        top: 10,
+        bottom: 10,
+        left: 5,
+        right: 15,
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+          color: '#f1f5f9',
+        },
         ticks: {
-          font: { family: this.fontFamily },
+          font: { family: this.fontFamily, size: 12 },
+          color: '#64748b',
         },
       },
       x: {
+        grid: {
+          display: false,
+        },
         ticks: {
-          font: { family: this.fontFamily },
+          font: { family: this.fontFamily, size: 12 },
+          color: '#64748b',
         },
       },
     },
@@ -39,8 +57,10 @@ export class TrendAnalyticalChartComponent {
         labels: {
           usePointStyle: true,
           pointStyle: 'circle',
-          font: { family: this.fontFamily, size: 13 },
-          padding: 30,
+          font: { family: this.fontFamily, size: 12 },
+          padding: 20,
+          boxWidth: 8,
+          boxHeight: 8,
         },
       },
       tooltip: {
@@ -104,10 +124,23 @@ export class TrendAnalyticalChartComponent {
     ],
   };
   constructor() {}
+
+  ngOnInit(): void {
+    if (this.chartData && this.chartData.data && Array.isArray(this.chartData.data)) {
+      this.updateChartData();
+    } else {
+      this.setMockChartData();
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['chartData']) {
-      // this.updateChartData();
-      this.setMockChartData();
+      if (this.chartData && this.chartData.data && Array.isArray(this.chartData.data)) {
+        this.updateChartData();
+      } else {
+        this.setMockChartData();
+      }
+      this.chart?.update();
     }
   }
   updateChartData() {

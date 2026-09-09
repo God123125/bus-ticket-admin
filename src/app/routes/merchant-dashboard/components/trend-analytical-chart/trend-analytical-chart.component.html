@@ -1,10 +1,15 @@
 <div class="chart-card">
-  <canvas
-    id="lineChart"
-    baseChart
-    [data]="lineChartData"
-    [options]="lineChartOption"
-    [type]="'line'"
-  >
-  </canvas>
+  <div class="chart-header">
+    <h4 class="title">{{ 'weekly_revenue' | translate }}</h4>
+  </div>
+  <div class="chart-body">
+    <canvas
+      id="lineChart"
+      baseChart
+      [data]="lineChartData"
+      [options]="lineChartOption"
+      [type]="'line'"
+    >
+    </canvas>
+  </div>
 </div>
