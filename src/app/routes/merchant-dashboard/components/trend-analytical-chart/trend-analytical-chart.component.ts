@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  input,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -12,9 +20,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class TrendAnalyticalChartComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-  fontFamily: string = 'KhmerOSBattambang';
+  fontFamily: string = 'KhReg';
   // chartData = input<any>();  new style prer som rap jomnus @Input doy ke hav tha signal input
-  @Input() chartData: any;
+  chartData = input<any>();
   lineChartOption: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
@@ -57,7 +65,7 @@ export class TrendAnalyticalChartComponent implements OnInit, OnChanges {
         labels: {
           usePointStyle: true,
           pointStyle: 'circle',
-          font: { family: this.fontFamily, size: 12 },
+          font: { family: this.fontFamily, size: 14 },
           padding: 20,
           boxWidth: 8,
           boxHeight: 8,
@@ -126,7 +134,7 @@ export class TrendAnalyticalChartComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.chartData && this.chartData.data && Array.isArray(this.chartData.data)) {
+    if (this.chartData && this.chartData().data && Array.isArray(this.chartData().data)) {
       this.updateChartData();
     } else {
       this.setMockChartData();
@@ -135,7 +143,7 @@ export class TrendAnalyticalChartComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['chartData']) {
-      if (this.chartData && this.chartData.data && Array.isArray(this.chartData.data)) {
+      if (this.chartData && this.chartData().data && Array.isArray(this.chartData().data)) {
         this.updateChartData();
       } else {
         this.setMockChartData();
@@ -144,7 +152,7 @@ export class TrendAnalyticalChartComponent implements OnInit, OnChanges {
     }
   }
   updateChartData() {
-    const list = this.chartData.data;
+    const list = this.chartData().data;
     this.lineChartData = {
       labels: list.map((el: any) => el.label),
       datasets: [

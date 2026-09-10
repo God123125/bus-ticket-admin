@@ -39,7 +39,7 @@
         ></app-trend-analytical-chart>
       </div>
       <div class="col-lg-4">
-        <app-booking-status-chart></app-booking-status-chart>
+        <app-booking-status-chart [chartData]="bookingStatus()"></app-booking-status-chart>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="table-container content-scroll">
-          <h4 class="title">{{ 'five_recent_bookings' | translate }}</h4>
+          <h5 class="title">{{ 'todays_booking' | translate }}</h5>
           <table class="table-custom mb-0">
             <thead>
               <tr>
@@ -87,7 +87,7 @@
                   <td>{{ item.trip.schedule.departure_time }}</td>
                   <td>{{ item.trip.schedule.arrival_time }}</td>
                   <td>{{ item.total_price }}</td>
-                  <td>{{ item.status }}</td>
+                  <td>{{ item.status | lowercase | translate }}</td>
                 </tr>
               }
             </tbody>

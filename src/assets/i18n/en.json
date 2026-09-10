@@ -62,6 +62,9 @@
   "weekly_revenue": "Weekly Revenue",
   "booking_status": "Booking Status",
   "todays_booking": "Today Booking",
+  "confirmed": "Confirmed",
+  "cancelled": "Cancelled",
+  "pending": "Pending",
   "actions": {
     "create": "Create",
     "delete": "Delete",

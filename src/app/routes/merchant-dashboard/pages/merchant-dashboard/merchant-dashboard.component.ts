@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FiveRecentBookings } from '../../model/five-recent-bookings';
+import { LowerCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-merchant-dashboard',
@@ -24,6 +25,7 @@ import { FiveRecentBookings } from '../../model/five-recent-bookings';
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
+    LowerCasePipe,
   ],
   templateUrl: './merchant-dashboard.component.html',
   styleUrl: './merchant-dashboard.component.scss',
@@ -33,6 +35,7 @@ export class MerchantDashboardComponent {
   trendAnalyticalData = signal<any>({});
   topPerformanceDestination = signal<any>({});
   fiveRecentsBooking = signal<FiveRecentBookings[]>([]);
+  bookingStatus = signal<any[]>([]);
   constructor(private dashboardService: MerchantDashboardService) {}
   ngOnInit(): void {
     this.getSummaryData();
@@ -64,7 +67,9 @@ export class MerchantDashboardComponent {
   }
   getBookingStatusDistribution() {
     this.dashboardService.getBookingStatusDistribution().subscribe({
-      next: (res) => {},
+      next: (res) => {
+        this.bookingStatus.set(res);
+      },
     });
   }
   getFiveRecentBookings() {

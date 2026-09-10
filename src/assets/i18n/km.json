@@ -60,9 +60,12 @@
   "destination": "គោលដៅ",
   "total_price": "តម្លៃសរុប",
   "destination_performance_statistic": "ស្ថិតិការកក់តាមគោលដៅ",
-  "weekly_revenue": "ប្រាក់ចំណូលប្រចាំសប្តាហ៍",
+  "weekly_revenue": "ប្រាក់ចំណូលប្រាំពីរថ្ងៃចុងក្រោយ",
   "booking_status": "ស្ថានភាពនៃការកក់សំបុត្រ",
   "todays_booking": "ការកក់សំបុត្រថ្ងៃនេះ",
+  "confirmed": "បានបញ្ចប់",
+  "cancelled": "បានបោះបង់",
+  "pending": "កំពុងរង់ចាំ",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",

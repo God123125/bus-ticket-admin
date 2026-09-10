@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  input,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -11,8 +19,8 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class TopBookedDestinationsComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-  fontFamily: string = 'KhmerOSBattambang';
-  @Input() chartData: any;
+  fontFamily: string = 'KhReg';
+  chartData = input<any>();
 
   barChartOption: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
@@ -59,7 +67,7 @@ export class TopBookedDestinationsComponent implements OnInit, OnChanges {
         labels: {
           usePointStyle: true,
           pointStyle: 'circle',
-          font: { family: this.fontFamily, size: 12 },
+          font: { family: this.fontFamily, size: 14 },
           padding: 20,
           boxWidth: 8,
           boxHeight: 8,
@@ -111,10 +119,10 @@ export class TopBookedDestinationsComponent implements OnInit, OnChanges {
 
   updateChartData() {
     let list: any[] = [];
-    if (Array.isArray(this.chartData)) {
-      list = this.chartData;
-    } else if (this.chartData && Array.isArray(this.chartData.data)) {
-      list = this.chartData.data;
+    if (Array.isArray(this.chartData())) {
+      list = this.chartData();
+    } else if (this.chartData() && Array.isArray(this.chartData().data)) {
+      list = this.chartData().data;
     }
 
     const labels = list.map((item: any) => {
