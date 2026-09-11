@@ -66,6 +66,11 @@
   "confirmed": "បានបញ្ចប់",
   "cancelled": "បានបោះបង់",
   "pending": "កំពុងរង់ចាំ",
+  "total_user": "អ្នកប្រើប្រាស់ប្រព័ន្ធសរុប",
+  "total_client_user": "គណនីអ្នកប្រើប្រាស់គេហទំព័រសរុប",
+  "total_company": "ក្រុមហ៊ុនសរុប",
+  "yearly_commission": "ប្រាក់ចំណេញភាគរយប្រចាំឆ្នាំ",
+  "company_comparison": "ស្ថានភាពក្រុមហ៊ុន",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",

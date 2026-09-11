@@ -65,6 +65,11 @@
   "confirmed": "Confirmed",
   "cancelled": "Cancelled",
   "pending": "Pending",
+  "total_user": "Total User",
+  "total_client_user": "Total Client User",
+  "total_company": "Total Company",
+  "yearly_commission": "Yearly Commission",
+  "company_comparison": "Company Comparison",
   "actions": {
     "create": "Create",
     "delete": "Delete",
