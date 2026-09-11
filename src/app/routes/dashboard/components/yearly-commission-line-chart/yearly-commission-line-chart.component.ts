@@ -1,26 +1,20 @@
-import { Component, input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { YearlyCommission } from '../../models/yearly-commission';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { FormHelperComponent } from '../../../../shared/form-helper/form-helper.component';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-yearly-commission-line-chart',
-  imports: [
-    BaseChartDirective,
-    TranslatePipe,
-    MatFormFieldModule,
-    MatSelectModule,
-    FormHelperComponent,
-  ],
+  imports: [BaseChartDirective, TranslatePipe, MatFormFieldModule, MatSelectModule],
   templateUrl: './yearly-commission-line-chart.component.html',
   styleUrl: './yearly-commission-line-chart.component.scss',
 })
 export class YearlyCommissionLineChartComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  @Output() yearChange = new EventEmitter<number>();
   fontFamily: string = 'KhReg';
   chartData = input<YearlyCommission>();
   years: number[] = [];
@@ -126,5 +120,9 @@ export class YearlyCommissionLineChartComponent {
         },
       ],
     };
+    this.chart?.chart?.update();
+  }
+  onYearChange(event: MatSelectChange) {
+    this.yearChange.emit(event.value);
   }
 }

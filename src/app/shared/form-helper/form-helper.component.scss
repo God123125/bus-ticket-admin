@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}

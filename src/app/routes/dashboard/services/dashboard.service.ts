@@ -18,14 +18,21 @@ export class DashboardService extends BaseCrudService<any> {
       is_alert_error: true,
     });
   }
-  getYearlyCommission() {
+  getYearlyCommission(data?: { year: number }) {
     return this.requestService.getJSON<YearlyCommission>(`${this.path}/yearly-commission`, {
+      data,
       is_loading: true,
       is_alert_error: true,
     });
   }
   getCompanyComparison() {
     return this.requestService.getJSON<CompanyComparison>(`${this.path}/company-comparison`, {
+      is_loading: true,
+      is_alert_error: true,
+    });
+  }
+  getTopBookingCompanyBarChart() {
+    return this.requestService.getJSON<any>(`${this.path}/top-booking-company`, {
       is_loading: true,
       is_alert_error: true,
     });

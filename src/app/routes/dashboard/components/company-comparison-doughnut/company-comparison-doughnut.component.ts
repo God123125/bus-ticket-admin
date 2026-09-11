@@ -1,4 +1,4 @@
-import { Component, input, SimpleChanges } from '@angular/core';
+import { Component, input, SimpleChanges, ViewChild } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -10,6 +10,7 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrl: './company-comparison-doughnut.component.scss',
 })
 export class CompanyComparisonDoughnutComponent {
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   fontFamily: string = 'KhReg';
   chartData = input<any>();
   doughnutChartOption: ChartConfiguration<'doughnut'>['options'] = {
@@ -88,5 +89,6 @@ export class CompanyComparisonDoughnutComponent {
         },
       ],
     };
+    this.chart?.chart?.update();
   }
 }

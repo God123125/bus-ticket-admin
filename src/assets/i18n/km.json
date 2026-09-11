@@ -71,6 +71,7 @@
   "total_company": "ក្រុមហ៊ុនសរុប",
   "yearly_commission": "ប្រាក់ចំណេញភាគរយប្រចាំឆ្នាំ",
   "company_comparison": "ស្ថានភាពក្រុមហ៊ុន",
+  "company_performance_statistic": "ចំនួននៃការកក់សំបុត្រតាមក្រុមហ៊ុននីមួយៗ",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",

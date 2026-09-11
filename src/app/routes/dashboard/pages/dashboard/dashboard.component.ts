@@ -8,6 +8,8 @@ import { YearlyCommission } from '../../models/yearly-commission';
 import { YearlyCommissionLineChartComponent } from '../../components/yearly-commission-line-chart/yearly-commission-line-chart.component';
 import { CompanyComparison } from '../../models/company-comparison';
 import { CompanyComparisonDoughnutComponent } from '../../components/company-comparison-doughnut/company-comparison-doughnut.component';
+import { TopBookedCompanyComponent } from '../../components/top-booked-company/top-booked-company.component';
+import { TopBookedCompany } from '../../models/top-booked-company';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +19,7 @@ import { CompanyComparisonDoughnutComponent } from '../../components/company-com
     TranslatePipe,
     YearlyCommissionLineChartComponent,
     CompanyComparisonDoughnutComponent,
+    TopBookedCompanyComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -25,11 +28,13 @@ export class DashboardComponent {
   summaryData = signal<SummaryData>({} as SummaryData);
   yearlyCommission = signal<YearlyCommission>({} as YearlyCommission);
   companyComparison = signal<CompanyComparison>({} as CompanyComparison);
+  topBookingCompany = signal<TopBookedCompany[]>([]);
   constructor(private dashboardService: DashboardService) {}
   ngOnInit() {
     this.getSummaryCardData();
     this.getYearlyCommission();
     this.getCompanyComparison();
+    this.getTopBookingCompanyBarChart();
   }
   getSummaryCardData() {
     this.dashboardService.getAdminSummaryCard().subscribe({
@@ -38,8 +43,8 @@ export class DashboardComponent {
       },
     });
   }
-  getYearlyCommission() {
-    this.dashboardService.getYearlyCommission().subscribe({
+  getYearlyCommission(year: number = new Date().getFullYear()) {
+    this.dashboardService.getYearlyCommission({ year }).subscribe({
       next: (res) => {
         this.yearlyCommission.set(res);
       },
@@ -51,5 +56,15 @@ export class DashboardComponent {
         this.companyComparison.set(res);
       },
     });
+  }
+  getTopBookingCompanyBarChart() {
+    this.dashboardService.getTopBookingCompanyBarChart().subscribe({
+      next: (res) => {
+        this.topBookingCompany.set(res);
+      },
+    });
+  }
+  onYearChange(value: number) {
+    this.getYearlyCommission(value);
   }
 }

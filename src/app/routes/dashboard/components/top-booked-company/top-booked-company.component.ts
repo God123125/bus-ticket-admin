@@ -1,27 +1,18 @@
-import {
-  Component,
-  input,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, input, SimpleChanges, ViewChild } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-  selector: 'app-top-booked-destinations',
+  selector: 'app-top-booked-company',
   imports: [BaseChartDirective, TranslatePipe],
-  templateUrl: './top-booked-destinations.component.html',
-  styleUrl: './top-booked-destinations.component.scss',
+  templateUrl: './top-booked-company.component.html',
+  styleUrl: './top-booked-company.component.scss',
 })
-export class TopBookedDestinationsComponent implements OnInit, OnChanges {
+export class TopBookedCompanyComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   fontFamily: string = 'KhReg';
   chartData = input<any>();
-
   barChartOption: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
     maintainAspectRatio: false,
@@ -44,6 +35,7 @@ export class TopBookedDestinationsComponent implements OnInit, OnChanges {
         grid: {
           color: '#f1f5f9',
         },
+        stacked: true,
       },
       x: {
         ticks: {
@@ -55,6 +47,7 @@ export class TopBookedDestinationsComponent implements OnInit, OnChanges {
         grid: {
           display: false,
         },
+        stacked: true,
       },
     },
     plugins: {
@@ -89,59 +82,57 @@ export class TopBookedDestinationsComponent implements OnInit, OnChanges {
       },
     },
   };
-
   public barChartData: ChartData<'bar'> = {
-    labels: [],
+    labels: ['iBC', 'Saly VIP', 'Larita', 'VET'],
     datasets: [
       {
-        data: [],
+        data: [10, 20, 30, 40],
         label: 'ចំនួនការកក់សរុប (Total Bookings)',
         backgroundColor: '#3b82f6',
         hoverBackgroundColor: '#2563eb',
         borderRadius: 6,
         barPercentage: 0.6,
+        stack: 'a',
+      },
+      {
+        data: [10, 20, 30, 40],
+        label: 'ប្រាក់ចំណូលសរុប (Total Revenue)',
+        backgroundColor: '#f6953bff',
+        hoverBackgroundColor: '#ebac25ff',
+        borderRadius: 6,
+        barPercentage: 0.6,
+        stack: 'a',
       },
     ],
   };
-
   constructor() {}
-
-  ngOnInit(): void {
-    this.updateChartData();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes['chartData']) {
-      this.updateChartData();
-      this.chart?.update();
+      // this.updateChart();
     }
   }
-
-  updateChartData() {
-    let list: any[] = [];
-    if (Array.isArray(this.chartData())) {
-      list = this.chartData();
-    } else if (this.chartData() && Array.isArray(this.chartData().data)) {
-      list = this.chartData().data;
-    }
-
-    const labels = list.map((item: any) => {
-      const from = item?.schedule?.from;
-      const to = item?.schedule?.to;
-
-      const fromName = from?.name_kh || from?.nameKh || from?.name_en || from?.name || '';
-      const toName = to?.name_kh || to?.nameKh || to?.name_en || to?.name || '';
-
-      return `${fromName} ➔ ${toName}`;
-    });
-    const values = list.map((item: any) => item?.totalBookings ?? 0);
-
+  updateChart() {
+    const data = this.chartData();
     this.barChartData = {
-      labels: labels,
+      labels: data.map((item: any) => item.name),
       datasets: [
         {
-          ...this.barChartData.datasets[0],
-          data: values,
+          data: data.map((item: any) => item.booking_count),
+          label: 'ចំនួនការកក់សរុប (Total Bookings)',
+          backgroundColor: '#3b82f6',
+          hoverBackgroundColor: '#2563eb',
+          borderRadius: 6,
+          barPercentage: 0.6,
+          stack: 'a',
+        },
+        {
+          data: data.map((item: any) => item.total_revenue),
+          label: 'ប្រាក់ចំណូលសរុប (Total Revenue)',
+          backgroundColor: '#f6953bff',
+          hoverBackgroundColor: '#ebac25ff',
+          borderRadius: 6,
+          barPercentage: 0.6,
+          stack: 'a',
         },
       ],
     };

@@ -70,6 +70,7 @@
   "total_company": "Total Company",
   "yearly_commission": "Yearly Commission",
   "company_comparison": "Company Comparison",
+  "company_performance_statistic": "Company Performance Statistic",
   "actions": {
     "create": "Create",
     "delete": "Delete",

@@ -1,15 +1,14 @@
 <div class="chart-card">
-  <div class="chart-header d-flex align-items-center">
+  <div class="chart-header d-flex align-items-center gap-2">
     <h4 class="title">{{ 'yearly_commission' | translate }}</h4>
-    <app-form-helper [label]="'year' | translate">
-      <mat-form-field appearance="outline" class="default-input no-sub">
-        <mat-select>
-          @for (item of years; track $index) {
-            <mat-option [value]="item">{{ item }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </app-form-helper>
+    <mat-form-field appearance="outline" class="default-input no-sub" [floatLabel]="'always'">
+      <mat-label>{{ 'year' | translate }}</mat-label>
+      <mat-select (selectionChange)="onYearChange($event)">
+        @for (item of years; track $index) {
+          <mat-option [value]="item">{{ item }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </div>
   <div class="chart-body">
     <canvas
