@@ -71,6 +71,7 @@
   "yearly_commission": "Yearly Commission",
   "company_comparison": "Company Comparison",
   "company_performance_statistic": "Company Performance Statistic",
+  "year": "Year",
   "actions": {
     "create": "Create",
     "delete": "Delete",

@@ -79,6 +79,17 @@ export class TopBookedCompanyComponent {
         usePointStyle: true,
         boxPadding: 6,
         bodySpacing: 10,
+        callbacks: {
+          title: (context) => {
+            const title = context[0].label;
+            return `ក្រុមហ៊ុន ${title}`;
+          },
+          label: (context) => {
+            const label = context.dataset.label;
+            const value = context.formattedValue;
+            return `${label}: ${value}`;
+          },
+        },
       },
     },
   };
@@ -108,7 +119,7 @@ export class TopBookedCompanyComponent {
   constructor() {}
   ngOnChanges(changes: SimpleChanges) {
     if (changes['chartData']) {
-      // this.updateChart();
+      this.updateChart();
     }
   }
   updateChart() {
@@ -117,8 +128,8 @@ export class TopBookedCompanyComponent {
       labels: data.map((item: any) => item.name),
       datasets: [
         {
-          data: data.map((item: any) => item.booking_count),
-          label: 'ចំនួនការកក់សរុប (Total Bookings)',
+          data: data.map((item: any) => item.total_revenue),
+          label: 'ប្រាក់ចំណូលសរុប (Total Revenue)',
           backgroundColor: '#3b82f6',
           hoverBackgroundColor: '#2563eb',
           borderRadius: 6,
@@ -126,8 +137,8 @@ export class TopBookedCompanyComponent {
           stack: 'a',
         },
         {
-          data: data.map((item: any) => item.total_revenue),
-          label: 'ប្រាក់ចំណូលសរុប (Total Revenue)',
+          data: data.map((item: any) => item.booking_count),
+          label: 'ចំនួនការកក់សរុប (Total Bookings)',
           backgroundColor: '#f6953bff',
           hoverBackgroundColor: '#ebac25ff',
           borderRadius: 6,
