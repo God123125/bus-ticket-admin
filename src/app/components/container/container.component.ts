@@ -74,6 +74,9 @@ export class Container {
       merchantDashboard: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'merchant-dashboard' && menuItem.role?.includes(this.role);
       }),
+      bookingReport: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'report' && menuItem.role?.includes(this.role);
+      }),
     };
     this.redirectTofirstMenu();
   }

@@ -89,6 +89,16 @@
                 </mat-list-item>
               </a>
             }
+            @if (menu.bookingReport.length > 0) {
+              <a [routerLink]="menu.bookingReport[0].route">
+                <mat-list-item matRipple routerLinkActive="active-route">
+                  <div class="left-side">
+                    <mat-icon>receipt</mat-icon>
+                    <span>{{ 'route.' + menu.bookingReport[0].title | translate }}</span>
+                  </div>
+                </mat-list-item>
+              </a>
+            }
             @if (menu.settings.length > 0) {
               <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>

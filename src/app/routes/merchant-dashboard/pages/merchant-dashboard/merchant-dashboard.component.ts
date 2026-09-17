@@ -11,7 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FiveRecentBookings } from '../../model/five-recent-bookings';
-import { LowerCasePipe } from '@angular/common';
+import { CurrencyPipe, LowerCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-merchant-dashboard',
@@ -26,6 +26,7 @@ import { LowerCasePipe } from '@angular/common';
     MatIconModule,
     MatButtonModule,
     LowerCasePipe,
+    CurrencyPipe,
   ],
   templateUrl: './merchant-dashboard.component.html',
   styleUrl: './merchant-dashboard.component.scss',
@@ -42,7 +43,7 @@ export class MerchantDashboardComponent {
     this.getTrendAnalytical();
     this.getTopPerformanceDestination();
     this.getBookingStatusDistribution();
-    this.getFiveRecentBookings();
+    this.getRecentBookings();
   }
   getSummaryData() {
     this.dashboardService.getMerchantSummaryCard().subscribe({
@@ -72,8 +73,8 @@ export class MerchantDashboardComponent {
       },
     });
   }
-  getFiveRecentBookings() {
-    this.dashboardService.getFiveRecentBookings().subscribe({
+  getRecentBookings() {
+    this.dashboardService.getRecentBookings().subscribe({
       next: (res) => {
         this.fiveRecentsBooking.set(res);
       },

@@ -1,0 +1,183 @@
+<div class="page-container">
+  <!-- Summary Cards Section -->
+  <div class="container-fluid mb-4">
+    <div class="row g-3">
+      <div class="col-xl-2 col-md-4 col-sm-6">
+        <app-summary-card
+          [title]="'total_booking' | translate"
+          [value]="reportData().totalBookingCount"
+          [icon]="'confirmation_number'"
+          [iconBgColor]="'#eff6ff'"
+          [iconColor]="'#3b82f6'"
+        ></app-summary-card>
+      </div>
+      <div class="col-xl-2 col-md-4 col-sm-6">
+        <app-summary-card
+          [title]="'total_amount' | translate"
+          [value]="(reportData().totalBookingAmount || 0) | currency"
+          [icon]="'payments'"
+          [iconBgColor]="'#ecfdf5'"
+          [iconColor]="'#10b981'"
+        ></app-summary-card>
+      </div>
+      <div class="col-xl-2 col-md-4 col-sm-6">
+        <app-summary-card
+          [title]="'confirmed_bookings' | translate"
+          [value]="reportData().confirmedBookingCount"
+          [icon]="'check_circle'"
+          [iconBgColor]="'#d0f4de'"
+          [iconColor]="'#058c42'"
+        ></app-summary-card>
+      </div>
+      <div class="col-xl-2 col-md-4 col-sm-6">
+        <app-summary-card
+          [title]="'pending_bookings' | translate"
+          [value]="reportData().pendingBookingCount"
+          [icon]="'hourglass_empty'"
+          [iconBgColor]="'#fef9c3'"
+          [iconColor]="'#ca8a04'"
+        ></app-summary-card>
+      </div>
+      <div class="col-xl-2 col-md-4 col-sm-6">
+        <app-summary-card
+          [title]="'cancelled_bookings' | translate"
+          [value]="reportData().cancelledBookingCount"
+          [icon]="'cancel'"
+          [iconBgColor]="'#ffe5ec'"
+          [iconColor]="'#e11d48'"
+        ></app-summary-card>
+      </div>
+      <div class="col-xl-2 col-md-4 col-sm-6">
+        <app-summary-card
+          [title]="'refunded_bookings' | translate"
+          [value]="reportData().refundedBookingCount"
+          [icon]="'assignment_return'"
+          [iconBgColor]="'#f3e8ff'"
+          [iconColor]="'#9333ea'"
+        ></app-summary-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Report Table Section -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="table-container content-scroll">
+          <div class="table-header d-flex justify-content-between align-items-center mb-3">
+            <h5 class="title mb-0">{{ 'route.booking-report' | translate }}</h5>
+            <span class="text-muted fs-7">
+              {{ 'total_booking' | translate }}: {{ reportData().list.length }}
+            </span>
+          </div>
+
+          <table class="table-custom mb-0">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 50px;">{{ 'n.o' | translate }}</th>
+                <th scope="col">{{ 'customer_info' | translate }}</th>
+                <th scope="col">{{ 'destination' | translate }}</th>
+                <th scope="col">{{ 'schedule' | translate }}</th>
+                <th scope="col">{{ 'booked_seats' | translate }}</th>
+                <th scope="col">{{ 'total_price' | translate }}</th>
+                <th scope="col">{{ 'status' | translate }}</th>
+                <th scope="col">{{ 'booking_date' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of reportData().list; track item._id; let i = $index) {
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <div class="user-info-cell">
+                      <div class="user-name fw-semibold">{{ item.user_info.name }}</div>
+                      <div class="user-contact text-muted small">
+                        @if (item.user_info.phone) {
+                          <span class="d-inline-flex align-items-center me-2">
+                            <mat-icon class="inline-icon">phone</mat-icon>
+                            {{ item.user_info.phone }}
+                          </span>
+                        }
+                        @if (item.user_info.email) {
+                          <span class="d-inline-flex align-items-center">
+                            <mat-icon class="inline-icon">email</mat-icon>
+                            {{ item.user_info.email }}
+                          </span>
+                        }
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    @if (item.trip?.schedule) {
+                      <div class="route-cell">
+                        <div class="route-names">
+                          <span class="fw-medium">{{ item.trip.schedule.from.name_kh || item.trip.schedule.from.name_en }}</span>
+                          <span class="route-arrow">➔</span>
+                          <span class="fw-medium">{{ item.trip.schedule.to.name_kh || item.trip.schedule.to.name_en }}</span>
+                        </div>
+                        <div class="route-en text-muted small">
+                          {{ item.trip.schedule.from.name_en }} - {{ item.trip.schedule.to.name_en }}
+                        </div>
+                      </div>
+                    } @else {
+                      <span class="text-muted">N/A</span>
+                    }
+                  </td>
+                  <td>
+                    @if (item.trip?.schedule) {
+                      <div class="schedule-cell">
+                        <span class="badge time-badge">
+                          <mat-icon class="inline-icon">schedule</mat-icon>
+                          {{ item.trip.schedule.departure_time }} - {{ item.trip.schedule.arrival_time }}
+                        </span>
+                      </div>
+                    } @else {
+                      <span class="text-muted">N/A</span>
+                    }
+                  </td>
+                  <td>
+                    <div class="seats-container">
+                      @for (seat of item.booked_seats; track seat) {
+                        <span class="seat-badge">{{ seat }}</span>
+                      }
+                    </div>
+                  </td>
+                  <td>
+                    <span class="fw-bold price-value">{{ item.total_price | currency }}</span>
+                  </td>
+                  <td>
+                    <span
+                      class="status-badge"
+                      [class.status-confirmed]="item.status.toUpperCase() === 'CONFIRMED'"
+                      [class.status-pending]="item.status.toUpperCase() === 'PENDING'"
+                      [class.status-cancelled]="item.status.toUpperCase() === 'CANCELLED'"
+                      [class.status-refunded]="item.status.toUpperCase() === 'REFUNDED'"
+                    >
+                      {{ item.status | lowercase | translate }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="text-muted small">
+                      {{ item.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+                    </span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="8" class="text-center py-4 text-muted">
+                    @if (isLoading()) {
+                      <span>Loading...</span>
+                    } @else {
+                      <span>No booking reports found</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

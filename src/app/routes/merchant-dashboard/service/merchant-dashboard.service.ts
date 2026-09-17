@@ -36,8 +36,8 @@ export class MerchantDashboardService extends BaseCrudService<any> {
       is_alert_error: true,
     });
   }
-  getFiveRecentBookings() {
-    return this.requestService.getJSON<any>(`${this.path}/five-recent-bookings`, {
+  getRecentBookings() {
+    return this.requestService.getJSON<any>(`${this.path}/recent-bookings`, {
       is_loading: true,
       is_alert_error: true,
     });

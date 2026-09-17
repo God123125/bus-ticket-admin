@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="card-info">
       <div class="title">{{ title }}</div>
-      @if (value) {
+      @if (value !== undefined && value !== null) {
         <div class="value">{{ value }}</div>
       } @else {
         <div class="value">N/A</div>

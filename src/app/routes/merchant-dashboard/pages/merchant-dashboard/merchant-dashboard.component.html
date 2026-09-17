@@ -86,7 +86,7 @@
                   </td>
                   <td>{{ item.trip.schedule.departure_time }}</td>
                   <td>{{ item.trip.schedule.arrival_time }}</td>
-                  <td>{{ item.total_price }}</td>
+                  <td>{{ item.total_price | currency }}</td>
                   <td>{{ item.status | lowercase | translate }}</td>
                 </tr>
               }

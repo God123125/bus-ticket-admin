@@ -65,6 +65,15 @@
   "confirmed": "Confirmed",
   "cancelled": "Cancelled",
   "pending": "Pending",
+  "refunded": "Refunded",
+  "total_booking": "Total Bookings",
+  "total_amount": "Total Revenue",
+  "confirmed_bookings": "Confirmed Bookings",
+  "pending_bookings": "Pending Bookings",
+  "cancelled_bookings": "Cancelled Bookings",
+  "refunded_bookings": "Refunded Bookings",
+  "customer_info": "Customer Info",
+  "booking_date": "Booking Date",
   "total_user": "Total User",
   "total_client_user": "Total Client User",
   "total_company": "Total Company",
@@ -97,7 +106,8 @@
     "station": "Station",
     "schedule": "Trip Schedule",
     "trip": "Manage Trip",
-    "geography": "Geography"
+    "geography": "Geography",
+    "booking-report": "Booking Report"
   },
   "msg": {
     "required": "This field is required",

@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class SummaryCardComponent {
   @Input() title: string = '';
-  @Input() value?: number;
+  @Input() value?: number | string | null;
   @Input() icon: string = '';
   @Input() iconBgColor: string = '';
   @Input() iconColor: string = '';

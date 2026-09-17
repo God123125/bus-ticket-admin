@@ -92,6 +92,16 @@ export const routes: Routes = [
         },
         canActivate: [authGuard],
       },
+      {
+        path: 'booking-report',
+        loadChildren: () =>
+          import('./routes/booking-report/booking-report.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Merchant],
+          type: 'report',
+        },
+        canActivate: [authGuard],
+      },
     ],
   },
   {
