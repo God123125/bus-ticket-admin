@@ -17,4 +17,3 @@ export class BookingReportService extends BaseCrudService<any> {
     });
   }
 }
-

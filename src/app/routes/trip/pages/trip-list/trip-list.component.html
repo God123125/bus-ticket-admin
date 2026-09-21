@@ -22,6 +22,7 @@
             <th scope="col">{{ 'schedule' | translate }}</th>
             <th scope="col">{{ 'departure_date' | translate }}</th>
             <th scope="col">{{ 'price_per_seat' | translate }}</th>
+            <th scope="col">{{ 'status' | translate }}</th>
             <th scope="col">{{ 'action' | translate }}</th>
           </tr>
         </thead>
@@ -44,6 +45,11 @@
               </td>
               <td>{{ item.departure_date | date: 'dd/MM/yyyy' }}</td>
               <td>{{ item.price_per_seat | currency }}</td>
+              <td>
+                <span class="badge" [ngClass]="getStatusClass(item.status)">{{
+                  item.status | lowercase | translate
+                }}</span>
+              </td>
               <td>
                 <a mat-icon-button color="primary" [routerLink]="['update', item._id]"
                   ><mat-icon>edit</mat-icon></a

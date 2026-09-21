@@ -7,7 +7,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helper/directives/confirm-message.directive';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { TripService } from '../../service/trip.service';
 import { Trip } from '../../model/trip';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -28,6 +28,7 @@ import { TimePipe } from '../../../../shared/pipes/time-pipe';
     MatDatepickerModule,
     TimePipe,
     CurrencyPipe,
+    CommonModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './trip-list.component.html',
@@ -67,7 +68,13 @@ export class TripListComponent implements OnInit {
       },
     });
   }
-
+  getStatusClass(status: string) {
+    if (status == 'ACTIVE') {
+      return 'active';
+    } else {
+      return 'inactive';
+    }
+  }
   onDateChange(date: Date) {
     this.params.departure_date = date.toISOString();
     this.getList();

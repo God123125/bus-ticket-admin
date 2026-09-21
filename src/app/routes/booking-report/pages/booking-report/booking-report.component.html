@@ -1,8 +1,8 @@
 <div class="page-container">
   <!-- Summary Cards Section -->
-  <div class="container-fluid mb-4">
+  <div class="container-fluid mb-1">
     <div class="row g-3">
-      <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'total_booking' | translate"
           [value]="reportData().totalBookingCount"
@@ -11,16 +11,16 @@
           [iconColor]="'#3b82f6'"
         ></app-summary-card>
       </div>
-      <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'total_amount' | translate"
-          [value]="(reportData().totalBookingAmount || 0) | currency"
+          [value]="reportData().totalBookingAmount || 0 | currency"
           [icon]="'payments'"
           [iconBgColor]="'#ecfdf5'"
           [iconColor]="'#10b981'"
         ></app-summary-card>
       </div>
-      <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'confirmed_bookings' | translate"
           [value]="reportData().confirmedBookingCount"
@@ -29,7 +29,7 @@
           [iconColor]="'#058c42'"
         ></app-summary-card>
       </div>
-      <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'pending_bookings' | translate"
           [value]="reportData().pendingBookingCount"
@@ -38,7 +38,7 @@
           [iconColor]="'#ca8a04'"
         ></app-summary-card>
       </div>
-      <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'cancelled_bookings' | translate"
           [value]="reportData().cancelledBookingCount"
@@ -47,7 +47,7 @@
           [iconColor]="'#e11d48'"
         ></app-summary-card>
       </div>
-      <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'refunded_bookings' | translate"
           [value]="reportData().refundedBookingCount"
@@ -74,7 +74,7 @@
           <table class="table-custom mb-0">
             <thead>
               <tr>
-                <th scope="col" style="width: 50px;">{{ 'n.o' | translate }}</th>
+                <th scope="col" style="width: 50px">{{ 'n.o' | translate }}</th>
                 <th scope="col">{{ 'customer_info' | translate }}</th>
                 <th scope="col">{{ 'destination' | translate }}</th>
                 <th scope="col">{{ 'schedule' | translate }}</th>
@@ -111,12 +111,17 @@
                     @if (item.trip?.schedule) {
                       <div class="route-cell">
                         <div class="route-names">
-                          <span class="fw-medium">{{ item.trip.schedule.from.name_kh || item.trip.schedule.from.name_en }}</span>
+                          <span class="fw-medium">{{
+                            item.trip.schedule.from.name_kh || item.trip.schedule.from.name_en
+                          }}</span>
                           <span class="route-arrow">➔</span>
-                          <span class="fw-medium">{{ item.trip.schedule.to.name_kh || item.trip.schedule.to.name_en }}</span>
+                          <span class="fw-medium">{{
+                            item.trip.schedule.to.name_kh || item.trip.schedule.to.name_en
+                          }}</span>
                         </div>
                         <div class="route-en text-muted small">
-                          {{ item.trip.schedule.from.name_en }} - {{ item.trip.schedule.to.name_en }}
+                          {{ item.trip.schedule.from.name_en }} -
+                          {{ item.trip.schedule.to.name_en }}
                         </div>
                       </div>
                     } @else {
@@ -128,7 +133,8 @@
                       <div class="schedule-cell">
                         <span class="badge time-badge">
                           <mat-icon class="inline-icon">schedule</mat-icon>
-                          {{ item.trip.schedule.departure_time }} - {{ item.trip.schedule.arrival_time }}
+                          {{ item.trip.schedule.departure_time }} -
+                          {{ item.trip.schedule.arrival_time }}
                         </span>
                       </div>
                     } @else {
@@ -175,9 +181,16 @@
               }
             </tbody>
           </table>
+          <mat-paginator
+            [length]="total()"
+            [pageSize]="params.limit"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            [showFirstLastButtons]="true"
+            aria-label="Select page"
+            (page)="onPageChange($event)"
+          />
         </div>
       </div>
     </div>
   </div>
 </div>
-

@@ -5,7 +5,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CurrencyPipe, DatePipe, LowerCasePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
-import { BookingItem, BookingReport } from '../../models/booking-report';
+import { BookingReport } from '../../models/booking-report';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-booking-report',
@@ -17,6 +18,7 @@ import { BookingItem, BookingReport } from '../../models/booking-report';
     LowerCasePipe,
     MatIconModule,
     MatRippleModule,
+    MatPaginator,
   ],
   templateUrl: './booking-report.component.html',
   styleUrl: './booking-report.component.scss',
@@ -31,7 +33,11 @@ export class BookingReportComponent implements OnInit {
     totalBookingCount: 0,
     totalBookingAmount: 0,
   });
-
+  params = {
+    page: 1,
+    limit: 10,
+  };
+  total = signal<number>(0);
   isLoading = signal<boolean>(false);
 
   constructor(private bookingReportService: BookingReportService) {}
@@ -46,13 +52,17 @@ export class BookingReportComponent implements OnInit {
       next: (res: BookingReport) => {
         if (res) {
           this.reportData.set(res);
+          this.total.set(res.list.length);
         }
-        this.isLoading.set(false);
       },
-      error: () => {
-        this.isLoading.set(false);
+      error: (err) => {
+        console.log(err);
       },
     });
   }
+  onPageChange(event: PageEvent) {
+    this.params.page = event.pageIndex + 1;
+    this.params.limit = event.pageSize;
+    this.getList();
+  }
 }
-

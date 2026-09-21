@@ -11,7 +11,7 @@
       <form class="form" [formGroup]="form">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-4">
               <app-form-helper [label]="'bus' | translate" [control]="form.controls.bus">
                 <mat-form-field appearance="outline" class="default-input full-width">
                   <mat-select [formControl]="form.controls.bus">
@@ -24,7 +24,7 @@
                 </mat-form-field>
               </app-form-helper>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
               <app-form-helper [label]="'schedule' | translate" [control]="form.controls.schedule">
                 <mat-form-field appearance="outline" class="default-input full-width">
                   <mat-select [formControl]="form.controls.schedule">
@@ -76,6 +76,16 @@
                     @for (a of amenities; track a) {
                       <mat-option [value]="a">{{ a }}</mat-option>
                     }
+                  </mat-select>
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-4">
+              <app-form-helper [label]="'status' | translate" [control]="form.controls.status">
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <mat-select [formControl]="form.controls.status">
+                    <mat-option [value]="'ACTIVE'">{{ 'active' | translate }}</mat-option>
+                    <mat-option [value]="'INACTIVE'">{{ 'inactive' | translate }}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </app-form-helper>
