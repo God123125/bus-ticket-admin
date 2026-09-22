@@ -80,6 +80,7 @@
   "yearly_commission": "Yearly Commission",
   "company_comparison": "Company Comparison",
   "company_performance_statistic": "Company Performance Statistic",
+  "discount": "Discount",
   "year": "Year",
   "actions": {
     "create": "Create",
@@ -95,7 +96,8 @@
     "change_password": "Change Password",
     "confirm": "Confirm",
     "back": "Back",
-    "close": "Close"
+    "close": "Close",
+    "clear": "Clear"
   },
   "route": {
     "bus": "Manage Bus",
@@ -106,7 +108,7 @@
     "station": "Station",
     "schedule": "Trip Schedule",
     "trip": "Manage Trip",
-    "geography": "Geography",
+    "geographic": "Geographic",
     "booking-report": "Booking Report"
   },
   "msg": {

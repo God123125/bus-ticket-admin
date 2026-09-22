@@ -22,4 +22,74 @@
       }
     }
   }
+
+  &.custom-language-menu {
+    border-radius: 14px !important;
+    padding: 6px !important;
+    min-width: 190px !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+
+    .lang-menu-item {
+      border-radius: 10px !important;
+      margin: 2px 0 !important;
+      min-height: 44px !important;
+      padding: 0 10px !important;
+      transition: all 0.2s ease;
+
+      .lang-item-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+
+        .item-flag {
+          font-size: 18px;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .item-labels {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          line-height: 1.2;
+
+          .primary-label {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #1a202c;
+          }
+
+          .sub-label {
+            font-size: 11px;
+            color: #718096;
+            margin-top: 1px;
+          }
+        }
+
+        .check-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          color: $color-primary;
+          margin-left: auto;
+        }
+      }
+
+      &:hover {
+        background-color: #f7fafc !important;
+      }
+
+      &.active {
+        background-color: rgba(31, 4, 59, 0.06) !important;
+
+        .primary-label {
+          color: $color-primary !important;
+        }
+      }
+    }
+  }
 }

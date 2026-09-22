@@ -81,6 +81,13 @@
               </app-form-helper>
             </div>
             <div class="col-lg-4">
+              <app-form-helper [label]="'discount' | translate" [control]="form.controls.discount">
+                <mat-form-field appearance="outline" class="default-input full-width">
+                  <input type="number" matInput [formControl]="form.controls.discount" />
+                </mat-form-field>
+              </app-form-helper>
+            </div>
+            <div class="col-lg-4">
               <app-form-helper [label]="'status' | translate" [control]="form.controls.status">
                 <mat-form-field appearance="outline" class="default-input full-width">
                   <mat-select [formControl]="form.controls.status">

@@ -13,6 +13,7 @@ import { Trip } from '../../model/trip';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TimePipe } from '../../../../shared/pipes/time-pipe';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-trip-list',
   imports: [
@@ -29,6 +30,7 @@ import { TimePipe } from '../../../../shared/pipes/time-pipe';
     TimePipe,
     CurrencyPipe,
     CommonModule,
+    ReactiveFormsModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './trip-list.component.html',
@@ -42,7 +44,7 @@ export class TripListComponent implements OnInit {
   };
   trips = signal<Trip[]>([]);
   total = signal(0);
-
+  departureDateControl = new FormControl<Date | null>(null);
   constructor(private tripService: TripService) {}
 
   ngOnInit(): void {
@@ -74,6 +76,11 @@ export class TripListComponent implements OnInit {
     } else {
       return 'inactive';
     }
+  }
+  onClear() {
+    this.departureDateControl.reset();
+    this.params.departure_date = '';
+    this.getList();
   }
   onDateChange(date: Date) {
     this.params.departure_date = date.toISOString();

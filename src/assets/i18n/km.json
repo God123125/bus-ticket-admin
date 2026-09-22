@@ -81,6 +81,7 @@
   "yearly_commission": "ប្រាក់ចំណេញភាគរយប្រចាំឆ្នាំ",
   "company_comparison": "ស្ថានភាពក្រុមហ៊ុន",
   "company_performance_statistic": "ចំនួននៃការកក់សំបុត្រតាមក្រុមហ៊ុននីមួយៗ",
+  "discount": "ការបញ្ចុះតម្លៃ",
   "year": "ឆ្នាំ",
   "actions": {
     "create": "បង្កើត",
@@ -96,7 +97,8 @@
     "change_password": "ប្ដូរលេខសម្ងាត់",
     "confirm": "យល់ព្រម",
     "back": "ចាកចេញ",
-    "close": "បិទ"
+    "close": "បិទ",
+    "clear": "ជម្រះ"
   },
   "route": {
     "bus": "គ្រប់គ្រងឡានក្រុង",

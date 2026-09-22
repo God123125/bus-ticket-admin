@@ -112,11 +112,11 @@ export class YearlyCommissionLineChartComponent {
   updateChart() {
     const list = this.chartData()!.data;
     this.lineChartData = {
-      labels: list.map((el) => el.label),
+      labels: list?.map((el) => el.label),
       datasets: [
         {
           ...this.lineChartData.datasets[0],
-          data: list.map((el) => el.income),
+          data: list?.map((el) => el.income),
         },
       ],
     };

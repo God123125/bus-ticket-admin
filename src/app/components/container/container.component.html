@@ -133,13 +133,69 @@
           [class.flipped]="!opened"
           >menu_open</mat-icon
         >
-        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-row align-items-center header-actions">
+          <div class="language-dropdown-wrapper">
+            <button
+              type="button"
+              class="lang-pill-btn"
+              [matMenuTriggerFor]="languageMenu"
+              aria-label="Switch Language"
+            >
+              <div class="lang-flag-circle">
+                @if (currentLangCode() === 'km') {
+                  <span class="flag-icon">🇰🇭</span>
+                } @else {
+                  <span class="flag-icon">🇬🇧</span>
+                }
+              </div>
+              <span class="lang-text">{{ currentLange() }}</span>
+              <mat-icon class="chevron-icon">expand_more</mat-icon>
+            </button>
+          </div>
+
+          <mat-menu #languageMenu="matMenu" class="custom-language-menu" xPosition="before">
+            <button
+              mat-menu-item
+              class="lang-menu-item"
+              [class.active]="currentLangCode() === 'km'"
+              (click)="switchLanguage('km')"
+            >
+              <div class="lang-item-content">
+                <span class="item-flag">🇰🇭</span>
+                <div class="item-labels">
+                  <span class="primary-label">ភាសាខ្មែរ</span>
+                  <span class="sub-label">Khmer</span>
+                </div>
+                @if (currentLangCode() === 'km') {
+                  <mat-icon class="check-icon">check</mat-icon>
+                }
+              </div>
+            </button>
+
+            <button
+              mat-menu-item
+              class="lang-menu-item"
+              [class.active]="currentLangCode() === 'en'"
+              (click)="switchLanguage('en')"
+            >
+              <div class="lang-item-content">
+                <span class="item-flag">EN</span>
+                <div class="item-labels">
+                  <span class="primary-label">English</span>
+                  <span class="sub-label">United Kingdom</span>
+                </div>
+                @if (currentLangCode() === 'en') {
+                  <mat-icon class="check-icon">check</mat-icon>
+                }
+              </div>
+            </button>
+          </mat-menu>
           <div class="text-container">
             <span class="username">{{ username }}</span>
           </div>
           <div class="profile" [matMenuTriggerFor]="profileMenu">
             <!-- <svg [data-jdenticon-value]="username"></svg> -->
-            <img src="../../../assets/imgs/user-profile.svg" alt="" />
+            <img [src]="profile" alt="" />
           </div>
         </div>
         <mat-menu #profileMenu="matMenu" class="custom-menu">

@@ -50,6 +50,7 @@ export class TripFormComponent {
     price_per_seat: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     amenities: new FormControl<string[]>([]),
     status: new FormControl<string | null>(null),
+    discount: new FormControl<number | null>(0, [Validators.min(0), Validators.max(100)]),
   });
 
   buses = signal<Bus[]>([]);
@@ -110,6 +111,7 @@ export class TripFormComponent {
           price_per_seat: res.price_per_seat,
           amenities: res.amenities,
           status: res.status,
+          discount: res.discount,
         });
       },
     });
@@ -128,6 +130,7 @@ export class TripFormComponent {
       price_per_seat: this.form.value.price_per_seat ?? 0,
       amenities: this.form.value.amenities,
       status: this.form.value.status,
+      discount: this.form.value.discount,
     };
 
     if (this.updateId) {

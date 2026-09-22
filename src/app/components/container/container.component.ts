@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -6,7 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { TranslateDirective, TranslatePipe } from '@ngx-translate/core';
+import { TranslateDirective, TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MENUITEMS } from '../../app.routes';
 import { MenuItem } from '../../models/menu-item';
 import { MatMenuModule } from '@angular/material/menu';
@@ -39,13 +39,25 @@ export class Container {
   username: string = '';
   currentUserId: string = '';
   role: string = '';
+  currentLange = signal<string>('');
+  profile: string = '';
+  logo: string = '';
+  companyColor: string = '';
+  companyName: string = '';
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
-  ) {}
+    private translateService: TranslateService,
+  ) {
+    this.loadCompanyInfo();
+  }
   ngOnInit(): void {
+    const storedProfile = this.localStorageService.get(LocalStorageEnum.profile);
+    this.profile =
+      storedProfile !== 'undefined' ? storedProfile : '../../../assets/imgs/user-profile.svg';
     this.getUserInformation();
+    this.loadCurrentLanguage();
     this.menu = {
       bus: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'bus' && menuItem.role?.includes(this.role);
@@ -94,6 +106,11 @@ export class Container {
       }
     }
   };
+  loadCompanyInfo() {
+    this.logo = this.localStorageService.get(LocalStorageEnum.company_image);
+    this.companyColor = this.localStorageService.get(LocalStorageEnum.company_color);
+    this.companyName = this.localStorageService.get(LocalStorageEnum.company_name);
+  }
   getUserInformation() {
     this.role = this.localStorageService.get(LocalStorageEnum.Role);
     this.username = this.localStorageService.get(LocalStorageEnum.username);
@@ -110,6 +127,24 @@ export class Container {
   toggleMenu = (): void => {
     this.opened = !this.opened;
   };
+  currentLangCode = signal<'en' | 'km'>('km');
+
+  loadCurrentLanguage() {
+    const lang = (this.localStorageService.get(LocalStorageEnum.language) || 'km') as 'en' | 'km';
+    this.setLanguage(lang);
+  }
+
+  switchLanguage(language: 'en' | 'km') {
+    this.setLanguage(language);
+    this.localStorageService.set(LocalStorageEnum.language, language);
+  }
+
+  private setLanguage(lang: 'en' | 'km') {
+    this.currentLangCode.set(lang);
+    this.currentLange.set(lang === 'km' ? 'ភាសាខ្មែរ' : 'English');
+    this.translateService.use(lang);
+  }
+
   changePassword() {}
   logout() {
     this.authService.logout();

@@ -29,6 +29,10 @@ export class AuthService {
           this.localStorageService.set(LocalStorageEnum.Role, res.user.role);
           this.localStorageService.set(LocalStorageEnum.token_expires_at, res.expireAt);
           this.localStorageService.set(LocalStorageEnum.username, res.user.username);
+          this.localStorageService.set(LocalStorageEnum.profile, res.user.profile);
+          // this.localStorageService.set(LocalStorageEnum.company_image, res.user.company_image);
+          // this.localStorageService.set(LocalStorageEnum.company_color, res.user.company_color);
+          // this.localStorageService.set(LocalStorageEnum.company_name, res.user.company_name);
           return res;
         }),
       );

@@ -48,7 +48,7 @@ export class BookingReportComponent implements OnInit {
 
   getList(): void {
     this.isLoading.set(true);
-    this.bookingReportService.getBookingReport().subscribe({
+    this.bookingReportService.getBookingReport(this.params).subscribe({
       next: (res: BookingReport) => {
         if (res) {
           this.reportData.set(res);

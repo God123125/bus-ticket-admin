@@ -97,6 +97,73 @@ a {
       flex-direction: row;
       justify-content: space-between;
 
+      .header-actions {
+        gap: 12px;
+      }
+
+      .language-dropdown-wrapper {
+        display: flex;
+        align-items: center;
+
+        .lang-pill-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 5px 12px 5px 6px;
+          border-radius: 24px;
+          background: linear-gradient(135deg, #f8f9fc 0%, #edf2f7 100%);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          color: #2d3748;
+          font-size: 13.5px;
+          font-weight: 600;
+          cursor: pointer;
+          outline: none;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+
+          .lang-flag-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+            font-size: 15px;
+            line-height: 1;
+          }
+
+          .lang-text {
+            letter-spacing: 0.2px;
+          }
+
+          .chevron-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            color: #718096;
+            transition: transform 0.25s ease;
+          }
+
+          &:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            border-color: rgba(31, 4, 59, 0.25);
+            box-shadow: 0 3px 10px rgba(31, 4, 59, 0.08);
+            transform: translateY(-1px);
+
+            .chevron-icon {
+              color: $color-primary;
+            }
+          }
+
+          &:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+          }
+        }
+      }
+
       .profile {
         width: 40px;
         height: 40px;
@@ -104,11 +171,18 @@ a {
         border-radius: 50%;
         cursor: pointer;
         overflow: hidden;
+        transition: all 0.2s ease;
 
-        svg {
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        svg, img {
           border-radius: 50%;
           width: 100%;
           height: 100%;
+          object-fit: cover;
         }
       }
 
@@ -116,7 +190,7 @@ a {
         display: flex;
         flex-direction: column;
         align-items: end;
-        padding-right: 15px;
+        padding-right: 4px;
 
         .name {
           color: $color-primary;

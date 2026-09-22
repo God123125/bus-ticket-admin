@@ -1,13 +1,21 @@
 <div class="page-container">
   <div class="scroll-container">
     <h3 class="title">{{ 'route.trip' | translate }}</h3>
-    <div class="header-content d-flex justify-content-between align-items-center">
-      <mat-form-field appearance="outline" class="default-input h mb-0" [floatLabel]="'always'">
+    <div class="header-content d-flex align-items-center mb-3">
+      <mat-form-field appearance="outline" class="default-input no-sub" [floatLabel]="'always'">
         <mat-label>{{ 'departure_date' | translate }}</mat-label>
-        <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event.value)" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          (dateChange)="onDateChange($event.value)"
+          [formControl]="departureDateControl"
+        />
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      <button type="button" mat-stroked-button color="primary" class="ms-2" (click)="onClear()">
+        {{ 'clear' | translate }}
+      </button>
       <a mat-raised-button class="ml-auto" color="primary" routerLink="create">
         <mat-icon>add</mat-icon>
         <span>{{ 'actions.create' | translate }}</span>

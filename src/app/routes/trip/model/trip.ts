@@ -11,4 +11,5 @@ export interface Trip extends MongoObject {
   amenities: string[];
   booked_seats: string[];
   status: string;
+  discount: number;
 }
