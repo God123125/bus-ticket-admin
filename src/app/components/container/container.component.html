@@ -143,9 +143,9 @@
             >
               <div class="lang-flag-circle">
                 @if (currentLangCode() === 'km') {
-                  <span class="flag-icon">🇰🇭</span>
+                  <img src="/assets/imgs/cam_flag.png" alt="" />
                 } @else {
-                  <span class="flag-icon">🇬🇧</span>
+                  <img src="/assets/imgs/uk_flag.jpg" alt="" />
                 }
               </div>
               <span class="lang-text">{{ currentLange() }}</span>
@@ -161,7 +161,9 @@
               (click)="switchLanguage('km')"
             >
               <div class="lang-item-content">
-                <span class="item-flag">🇰🇭</span>
+                <span class="item-flag">
+                  <img src="/assets/imgs/cam_flag.png" alt="" />
+                </span>
                 <div class="item-labels">
                   <span class="primary-label">ភាសាខ្មែរ</span>
                   <span class="sub-label">Khmer</span>
@@ -179,7 +181,9 @@
               (click)="switchLanguage('en')"
             >
               <div class="lang-item-content">
-                <span class="item-flag">EN</span>
+                <span class="item-flag">
+                  <img src="/assets/imgs/uk_flag.jpg" alt="" />
+                </span>
                 <div class="item-labels">
                   <span class="primary-label">English</span>
                   <span class="sub-label">United Kingdom</span>

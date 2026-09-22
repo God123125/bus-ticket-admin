@@ -83,6 +83,8 @@
   "company_performance_statistic": "ចំនួននៃការកក់សំបុត្រតាមក្រុមហ៊ុននីមួយៗ",
   "discount": "ការបញ្ចុះតម្លៃ",
   "year": "ឆ្នាំ",
+  "booking_report": "របាយការណ៍ការលក់សំបុត្រ",
+  "download_excel": "ទាញយក Excel",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",

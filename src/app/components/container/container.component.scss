@@ -132,6 +132,12 @@ a {
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
             font-size: 15px;
             line-height: 1;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
           }
 
           .lang-text {
@@ -178,7 +184,8 @@ a {
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
         }
 
-        svg, img {
+        svg,
+        img {
           border-radius: 50%;
           width: 100%;
           height: 100%;

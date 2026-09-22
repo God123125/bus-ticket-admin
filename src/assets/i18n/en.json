@@ -82,6 +82,8 @@
   "company_performance_statistic": "Company Performance Statistic",
   "discount": "Discount",
   "year": "Year",
+  "booking_report": "Booking Report",
+  "download_excel": "Download Excel",
   "actions": {
     "create": "Create",
     "delete": "Delete",
