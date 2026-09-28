@@ -6,37 +6,35 @@
   (control.errors | keyvalue).length > 0
 ) {
   @let firstError = (control.errors | keyvalue)[0];
-  @switch (firstError.key) {
-    @case ('required') {
-      <mat-error>{{ 'msg.required' | translate }}</mat-error>
+  <mat-error>
+    @switch (firstError.key) {
+      @case ('required') {
+        {{ 'msg.required' | translate }}
+      }
+      @case ('email') {
+        {{ 'msg.email' | translate }}
+      }
+      @case ('min') {
+        {{ 'msg.invalid_min_value' | translate: { min: control.errors['min']?.min } }}
+      }
+      @case ('max') {
+        {{ 'msg.invalid_max_value' | translate: { max: control.errors['max']?.max } }}
+      }
+      @case ('minlength') {
+        {{
+          'msg.invalid_min_length' | translate: { min: control.errors['minlength']?.requiredLength }
+        }}
+      }
+      @case ('maxlength') {
+        {{
+          'msg.invalid_max_length' | translate: { max: control.errors['maxlength']?.requiredLength }
+        }}
+      }
+      @default {
+        {{ firstError.key }}
+      }
     }
-    @case ('email') {
-      <mat-error>{{ 'msg.email' | translate }}</mat-error>
-    }
-    @case ('min') {
-      <mat-error>{{
-        'msg.invalid_min_value' | translate: { min: control.errors['min'].min }
-      }}</mat-error>
-    }
-    @case ('max') {
-      <mat-error>{{
-        'msg.invalid_max_value' | translate: { max: control.errors['max'].max }
-      }}</mat-error>
-    }
-    @case ('minlength') {
-      <mat-error>{{
-        'msg.invalid_min_length' | translate: { min: control.errors['minlength'].requiredLength }
-      }}</mat-error>
-    }
-    @case ('maxlength') {
-      <mat-error>{{
-        'msg.invalid_max_length' | translate: { max: control.errors['maxlength'].requiredLength }
-      }}</mat-error>
-    }
-    @default {
-      <mat-error>{{ firstError.key }}</mat-error>
-    }
-  }
+  </mat-error>
 } @else {
   <ng-content></ng-content>
 }
