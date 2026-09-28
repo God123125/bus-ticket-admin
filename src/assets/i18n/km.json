@@ -118,6 +118,8 @@
     "required": "ព័ត៌មានត្រូវមានជាចាំបាច់",
     "email": "អ៊ីមែលបញ្ចូលមិនត្រឹមត្រូវ",
     "invalid_min_value": "តម្លៃត្រូវតូចជាង {{min}}",
-    "invalid_max_value": "តម្លៃត្រូវធំជាង {{max}}"
+    "invalid_max_value": "តម្លៃត្រូវធំជាង {{max}}",
+    "invalid_min_length": "ចំនួនតួអក្សរតិចបំផុត {{min}}",
+    "invalid_max_length": "ចំនួនតួអក្សរច្រើនបំផុត {{max}}"
   }
 }

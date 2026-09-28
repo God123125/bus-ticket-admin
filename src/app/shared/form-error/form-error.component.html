@@ -1,4 +1,10 @@
-@if (control && control.invalid && (control.touched || control.dirty) && control.errors && (control.errors | keyvalue).length > 0) {
+@if (
+  control &&
+  control.invalid &&
+  (control.touched || control.dirty) &&
+  control.errors &&
+  (control.errors | keyvalue).length > 0
+) {
   @let firstError = (control.errors | keyvalue)[0];
   @switch (firstError.key) {
     @case ('required') {
@@ -15,6 +21,16 @@
     @case ('max') {
       <mat-error>{{
         'msg.invalid_max_value' | translate: { max: control.errors['max'].max }
+      }}</mat-error>
+    }
+    @case ('minlength') {
+      <mat-error>{{
+        'msg.invalid_min_length' | translate: { min: control.errors['minlength'].requiredLength }
+      }}</mat-error>
+    }
+    @case ('maxlength') {
+      <mat-error>{{
+        'msg.invalid_max_length' | translate: { max: control.errors['maxlength'].requiredLength }
       }}</mat-error>
     }
     @default {
