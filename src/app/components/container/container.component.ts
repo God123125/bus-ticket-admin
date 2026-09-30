@@ -89,6 +89,9 @@ export class Container {
       bookingReport: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'report' && menuItem.role?.includes(this.role);
       }),
+      feedback: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'feedback' && menuItem.role?.includes(this.role);
+      }),
     };
     this.redirectTofirstMenu();
   }

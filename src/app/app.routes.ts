@@ -102,6 +102,15 @@ export const routes: Routes = [
         },
         canActivate: [authGuard],
       },
+      {
+        path: 'feedback',
+        loadChildren: () => import('./routes/feedback/feedback.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Admin, RolePermissionEnum.Merchant, RolePermissionEnum.Staff],
+          type: 'feedback',
+        },
+        canActivate: [authGuard],
+      },
     ],
   },
   {

@@ -267,7 +267,7 @@ export class RequestService {
           panelClass: ['custom-snack-bar-content', 'error'],
         });
       } else if (error.status === APIResponseCodeEnum.server_error) {
-        this.snackBar.open(error.error || error.statusText, 'OK', {
+        this.snackBar.open(error.error || error.statusText || error.message, 'OK', {
           duration: 3000,
           horizontalPosition: 'center',
           panelClass: ['custom-snack-bar-content', 'error'],

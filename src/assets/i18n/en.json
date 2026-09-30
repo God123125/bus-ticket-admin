@@ -111,7 +111,8 @@
     "schedule": "Trip Schedule",
     "trip": "Manage Trip",
     "geographic": "Geographic",
-    "booking-report": "Booking Report"
+    "booking-report": "Booking Report",
+    "feedback": "Feedback"
   },
   "msg": {
     "required": "This field is required",
