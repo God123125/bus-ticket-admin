@@ -84,6 +84,8 @@
   "year": "Year",
   "booking_report": "Booking Report",
   "download_excel": "Download Excel",
+  "refund": "Refund",
+  "refund_rate": "Refund Rate (%)",
   "actions": {
     "create": "Create",
     "delete": "Delete",

@@ -38,7 +38,7 @@
           [iconColor]="'#ca8a04'"
         ></app-summary-card>
       </div>
-      <div class="col-xl-4 col-md-4 col-sm-6">
+      <!-- <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'cancelled_bookings' | translate"
           [value]="reportData().cancelledBookingCount"
@@ -46,7 +46,7 @@
           [iconBgColor]="'#ffe5ec'"
           [iconColor]="'#e11d48'"
         ></app-summary-card>
-      </div>
+      </div> -->
       <div class="col-xl-4 col-md-4 col-sm-6">
         <app-summary-card
           [title]="'refunded_bookings' | translate"
@@ -67,6 +67,9 @@
           <div class="table-header d-flex justify-content-between align-items-center mb-3">
             <h5 class="title mb-0">{{ 'route.booking-report' | translate }}</h5>
             <div class="d-flex gap-2 align-items-center">
+              <span class="text-muted fs-7">
+                {{ 'total_booking' | translate }}: {{ reportData().list.length }}
+              </span>
               <button
                 [disabled]="reportData().list.length === 0"
                 mat-flat-button
@@ -76,9 +79,6 @@
               >
                 <mat-icon>file_download</mat-icon> {{ 'download_excel' | translate }}
               </button>
-              <span class="text-muted fs-7">
-                {{ 'total_booking' | translate }}: {{ reportData().list.length }}
-              </span>
             </div>
           </div>
 
@@ -91,8 +91,9 @@
                 <th scope="col">{{ 'schedule' | translate }}</th>
                 <th scope="col">{{ 'booked_seats' | translate }}</th>
                 <th scope="col">{{ 'total_price' | translate }}</th>
-                <th scope="col">{{ 'status' | translate }}</th>
                 <th scope="col">{{ 'booking_date' | translate }}</th>
+                <th scope="col">{{ 'status' | translate }}</th>
+                <th class="action">{{ 'action' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -163,6 +164,11 @@
                     <span class="fw-bold price-value">{{ item.total_price | currency }}</span>
                   </td>
                   <td>
+                    <span class="text-muted small">
+                      {{ item.createdAt | date: 'dd/MM/yyyy' }}
+                    </span>
+                  </td>
+                  <td class="custom-width">
                     <span
                       class="status-badge"
                       [class.status-confirmed]="item.status.toUpperCase() === 'CONFIRMED'"
@@ -170,13 +176,20 @@
                       [class.status-cancelled]="item.status.toUpperCase() === 'CANCELLED'"
                       [class.status-refunded]="item.status.toUpperCase() === 'REFUNDED'"
                     >
-                      {{ item.status | lowercase | translate }}
+                      {{ item.status | lowercase | translate
+                      }}{{ item.is_refunded ? ' (' + (item.refunded_amount | currency) + ')' : '' }}
                     </span>
                   </td>
-                  <td>
-                    <span class="text-muted small">
-                      {{ item.createdAt | date: 'dd/MM/yyyy HH:mm' }}
-                    </span>
+                  <td class="custom-width action">
+                    <button
+                      mat-stroked-button
+                      color="primary"
+                      class="btn-icon"
+                      [disabled]="item.is_refunded"
+                      (click)="openRefundDialog(item._id)"
+                    >
+                      <span>{{ 'refund' | translate }}</span>
+                    </button>
                   </td>
                 </tr>
               }

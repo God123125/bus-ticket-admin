@@ -337,6 +337,8 @@ export class ExcelService {
     title?: string,
     subTitle?: string,
   ): Promise<Workbook> {
+    const clonedTable = table.cloneNode(true) as HTMLTableElement;
+    clonedTable.querySelectorAll('.action, .no-export').forEach((cell) => cell.remove());
     return new Promise<Workbook>((resolve, reject) => {
       try {
         const workbook = new Workbook();
@@ -360,10 +362,10 @@ export class ExcelService {
         }
 
         // Add table data and styles
-        this.addHtmlTableToExcelWithOriginalDatatype(table, workbook, startAddress);
+        this.addHtmlTableToExcelWithOriginalDatatype(clonedTable, workbook, startAddress);
 
         // Compute total column count from the table
-        const firstRow = table.querySelector('tr');
+        const firstRow = clonedTable.querySelector('tr');
         const colCount = firstRow ? firstRow.querySelectorAll('th, td').length : 8;
         const lastCol = Math.max(colCount, 1);
 

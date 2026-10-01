@@ -85,6 +85,8 @@
   "year": "ឆ្នាំ",
   "booking_report": "របាយការណ៍ការលក់សំបុត្រ",
   "download_excel": "ទាញយក Excel",
+  "refund": "បង្វិលលុយវិញ",
+  "refund_rate": "អត្រាការបង្វិលលុយ (%)",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",

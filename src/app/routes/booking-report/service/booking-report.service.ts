@@ -16,4 +16,11 @@ export class BookingReportService extends BaseCrudService<any> {
       is_loading: true,
     });
   }
+  updateBooking(id: string, data: any) {
+    return this.requestService.patchJSON<any>(`/api/bookings/${id}`, {
+      data,
+      is_alert_error: true,
+      is_loading: true,
+    });
+  }
 }

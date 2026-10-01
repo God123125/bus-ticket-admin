@@ -1,0 +1,24 @@
+<h3 mat-dialog-title class="title">
+  {{ 'refund' | translate }}
+</h3>
+<mat-dialog-content>
+  <div class="container-fluid py-2">
+    <div class="row">
+      <div class="col-12">
+        <app-form-helper [control]="refundRate" [label]="'refund_rate' | translate">
+          <mat-form-field appearance="outline" class="default-input w-100 no-sub">
+            <input type="number" matInput [formControl]="refundRate" />
+          </mat-form-field>
+        </app-form-helper>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="primary" mat-dialog-close>
+    {{ 'actions.cancel' | translate }}
+  </button>
+  <button mat-flat-button color="primary" (click)="submit()">
+    {{ 'actions.save' | translate }}
+  </button>
+</mat-dialog-actions>

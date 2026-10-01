@@ -9,8 +9,9 @@ import { BookingReport } from '../../models/booking-report';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ExcelService } from '../../../../services/excel.service';
 import { Workbook } from 'exceljs';
-import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { MatButtonModule } from '@angular/material/button';
+import { RefundDialogComponent } from '../../components/refund-dialog/refund-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-booking-report',
@@ -49,6 +50,7 @@ export class BookingReportComponent implements OnInit {
     private bookingReportService: BookingReportService,
     private excelService: ExcelService,
     private translateService: TranslateService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +81,28 @@ export class BookingReportComponent implements OnInit {
     const subTitle = `Exported at: ${new Date().toLocaleString()}`;
     this.excelService.exportHtmlTableToExcel(table, title, subTitle).then((workbook) => {
       this.excelService.downloadExcel(workbook as Workbook, `booking-report.xlsx`);
+    });
+  }
+  openRefundDialog(bookingId: string): void {
+    const dialogRef = this.dialog.open(RefundDialogComponent, {
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe((refundRate) => {
+      if (refundRate) {
+        this.bookingReportService
+          .updateBooking(bookingId, {
+            refund_rate: refundRate,
+            status: 'REFUNDED',
+          })
+          .subscribe({
+            next: () => {
+              this.getList();
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+      }
     });
   }
 }
