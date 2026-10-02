@@ -27,9 +27,11 @@
           @for (item of users(); track item._id; let i = $index) {
             <tr>
               <td>{{ i + 1 + (params.page - 1) * params.limit }}</td>
-              <td class="col-image">
-                <img [src]="item.profile | imgUrl" alt="" />
-                <span>{{ item.full_name }}</span>
+              <td>
+                <div class="col-image">
+                  <img [src]="item.profile | imgUrl" alt="" />
+                  <span>{{ item.full_name }}</span>
+                </div>
               </td>
               <td>{{ item.address }}</td>
               <td>{{ item.tel }}</td>

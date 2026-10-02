@@ -14,6 +14,17 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TimePipe } from '../../../../shared/pipes/time-pipe';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/yyyy',
+  },
+  display: {
+    dateInput: 'MM/yyyy',
+    monthYearLabel: 'MMM yyyy',
+    dateA11yLabel: 'DD',
+    monthYearA11yLabel: 'MMMM yyyy',
+  },
+};
 @Component({
   selector: 'app-trip-list',
   imports: [
@@ -32,7 +43,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ReactiveFormsModule,
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(MY_FORMATS)],
   templateUrl: './trip-list.component.html',
   styleUrl: './trip-list.component.scss',
 })

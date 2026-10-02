@@ -29,8 +29,10 @@
           @for (item of companies(); track item._id; let i = $index) {
             <tr>
               <td>{{ i + 1 + (params.page - 1) * params.limit }}</td>
-              <td class="col-image">
-                <img [src]="item.image | imgUrl: '/assets/imgs/company.png'" alt="" />
+              <td>
+                <div class="col-image">
+                  <img [src]="item.image | imgUrl: '/assets/imgs/company.png'" alt="" />
+                </div>
               </td>
               <td>{{ item.name }}</td>
               <td>{{ item.owner.full_name }}</td>

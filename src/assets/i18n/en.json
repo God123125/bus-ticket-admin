@@ -87,6 +87,8 @@
   "refund": "Refund",
   "refund_rate": "Refund Rate (%)",
   "paid": "Paid",
+  "commission_amount": "Commission Amount",
+  "commission_list": "Commission List",
   "actions": {
     "create": "Create",
     "delete": "Delete",

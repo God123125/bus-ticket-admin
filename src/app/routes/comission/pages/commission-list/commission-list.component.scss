@@ -1,0 +1,16 @@
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-transform: capitalize;
+  &.paid {
+    background-color: #dcfce7;
+    color: #15803d;
+  }
+  &.pending {
+    background-color: #fef3c7;
+    color: #b45309;
+  }
+}
