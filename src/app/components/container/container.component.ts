@@ -92,6 +92,9 @@ export class Container {
       feedback: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'feedback' && menuItem.role?.includes(this.role);
       }),
+      commission: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'commission' && menuItem.role?.includes(this.role);
+      }),
     };
     this.redirectTofirstMenu();
   }

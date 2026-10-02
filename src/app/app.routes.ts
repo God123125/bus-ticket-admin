@@ -87,7 +87,7 @@ export const routes: Routes = [
         path: 'geographic',
         loadChildren: () => import('./routes/geographic/geographic.route').then((r) => r.routes),
         data: {
-          role: [RolePermissionEnum.Admin, RolePermissionEnum.Merchant],
+          role: [RolePermissionEnum.Merchant],
           type: 'settings',
         },
         canActivate: [authGuard],
@@ -108,6 +108,15 @@ export const routes: Routes = [
         data: {
           role: [RolePermissionEnum.Admin, RolePermissionEnum.Merchant, RolePermissionEnum.Staff],
           type: 'feedback',
+        },
+        canActivate: [authGuard],
+      },
+      {
+        path: 'commission',
+        loadChildren: () => import('./routes/comission/commission.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Admin],
+          type: 'commission',
         },
         canActivate: [authGuard],
       },

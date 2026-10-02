@@ -1,0 +1,24 @@
+<div class="page-container">
+  <div class="container-fluid mb-1">
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <app-summary-card
+          [title]="'pending' | translate"
+          [value]="120"
+          [icon]="'confirmation_number'"
+          [iconBgColor]="'#ffeaae'"
+          [iconColor]="'#f18701'"
+        ></app-summary-card>
+      </div>
+      <div class="col-lg-6">
+        <app-summary-card
+          [title]="'paid' | translate"
+          [value]="120"
+          [icon]="'confirmation_number'"
+          [iconBgColor]="'#c7f9cc'"
+          [iconColor]="'#38b000'"
+        ></app-summary-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -114,7 +114,8 @@
     "trip": "Manage Trip",
     "geographic": "Geographic",
     "booking-report": "Booking Report",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "commission": "Commission"
   },
   "msg": {
     "required": "This field is required",
