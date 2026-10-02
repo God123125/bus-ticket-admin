@@ -86,6 +86,7 @@
   "download_excel": "Download Excel",
   "refund": "Refund",
   "refund_rate": "Refund Rate (%)",
+  "paid": "Paid",
   "actions": {
     "create": "Create",
     "delete": "Delete",
