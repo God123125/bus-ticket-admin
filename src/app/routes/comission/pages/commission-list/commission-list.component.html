@@ -36,8 +36,21 @@
                 <mat-label>{{ 'month' | translate }}</mat-label>
                 <input matInput [matDatepicker]="picker" [formControl]="date" />
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker startView="multi-year" #picker></mat-datepicker>
+                <mat-datepicker
+                  startView="multi-year"
+                  (monthSelected)="setMonthAndYear($event, picker)"
+                  #picker
+                ></mat-datepicker>
               </mat-form-field>
+              <button
+                mat-flat-button
+                type="button"
+                class="search-btn"
+                color="primary"
+                (click)="onSearch()"
+              >
+                <mat-icon>search</mat-icon> {{ 'search' | translate }}
+              </button>
             </div>
             <button
               /* [disabled]="reportData().list.length === 0" */
@@ -91,7 +104,19 @@
                       {{ item.status | lowercase | translate }}</span
                     >
                   </td>
-                  <td></td>
+                  <td>
+                    <button
+                      appConfirmMessage
+                      [message]="'mark_commission_question' | translate"
+                      [title]="'approve_commission_paid' | translate"
+                      (confirmEmitter)="onConfirmCommission(item._id!)"
+                      mat-icon-button
+                      color="primary"
+                      [disabled]="item.status == 'PAID'"
+                    >
+                      <mat-icon>check</mat-icon>
+                    </button>
+                  </td>
                 </tr>
               }
             </tbody>

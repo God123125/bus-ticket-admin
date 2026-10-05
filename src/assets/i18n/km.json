@@ -90,6 +90,8 @@
   "paid": "បានបង់",
   "commission_amount": "ប្រាក់ភាគរយដែលត្រូវបង់",
   "commission_list": "បញ្ជីប្រាក់ភាគរយដែលអតិថិជនត្រូវបង់",
+  "mark_commission_question": "តើMerchant នេះពិតជាបានបង់ប្រាក់ភាគរយមែនទេ?",
+  "approve_commission_paid": "ការទទួលប្រាក់ភាគរយ",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",

@@ -89,6 +89,8 @@
   "paid": "Paid",
   "commission_amount": "Commission Amount",
   "commission_list": "Commission List",
+  "mark_commission_question": "Mark Commission",
+  "approve_commission_paid": "Approve Commission Payment",
   "actions": {
     "create": "Create",
     "delete": "Delete",
