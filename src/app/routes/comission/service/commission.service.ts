@@ -14,4 +14,11 @@ export class CommissionService extends BaseCrudService<Commission> {
       is_loading: true,
     });
   }
+  markAsPaid(data: { [key: string]: any }) {
+    return this.requestService.postJSON<any>(this.path + '/mark-as-paid', {
+      data,
+      is_alert_error: true,
+      is_loading: true,
+    });
+  }
 }

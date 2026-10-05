@@ -82,5 +82,15 @@ export class CommissionListComponent {
   onSearch() {
     this.getList();
   }
-  onConfirmCommission(id: string) {}
+  onConfirmCommission(companyId: string) {
+    const payload = {
+      date: new Date(this.date.value as any).toISOString(),
+      company: companyId,
+    };
+    this.commissionService.markAsPaid(payload).subscribe({
+      next: () => {
+        this.getList();
+      },
+    });
+  }
 }
