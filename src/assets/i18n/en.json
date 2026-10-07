@@ -91,6 +91,9 @@
   "commission_list": "Commission List",
   "mark_commission_question": "Mark Commission",
   "approve_commission_paid": "Approve Commission Payment",
+  "total_feedback": "Total Feedback",
+  "positive_feedback": "Positive Feedback",
+  "negative_feedback": "Negative Feedback",
   "actions": {
     "create": "Create",
     "delete": "Delete",

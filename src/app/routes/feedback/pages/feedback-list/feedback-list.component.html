@@ -1,0 +1,197 @@
+<div class="page-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <app-summary-card
+          [title]="'total_feedback' | translate"
+          [value]="feedbackSummary().total_feedback"
+          icon="feedback"
+          iconBgColor="#eff6ff"
+          iconColor="#3b82f6"
+        ></app-summary-card>
+      </div>
+      <div class="col-lg-4">
+        <app-summary-card
+          [title]="'positive_feedback' | translate"
+          [value]="feedbackSummary().good"
+          icon="thumb_up"
+          iconBgColor="#eff6ff"
+          iconColor="#3b82f6"
+        ></app-summary-card>
+      </div>
+      <div class="col-lg-4">
+        <app-summary-card
+          [title]="'negative_feedback' | translate"
+          [value]="feedbackSummary().bad"
+          icon="thumb_down"
+          iconBgColor="#ffccd5"
+          iconColor="#c1121f"
+        ></app-summary-card>
+      </div>
+    </div>
+
+    <!-- Feedback Cards Section -->
+    <div class="container-fluid feedback-section mt-4">
+      <!-- <div class="row">
+        <div class="col-lg-12">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="section-title m-0">Recent Feedback ({{ feedbackList().length }})</h5>
+            <button mat-stroked-button color="primary" (click)="getList()" class="refresh-btn">
+              <mat-icon>refresh</mat-icon> Refresh
+            </button>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="star-filter-box">
+            <button mat-stroked-button color="primary" (click)="onRefresh()" class="refresh-btn">
+              <mat-icon>refresh</mat-icon> Refresh
+            </button>
+            <div class="d-flex gap-3">
+              @for (star of stars; track $index) {
+                <div
+                  class="stars"
+                  [class.active]="star === params.star"
+                  (click)="onStarFilter($index)"
+                >
+                  <mat-icon class="star-icon" [class.filled]="star <= params.star">{{
+                    star <= params.star ? 'star' : 'star_border'
+                  }}</mat-icon>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card Grid -->
+      @if (feedbackList().length > 0) {
+        <div class="row g-4">
+          @for (item of feedbackList(); track $index) {
+            <div class="col-12 col-md-6 col-xl-4">
+              <div class="feedback-card">
+                <!-- Header: User Avatar & Info + Rating Badge -->
+                <div class="card-header-custom">
+                  <div class="user-meta">
+                    <div
+                      class="avatar"
+                      [class.avatar-good]="item.star >= 4"
+                      [class.avatar-bad]="item.star < 3"
+                    >
+                      <mat-icon>{{
+                        item.star >= 4
+                          ? 'sentiment_satisfied_alt'
+                          : item.star <= 2
+                            ? 'sentiment_very_dissatisfied'
+                            : 'sentiment_neutral'
+                      }}</mat-icon>
+                    </div>
+                    <div class="user-details">
+                      <span class="user-name">{{ item.user_name || 'Anonymous Customer' }}</span>
+                      <span class="user-sub text-muted">
+                        {{
+                          item.user_phone ||
+                            item.trip_name ||
+                            (item.createdAt || item.created_at | date: 'mediumDate') ||
+                            'Passenger'
+                        }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Star Rating Display -->
+                  <div
+                    class="rating-badge"
+                    [class.rating-high]="item.star >= 4"
+                    [class.rating-low]="item.star <= 2"
+                  >
+                    <div class="stars">
+                      @for (s of stars; track s) {
+                        <mat-icon class="star-icon" [class.filled]="s <= item.star">
+                          {{ s <= item.star ? 'star' : 'star_border' }}
+                        </mat-icon>
+                      }
+                    </div>
+                    <span class="rating-number">{{ item.star }}/5</span>
+                  </div>
+                </div>
+
+                <!-- Message Body -->
+                <div class="card-body-custom">
+                  <p class="feedback-text">"{{ item.message }}"</p>
+                </div>
+
+                <!-- Image Attachment Preview if exists -->
+                @if (item.image) {
+                  <div class="card-image-wrap" (click)="openPreview(item.image)">
+                    <img [src]="item.image" alt="Feedback attachment" class="feedback-image" />
+                    <div class="image-overlay">
+                      <mat-icon>zoom_in</mat-icon>
+                      <span>Click to view</span>
+                    </div>
+                  </div>
+                }
+
+                <!-- Card Footer with metadata / timestamp -->
+                <div class="card-footer-custom">
+                  <div class="d-flex align-items-center gap-1 text-muted small">
+                    <mat-icon class="footer-icon">schedule</mat-icon>
+                    <span>{{
+                      (item.createdAt || item.created_at | date: 'medium') || 'Recent'
+                    }}</span>
+                  </div>
+                  <div
+                    class="sentiment-pill"
+                    [class.sentiment-good]="item.star >= 4"
+                    [class.sentiment-bad]="item.star <= 2"
+                    [class.sentiment-mid]="item.star === 3"
+                  >
+                    {{ item.star >= 4 ? 'Positive' : item.star <= 2 ? 'Critical' : 'Neutral' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <!-- Empty State -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="empty-state text-center py-5 mt-4">
+              <div class="empty-icon-wrap mb-3">
+                <mat-icon class="empty-icon">rate_review</mat-icon>
+              </div>
+              <h6 class="text-muted fw-semibold">No feedback records found</h6>
+              <p class="text-secondary small">Customer feedback will appear here once submitted.</p>
+            </div>
+          </div>
+        </div>
+      }
+      <br />
+      <div class="row">
+        <div class="col-lg-12">
+          <mat-paginator
+            [length]="total()"
+            [pageSize]="params.limit"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            [showFirstLastButtons]="true"
+            aria-label="Select page"
+            (page)="onPageChange($event)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal -->
+  @if (previewImage()) {
+    <div class="lightbox-backdrop" (click)="closePreview()">
+      <div class="lightbox-content" (click)="$event.stopPropagation()">
+        <button mat-icon-button class="lightbox-close" (click)="closePreview()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <img [src]="previewImage()" alt="Preview attachment" class="lightbox-img" />
+      </div>
+    </div>
+  }
+</div>

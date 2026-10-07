@@ -92,6 +92,9 @@
   "commission_list": "បញ្ជីប្រាក់ភាគរយដែលអតិថិជនត្រូវបង់",
   "mark_commission_question": "តើMerchant នេះពិតជាបានបង់ប្រាក់ភាគរយមែនទេ?",
   "approve_commission_paid": "ការទទួលប្រាក់ភាគរយ",
+  "total_feedback": "ចំនួនមតិយោបល់សរុប",
+  "positive_feedback": "មតិយោបល់វិជ្ជមាន",
+  "negative_feedback": "មតិយោបល់អវិជ្ជមាន",
   "actions": {
     "create": "បង្កើត",
     "delete": "លុប",
