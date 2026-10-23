@@ -95,6 +95,9 @@ export class Container {
       commission: MENUITEMS.filter((menuItem: MenuItem) => {
         return menuItem.type === 'commission' && menuItem.role?.includes(this.role);
       }),
+      promoCode: MENUITEMS.filter((menuItem: MenuItem) => {
+        return menuItem.type === 'promo-code' && menuItem.role?.includes(this.role);
+      }),
     };
     this.redirectTofirstMenu();
   }

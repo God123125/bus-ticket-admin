@@ -120,6 +120,15 @@ export const routes: Routes = [
         },
         canActivate: [authGuard],
       },
+      {
+        path: 'promo-code',
+        loadChildren: () => import('./routes/promo-code/promo-code.route').then((r) => r.routes),
+        data: {
+          role: [RolePermissionEnum.Admin],
+          type: 'promo-code',
+        },
+        canActivate: [authGuard],
+      },
     ],
   },
   {

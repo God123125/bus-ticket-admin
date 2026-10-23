@@ -7,6 +7,12 @@ export interface Feedback {
   user_name?: string;
   user_phone?: string;
   trip_name?: string;
+  company?: {
+    _id?: string;
+    name?: string;
+    image?: string;
+    [key: string]: any;
+  };
   created_at?: string;
   createdAt?: string;
 }

@@ -8,6 +8,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { LocalStorageService } from '../../../../services/local-storage.service';
 
 @Component({
   selector: 'app-feedback-list',
@@ -33,7 +34,10 @@ export class FeedbackListComponent {
     limit: 10,
   };
   total = signal(0);
-  constructor(private feedbackService: FeedbackService) {}
+  constructor(
+    private feedbackService: FeedbackService,
+    protected localstorageService: LocalStorageService,
+  ) {}
 
   openPreview(url: string) {
     this.previewImage.set(url);

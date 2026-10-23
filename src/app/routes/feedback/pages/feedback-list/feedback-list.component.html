@@ -116,6 +116,22 @@
                   </div>
                 </div>
 
+                <!-- Company Info (if exists) -->
+                @if (item.company && localstorageService.isAdmin()) {
+                  <div class="company-badge-wrap">
+                    @if (item.company.image) {
+                      <img
+                        [src]="item.company.image"
+                        [alt]="item.company.name || 'Company'"
+                        class="company-logo"
+                      />
+                    } @else {
+                      <mat-icon class="company-icon">directions_bus</mat-icon>
+                    }
+                    <span class="company-name">{{ item.company.name }}</span>
+                  </div>
+                }
+
                 <!-- Message Body -->
                 <div class="card-body-custom">
                   <p class="feedback-text">"{{ item.message }}"</p>

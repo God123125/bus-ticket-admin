@@ -94,6 +94,11 @@
   "total_feedback": "Total Feedback",
   "positive_feedback": "Positive Feedback",
   "negative_feedback": "Negative Feedback",
+  "code": "Code",
+  "discount_type": "Discount Type",
+  "value": "Value",
+  "max_use": "Max Use",
+  "expires_at": "Expires At",
   "actions": {
     "create": "Create",
     "delete": "Delete",
@@ -123,7 +128,8 @@
     "geographic": "Geographic",
     "booking-report": "Booking Report",
     "feedback": "Feedback",
-    "commission": "Commission"
+    "commission": "Commission",
+    "promo-code": "Promo Code"
   },
   "msg": {
     "required": "This field is required",

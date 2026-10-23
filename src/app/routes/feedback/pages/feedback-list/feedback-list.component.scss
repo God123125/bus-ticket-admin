@@ -126,6 +126,44 @@
   }
 }
 
+.company-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 0.25rem 0.65rem 0.25rem 0.35rem;
+  margin-bottom: 0.75rem;
+  align-self: flex-start;
+  max-width: 100%;
+
+  .company-logo {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+  }
+
+  .company-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: #64748b;
+  }
+
+  .company-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .card-body-custom {
   flex-grow: 1;
   margin-bottom: 0.85rem;

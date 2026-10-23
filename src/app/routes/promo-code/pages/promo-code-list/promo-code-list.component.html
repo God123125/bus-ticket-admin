@@ -1,0 +1,69 @@
+<div class="page-container">
+  <div class="scroll-container">
+    <h3 class="title">{{ 'route.promo-code' | translate }}</h3>
+    <div class="header-content mb-2">
+      <button
+        mat-flat-button
+        type="button"
+        class="ml-auto"
+        color="primary"
+        (click)="onAddPromoCode()"
+      >
+        <mat-icon>add</mat-icon>
+        <span>{{ 'actions.create' | translate }}</span>
+      </button>
+    </div>
+    <div class="table-container content-scroll">
+      <table class="table-custom mb-0">
+        <thead>
+          <tr>
+            <th>{{ 'n.o' | translate }}</th>
+            <th>{{ 'code' | translate }}</th>
+            <th>{{ 'discount_type' | translate }}</th>
+            <th>{{ 'value' | translate }}</th>
+            <th>{{ 'max_use' | translate }}</th>
+            <th>{{ 'expires_at' | translate }}</th>
+            <th>{{ 'status' | translate }}</th>
+            <th>{{ 'action' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of promoCodes(); track $index) {
+            <tr>
+              <td>{{ $index + 1 + (queryParams.page - 1) * queryParams.limit }}</td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.discountType }}</td>
+              <td>{{ item.value }}</td>
+              <td>{{ item.maxUses }}</td>
+              <td>{{ item.expiresAt | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ item.is_active ? 'Active' : 'Inactive' }}</td>
+              <td>
+                <button mat-icon-button color="primary" (>
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  appConfirmMessage
+                  [message]="'delete_question' | translate"
+                  [title]="'delete_information' | translate"
+                  (confirmEmitter)="onDelete(item._id!)"
+                  mat-icon-button
+                  color="warn"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <mat-paginator
+        [length]="total()"
+        [pageSize]="queryParams.limit"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [showFirstLastButtons]="true"
+        aria-label="Select page"
+        (page)="onPageChange($event)"
+      />
+    </div>
+  </div>
+</div>
