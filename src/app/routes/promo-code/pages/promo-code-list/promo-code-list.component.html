@@ -21,7 +21,7 @@
             <th>{{ 'code' | translate }}</th>
             <th>{{ 'discount_type' | translate }}</th>
             <th>{{ 'value' | translate }}</th>
-            <th>{{ 'max_use' | translate }}</th>
+            <th>{{ 'max_uses' | translate }}</th>
             <th>{{ 'expires_at' | translate }}</th>
             <th>{{ 'status' | translate }}</th>
             <th>{{ 'action' | translate }}</th>
@@ -32,13 +32,13 @@
             <tr>
               <td>{{ $index + 1 + (queryParams.page - 1) * queryParams.limit }}</td>
               <td>{{ item.code }}</td>
-              <td>{{ item.discountType }}</td>
+              <td>{{ item.discountType | translate }}</td>
               <td>{{ item.value }}</td>
               <td>{{ item.maxUses }}</td>
               <td>{{ item.expiresAt | date: 'dd/MM/yyyy' }}</td>
-              <td>{{ item.is_active ? 'Active' : 'Inactive' }}</td>
+              <td>{{ item.is_active ? ('active' | translate) : ('inactive' | translate) }}</td>
               <td>
-                <button mat-icon-button color="primary" (>
+                <button mat-icon-button color="primary" (click)="onUpdate(item._id!)">
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button

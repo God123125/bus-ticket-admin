@@ -9,6 +9,7 @@ import { PromoCodeService } from '../../service/promo-code.service';
 import { PromoCode } from '../../model/promo-code';
 import { DatePipe } from '@angular/common';
 import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helper/directives/confirm-message.directive';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-promo-code-list',
@@ -19,6 +20,7 @@ import { ConfirmMessageDirective } from '../../../../shared/confirm-dialog-helpe
     MatIconModule,
     DatePipe,
     ConfirmMessageDirective,
+    MatSnackBarModule,
   ],
   templateUrl: './promo-code-list.component.html',
   styleUrl: './promo-code-list.component.scss',
@@ -33,6 +35,7 @@ export class PromoCodeListComponent {
   constructor(
     private dialog: MatDialog,
     private promoCodeService: PromoCodeService,
+    private snackBar: MatSnackBar,
   ) {}
   ngOnInit(): void {
     this.getList();
@@ -46,8 +49,44 @@ export class PromoCodeListComponent {
     });
   }
   onAddPromoCode() {
-    this.dialog.open(PromoCodeFormComponent, {
-      width: '600px',
+    const dialogRef = this.dialog.open(PromoCodeFormComponent, {
+      width: '700px',
+      maxWidth: '90vw',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.promoCodeService.create(res).subscribe({
+          next: () => {
+            this.getList();
+            this.snackBar.open('Promo code created successfully', 'OK', {
+              duration: 3000,
+            });
+          },
+        });
+      }
+    });
+  }
+  onUpdate(id: string) {
+    const dialogRef = this.dialog.open(PromoCodeFormComponent, {
+      width: '700px',
+      maxWidth: '90vw',
+      disableClose: true,
+      data: {
+        id: id,
+      },
+    });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.promoCodeService.update(id, res).subscribe({
+          next: () => {
+            this.getList();
+            this.snackBar.open('Promo code updated successfully', 'OK', {
+              duration: 3000,
+            });
+          },
+        });
+      }
     });
   }
   onPageChange(event: PageEvent) {
@@ -55,5 +94,14 @@ export class PromoCodeListComponent {
     this.queryParams.limit = event.pageSize;
     this.getList();
   }
-  onDelete(id: string) {}
+  onDelete(id: string) {
+    this.promoCodeService.delete(id).subscribe({
+      next: () => {
+        this.getList();
+        this.snackBar.open('Promo code deleted successfully', 'OK', {
+          duration: 3000,
+        });
+      },
+    });
+  }
 }

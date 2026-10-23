@@ -6,4 +6,5 @@ export interface BookingReport {
   refundedBookingCount: number;
   totalBookingAmount: number;
   totalBookingCount: number;
+  total: number;
 }

@@ -97,8 +97,11 @@
   "code": "Code",
   "discount_type": "Discount Type",
   "value": "Value",
-  "max_use": "Max Use",
+  "max_uses": "Max Uses",
   "expires_at": "Expires At",
+  "promo_code": "Promo Code",
+  "percentage": "Percentage",
+  "fixed": "Fixed",
   "actions": {
     "create": "Create",
     "delete": "Delete",

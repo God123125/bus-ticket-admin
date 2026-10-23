@@ -38,6 +38,7 @@ export class BookingReportComponent implements OnInit {
     refundedBookingCount: 0,
     totalBookingCount: 0,
     totalBookingAmount: 0,
+    total: 0,
   });
   params = {
     page: 1,
@@ -63,7 +64,7 @@ export class BookingReportComponent implements OnInit {
       next: (res: BookingReport) => {
         if (res) {
           this.reportData.set(res);
-          this.total.set(res.list.length);
+          this.total.set(res.total);
         }
       },
       error: (err) => {
